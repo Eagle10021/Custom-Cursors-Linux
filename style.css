@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* =========================================
+   SCROLLBAR CUSTOMIZATION
+   ========================================= */
+
+/* Default / Webkit Scrollbar Width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Scrollbar Track (Background) */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 
+   Dark Mode Scrollbar 
+   Uses Miku Teal color with transparency 
+*/
+.dark ::-webkit-scrollbar-thumb {
+    background: #39C5BB55;
+    border-radius: 5px;
+    border: 2px solid #020617;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #39C5BB;
+}
+
+/* 
+   Light Mode Scrollbar 
+   Uses Kasane Teto Red/Pink color with transparency 
+*/
+::-webkit-scrollbar-thumb {
+    background: #D03E5C55;
+    border-radius: 5px;
+    border: 2px solid #FFF1F2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #D03E5C;
+}
+
+/* =========================================
+   GLOBAL STYLES
+   ========================================= */
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll from animations */
+}
+
+/* =========================================
+   INTERNAL COMPONENT SCROLLBARS
+   (For textareas, code blocks, etc.)
+   ========================================= */
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Light Mode Internal Scrollbar */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(208, 62, 92, 0.3);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(208, 62, 92, 0.5);
+}
+
+/* Dark Mode Internal Scrollbar */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(57, 197, 187, 0.3);
+    border-radius: 3px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(57, 197, 187, 0.5);
+}
+
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+
+/* Glassmorphism Effect for Header */
+.glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
