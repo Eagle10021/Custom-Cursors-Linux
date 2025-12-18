@@ -4,7 +4,7 @@
 
 
 
-## 🌟 Features
+##  Features
 
 - **Universal Linux Support**: Works on Arch, Ubuntu, Fedora, Debian, and more.
 - **Desktop Environment Friendly**: Generates specific configuration commands for GNOME, KDE Plasma, and XFCE.
@@ -13,9 +13,9 @@
 - **Themed UI**: Features a beautiful, responsive UI with "Miku" (Dark) and "Teto" (Light) themes, complete with transition animations.
 - **Persistent Settings**: Automatically saves your paths, mappings, and preferences so you never lose your work.
 
-## 🚀 Usage
+##  Usage
 
-**👉 [Click Here to Open CursorPort](https://eagle10021.github.io/Custom-Cursors-Linux/)**
+** [Click Here to Open CursorPort](https://eagle10021.github.io/Custom-Cursors-Linux/)**
 
 No installation required! Just visit the website to start converting your cursors.
 
@@ -42,19 +42,19 @@ While the UI runs in the browser, the underlying conversion relies on the `win2x
 **2. Follow the Deployment Pipeline:**
 Use the tool to generate your installation script, then follow the on-screen instructions to run it in your terminal.
 
-## 📸 Gallery
+##  Gallery
 
 <p align="center">
   <img src="./images/Page_Miku.jpeg" alt="Dark Mode (Miku)" width="45%" style="margin-right: 10px;" />
   <img src="./images/Page_Teto.jpeg" alt="Light Mode (Teto)" width="45%" />
 </p>
 
-## 🎨 Creative Credits
+##  Creative Credits
 
 *   **Dark Mode Muse:** Hatsune Miku V4X (Illustration by iXima)
 *   **Light Mode Muse:** Kasane Teto SV (Illustration by Sakauchi Waka)
 *   **Transition Engine:** Akita Neru (Design by Smith Hioka)
 
-## 📄 License
+##  License
 
 This project is open-source. Feel free to modify and distribute.
