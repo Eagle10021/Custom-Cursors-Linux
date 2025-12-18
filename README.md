@@ -14,17 +14,17 @@
 - **Themed UI**: Features a beautiful, responsive UI with "Miku" (Dark) and "Teto" (Light) themes, complete with transition animations.
 - **Persistent Settings**: Automatically saves your paths, mappings, and preferences so you never lose your work.
 
-## 🚀 Getting Started
+## 🚀 Usage
 
-Since CursorPort is a static web application, you don't need to install complex dependencies to run the UI.
+**👉 [Click Here to Open CursorPort](https://eagle10021.github.io/Custom-Cursors-Linux/)**
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/CursorPort.git
-    cd CursorPort
-    ```
-2.  **Open the App:**
-    Simply open `index.html` in your favorite modern web browser (Chrome, Firefox, Brave, etc.).
+No installation required! Just visit the website to start converting your cursors.
+
+### How it Works
+1.  **Open the Tool**: Visit the link above.
+2.  **Configure**: Enter your settings and map your Windows `.ani` files.
+3.  **Generate**: Download the generated shell script.
+4.  **Run**: Execute the script on your Linux machine to apply the cursors.
 
 ## 🛠️ Prerequisites (For the actual conversion)
 
