@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D03E5C;stop-opacity:1" /> <!-- Teto Red -->
+      <stop offset="100%" style="stop-color:#F43F5E;stop-opacity:1" /> <!-- Red-400 -->
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded Background Container -->
+  <rect x="0" y="0" width="512" height="512" rx="120" ry="120" fill="url(#grad)" />
+  
+  <!-- Mouse Pointer Icon (White) -->
+  <g transform="translate(106, 106) scale(12.5)">
+    <path d="M3 3 10.07 19.97 12.58 12.58 19.97 10.07 3 3Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13 13 19 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
