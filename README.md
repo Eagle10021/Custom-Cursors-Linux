@@ -2,8 +2,7 @@
 
 **CursorPort** is a modern, web-based tool designed to bridge the gap between Windows and Linux customization. It allows users to easily convert and map Windows animated cursor schemes (`.ani`) into compliant Linux X11/Wayland cursor themes.
 
-![CursorPort Preview](./images/miku.png) 
-*(Note: Replace with actual screenshot if available)*
+
 
 ## 🌟 Features
 
@@ -42,6 +41,13 @@ While the UI runs in the browser, the underlying conversion relies on the `win2x
 
 **2. Follow the Deployment Pipeline:**
 Use the tool to generate your installation script, then follow the on-screen instructions to run it in your terminal.
+
+## 📸 Gallery
+
+<p align="center">
+  <img src="./images/Page_Miku.jpeg" alt="Dark Mode (Miku)" width="45%" style="margin-right: 10px;" />
+  <img src="./images/Page_Teto.jpeg" alt="Light Mode (Teto)" width="45%" />
+</p>
 
 ## 🎨 Creative Credits
 
