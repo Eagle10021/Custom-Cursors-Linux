@@ -123,6 +123,7 @@
         const Sun = (p) => <Icon {...p}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></Icon>;
         const Moon = (p) => <Icon {...p}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></Icon>;
         const Smartphone = (p) => <Icon {...p}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></Icon>;
+        const Globe = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></Icon>;
 
         // --- MAIN APP COMPONENT ---
         const App = () => {
@@ -465,6 +466,65 @@ ln -sf ${mappings.diag2} nesw-resize`;
                                         ))}
                                     </div>
                                 </section>
+
+                                {/* PERMANENT BROWSER FIX CARD (MOVED HERE) */}
+                                <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xl group transition-colors duration-500">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <Globe size={18} className="text-neru" />
+                                        <h2 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-widest">Permanent Browser Fix</h2>
+                                    </div>
+
+                                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+                                        Some Chromium-based browsers default to XWayland, which breaks custom cursors. Force native Wayland with a flags file.
+                                    </p>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-2 flex justify-between">
+                                                <span>1. Create Config File</span>
+                                                <span className="text-[8px] opacity-70">Replace *browser* with app name</span>
+                                            </p>
+                                            <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors mb-2">
+                                                <code className="text-[10px] font-mono text-green-600 dark:text-green-400 break-all pr-2">
+                                                    nano ~/.config/*browser*-flags.conf
+                                                </code>
+                                                <button
+                                                    onClick={() => copyToClipboard('nano ~/.config/microsoft-edge-stable-flags.conf', 'edge-conf-2')}
+                                                    className="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-white transition-colors"
+                                                    title="Copy Default (Edge)"
+                                                >
+                                                    {copied === 'edge-conf-2' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                </button>
+                                            </div>
+                                            {/* BROWSER LIST HINT */}
+                                            <div className="px-2 py-1.5 rounded bg-slate-100 dark:bg-slate-800/50 text-[9px] text-slate-500 font-mono grid grid-cols-2 gap-x-2">
+                                                <span>microsoft-edge-stable-flags.conf</span>
+                                                <span>google-chrome-flags.conf</span>
+                                                <span>chromium-flags.conf</span>
+                                                <span>brave-flags.conf</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-2">2. Paste These Flags</p>
+                                            <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors">
+                                                <code className="text-[10px] font-mono text-teto-600 dark:text-miku break-all pr-2">
+                                                    --enable-features=UseOzonePlatform<br />
+                                                    --ozone-platform=wayland
+                                                </code>
+                                                <button
+                                                    onClick={() => copyToClipboard('--enable-features=UseOzonePlatform\n--ozone-platform=wayland', 'edge-flags-2')}
+                                                    className="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-white transition-colors"
+                                                >
+                                                    {copied === 'edge-flags-2' ? <Check size={14} className="text-green-500" /> : <Copy size={12} />}
+                                                </button>
+                                            </div>
+                                            <p className="mt-2 text-[9px] text-slate-400 italic text-right">
+                                                (To save in Nano: Press <strong className="text-slate-500 dark:text-slate-300">Ctrl+O</strong>, Enter, then <strong className="text-slate-500 dark:text-slate-300">Ctrl+X</strong>)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
 
                             {/* RIGHT COLUMN: PREVIEW & DEPLOY */}
@@ -708,6 +768,8 @@ ln -sf ${mappings.diag2} nesw-resize`;
                                                 </code>
                                             </div>
                                         ))}
+
+                                        {/* REMOVED FROM HERE */}
                                     </div>
                                 </section>
 
