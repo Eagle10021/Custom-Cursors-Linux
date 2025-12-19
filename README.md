@@ -15,7 +15,7 @@
 
 ##  Usage
 
-** [Click Here to Open CursorPort](https://eagle10021.github.io/Custom-Cursors-Linux/)**
+**[Click Here to Open CursorPort](https://eagle10021.github.io/Custom-Cursors-Linux/)**
 
 No installation required! Just visit the website to start converting your cursors.
 
