@@ -195,7 +195,8 @@
                 vertical: 'Vertical',
                 horizontal: 'Horizontal',
                 diag1: 'Diagonal1',
-                diag2: 'Diagonal2'
+                diag2: 'Diagonal2',
+                pin: 'Pin'
             }, 'cp_mappings');
 
             // --- SCRIPT STATE ---
@@ -267,7 +268,9 @@ ln -sf ${mappings.move} fleur
 ln -sf ${mappings.vertical} ns-resize
 ln -sf ${mappings.horizontal} ew-resize
 ln -sf ${mappings.diag1} nwse-resize
-ln -sf ${mappings.diag2} nesw-resize`;
+ln -sf ${mappings.diag2} nesw-resize
+ln -sf ${mappings.pin} pin
+ln -sf ${mappings.pin} location-arrow`;
                 setScriptContent(generated);
             }, [themeName, mappings]);
 
