@@ -152,7 +152,19 @@
             const useStickyState = (defaultValue, key) => {
                 const [value, setValue] = useState(() => {
                     const stickyValue = localStorage.getItem(key);
-                    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+                    if (stickyValue !== null) {
+                        try {
+                            const parsed = JSON.parse(stickyValue);
+                            // Merge objects to ensure new default keys show up
+                            if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+                                return { ...defaultValue, ...parsed };
+                            }
+                            return parsed;
+                        } catch (e) {
+                            return defaultValue;
+                        }
+                    }
+                    return defaultValue;
                 });
                 useEffect(() => {
                     localStorage.setItem(key, JSON.stringify(value));
@@ -177,6 +189,7 @@
                 precision: 'Precision',
                 hand: 'Handwriting',
                 unavailable: 'Unavailable',
+                not_allowed: 'Unavailable',
                 help: 'Help',
                 move: 'Move',
                 vertical: 'Vertical',
@@ -247,7 +260,7 @@ ln -sf ${mappings.precision} crosshair
 ln -sf ${mappings.hand} pencil
 ln -sf ${mappings.unavailable} forbidden
 ln -sf ${mappings.unavailable} crossed_circle
-ln -sf ${mappings.unavailable} not-allowed
+ln -sf ${mappings.not_allowed} not-allowed
 ln -sf ${mappings.help} help
 ln -sf ${mappings.move} move
 ln -sf ${mappings.move} fleur
