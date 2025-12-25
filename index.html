@@ -196,7 +196,8 @@
                 horizontal: 'Horizontal',
                 diag1: 'Diagonal1',
                 diag2: 'Diagonal2',
-                pin: 'Pin'
+                pin: 'Pin',
+                all_scroll: 'Move'
             }, 'cp_mappings');
 
             // --- SCRIPT STATE ---
@@ -265,6 +266,8 @@ ln -sf ${mappings.not_allowed} not-allowed
 ln -sf ${mappings.help} help
 ln -sf ${mappings.move} move
 ln -sf ${mappings.move} fleur
+ln -sf ${mappings.all_scroll} all-scroll
+ln -sf ${mappings.all_scroll} size_all
 ln -sf ${mappings.vertical} ns-resize
 ln -sf ${mappings.horizontal} ew-resize
 ln -sf ${mappings.diag1} nwse-resize
