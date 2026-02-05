@@ -269,9 +269,17 @@ ln -sf ${mappings.move} fleur
 ln -sf ${mappings.all_scroll} all-scroll
 ln -sf ${mappings.all_scroll} size_all
 ln -sf ${mappings.vertical} ns-resize
+ln -sf ${mappings.vertical} n-resize
+ln -sf ${mappings.vertical} s-resize
 ln -sf ${mappings.horizontal} ew-resize
+ln -sf ${mappings.horizontal} e-resize
+ln -sf ${mappings.horizontal} w-resize
 ln -sf ${mappings.diag1} nwse-resize
+ln -sf ${mappings.diag1} nw-resize
+ln -sf ${mappings.diag1} se-resize
 ln -sf ${mappings.diag2} nesw-resize
+ln -sf ${mappings.diag2} ne-resize
+ln -sf ${mappings.diag2} sw-resize
 ln -sf ${mappings.pin} pin
 ln -sf ${mappings.pin} location-arrow`;
                 setScriptContent(generated);
@@ -906,5 +914,6 @@ ln -sf ${mappings.pin} location-arrow`;
         root.render(<App />);
     </script>
 </body>
+
 
 </html>
