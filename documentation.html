@@ -55,6 +55,10 @@
         const MousePointer = (p) => <Icon {...p}><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path><path d="M13 13l6 6"></path></Icon>;
         const Sun = (p) => <Icon {...p}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></Icon>;
         const Moon = (p) => <Icon {...p}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></Icon>;
+        const Settings = (p) => <Icon {...p}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></Icon>;
+        const Info = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></Icon>;
+        const Terminal = (p) => <Icon {...p}><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></Icon>;
+        const Zap = (p) => <Icon {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></Icon>;
 
         // --- DOCUMENTATION APP ---
         // Simple read-only page to display credits and stack info
@@ -177,6 +181,45 @@
                                             ))}
                                         </div>
                                     </section>
+
+                                    <section className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-[2rem] p-10 shadow-2xl">
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku">
+                                                <Zap />
+                                            </div>
+                                            <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">How it Works</h2>
+                                        </div>
+                                        <div className="space-y-6 text-sm text-black dark:text-white leading-relaxed">
+                                            <p>
+                                                Linux cursor themes rely on a specific directory structure in <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">~/.local/share/icons/</code>.
+                                                Unlike Windows which uses a settings menu to pick individual files, Linux uses <strong>Hard Links</strong> or <strong>Symlinks</strong> to map standard names (like <code className="text-teto dark:text-miku">left_ptr</code>) to your custom graphics.
+                                            </p>
+                                            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800">
+                                                <h4 className="font-bold mb-4 flex items-center gap-2">
+                                                    <Settings size={16} className="text-neru" />
+                                                    The Pipeline
+                                                </h4>
+                                                <ol className="space-y-4">
+                                                    <li className="flex gap-3">
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">1</span>
+                                                        <span><strong>Acquire:</strong> Get your favorite Windows cursor set (often from sites like DeviantArt or Ko-fi) in <code className="text-xs">.ani</code> or <code className="text-xs">.cur</code> format.</span>
+                                                    </li>
+                                                    <li className="flex gap-3">
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">2</span>
+                                                        <span><strong>Convert:</strong> Original files are converted to Linux native XCursor formats using <code className="text-teto dark:text-miku">win2xcur</code>.</span>
+                                                    </li>
+                                                    <li className="flex gap-3">
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">3</span>
+                                                        <span><strong>Organize:</strong> Converted files are placed in a <code className="text-xs">/cursors</code> folder within your Linux theme directory.</span>
+                                                    </li>
+                                                    <li className="flex gap-3">
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">4</span>
+                                                        <span><strong>Link:</strong> The generated shell script creates over 50 symlinks to ensure full coverage across all apps and desktop environments.</span>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
 
                                 {/* RIGHT COL: ASSETS */}
@@ -240,19 +283,40 @@
                                             </a>
 
                                             {/* BLZ CREDIT */}
-                                            <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="block p-4 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800/50 backdrop-blur-sm hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/20 transition-all group/card">
+                                            <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="block p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-purple-800/50 backdrop-blur-sm hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/20 transition-all group/card">
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-blue-300 dark:border-blue-700 shrink-0 shadow-sm">
                                                         <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
                                                     </div>
                                                     <div>
-                                                        <div className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1 group-hover/card:text-blue-400 transition-colors">Demo Cursors</div>
+                                                        <div className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1 group-hover/card:text-blue-400 transition-colors">Special Authorized Demo</div>
                                                         <h3 className="font-bold text-slate-800 dark:text-white text-lg group-hover/card:text-blue-500 transition-colors">BLZ on Ko-fi</h3>
-                                                        <p className="text-xs text-black dark:text-white mt-0.5">Custom Animated Cursor Artist</p>
-                                                        <p className="text-xs text-blue-600 dark:text-blue-400 font-bold mt-2">Please check them out and support them!</p>
+                                                        <p className="text-xs text-black dark:text-white mt-0.5">Author of the <strong>Frieren</strong> and <strong>Aemeath</strong> packs featured on this site.</p>
+                                                        <p className="text-xs text-blue-600 dark:text-blue-400 font-bold mt-2 hover:underline">Support their incredible work here!</p>
                                                     </div>
                                                 </div>
                                             </a>
+                                        </div>
+                                    </section>
+
+                                    <section className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-[2rem] p-10 shadow-2xl">
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-neru">
+                                                <Info />
+                                            </div>
+                                            <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">Common Troubleshooting</h2>
+                                        </div>
+                                        <div className="space-y-4">
+                                            {[
+                                                { q: "Cursors don't change in Firefox/Chrome?", a: "Some browsers use XWayland. Use the 'Permanent Browser Fix' on the main page to force native Wayland support." },
+                                                { q: "The cursor size looks wrong?", a: "Desktop environments sometimes override theme settings. Run the size-specific command provided in the app to force a refresh." },
+                                                { q: "Missing cursors for some actions?", a: "Ensure your theme folder has full symlink coverage. Our generated script covers 50+ variations for this exact reason." }
+                                            ].map((faq, i) => (
+                                                <div key={i} className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800">
+                                                    <h4 className="font-black text-[10px] uppercase tracking-widest text-teto dark:text-miku mb-2">{faq.q}</h4>
+                                                    <p className="text-xs text-black dark:text-white opacity-80">{faq.a}</p>
+                                                </div>
+                                            ))}
                                         </div>
                                     </section>
                                 </div>

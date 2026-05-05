@@ -143,10 +143,10 @@
 
             // Fixed mapping for Demo Packs to ensure they work regardless of user settings
             const demoMapping = {
-                normal: 'Normal', working: 'Working', busy: 'Busy', link: 'Link', text: 'Text', 
-                precision: 'Precision', hand: 'Handwriting', unavailable: 'Unavailable', 
-                not_allowed: 'Unavailable', help: 'Help', move: 'Move', vertical: 'Vertical', 
-                horizontal: 'Horizontal', diag1: 'Diagonal1', diag2: 'Diagonal2', 
+                normal: 'Normal', working: 'Working', busy: 'Busy', link: 'Link', text: 'Text',
+                precision: 'Precision', hand: 'Handwriting', unavailable: 'Unavailable',
+                not_allowed: 'Unavailable', help: 'Help', move: 'Move', vertical: 'Vertical',
+                horizontal: 'Horizontal', diag1: 'Diagonal1', diag2: 'Diagonal2',
                 pin: 'Pin', all_scroll: 'Move', alternate: 'Alternate', person: 'Person'
             };
 
@@ -371,846 +371,846 @@ ln -sf ${mappings.pin} location-arrow`;
                             {/* GLOBAL NERU TRANSITION OVERLAY */}
                             <div className={`fixed inset-0 bg-neru pointer-events-none z-[100] transition-opacity duration-300 ${isTransitioning ? 'opacity-20' : 'opacity-0'}`}></div>
 
-                        {/* CUSTOM FLOATING CURSOR */}
-                        {activeCursor && (
-                            <div
-                                className="fixed pointer-events-none z-[9999]"
-                                style={{
-                                    left: mousePos.x,
-                                    top: mousePos.y,
-                                    transform: 'translate(-2px, -2px)'
-                                }}
-                            >
-                                <img src={activeCursor} alt="Custom Cursor" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
-                            </div>
-                        )}
-
-                        {/* FLOATING SUCCESS BADGE */}
-                        <div className={`fixed bottom-12 left-1/2 -translate-x-1/2 z-[1000] transition-all duration-500 transform ${copied ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90 pointer-events-none'}`}>
-                            <div className="bg-white dark:bg-slate-900 border-2 border-green-500 text-green-500 px-6 py-3 rounded-2xl font-black text-[10px] tracking-widest shadow-[0_20px_50px_rgba(16,185,129,0.3)] flex items-center gap-3 uppercase">
-                                <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center">
-                                    <Check size={14} strokeWidth={3} />
+                            {/* CUSTOM FLOATING CURSOR */}
+                            {activeCursor && (
+                                <div
+                                    className="fixed pointer-events-none z-[9999]"
+                                    style={{
+                                        left: mousePos.x,
+                                        top: mousePos.y,
+                                        transform: 'translate(-2px, -2px)'
+                                    }}
+                                >
+                                    <img src={activeCursor} alt="Custom Cursor" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
                                 </div>
-                                Copied to Clipboard
-                            </div>
-                        </div>
+                            )}
 
-                        {/* HEADER */}
-                        <header className="border-b border-teto-200 dark:border-miku-500/20 bg-white/70 dark:bg-slate-900/70 glass-panel sticky top-0 z-50 transition-colors duration-500">
-                            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                                <div className="flex items-center gap-4 group">
-                                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-teto to-red-400 dark:from-miku dark:to-teal-600 shadow-lg shadow-teto-500/20 dark:shadow-miku-500/20 transition-all duration-500 group-hover:scale-105 group-hover:rotate-3 text-white">
-                                        <MousePointer size={24} strokeWidth={2.5} />
+                            {/* FLOATING SUCCESS BADGE */}
+                            <div className={`fixed bottom-12 left-1/2 -translate-x-1/2 z-[1000] transition-all duration-500 transform ${copied ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90 pointer-events-none'}`}>
+                                <div className="bg-white dark:bg-slate-900 border-2 border-green-500 text-green-500 px-6 py-3 rounded-2xl font-black text-[10px] tracking-widest shadow-[0_20px_50px_rgba(16,185,129,0.3)] flex items-center gap-3 uppercase">
+                                    <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center">
+                                        <Check size={14} strokeWidth={3} />
                                     </div>
-                                    <div className="hidden sm:block">
-                                        <h1 className="text-2xl font-black tracking-tighter text-slate-800 dark:text-white transition-colors duration-500">
-                                            Cursor<span className="text-teto dark:text-miku transition-colors duration-500">Port</span>
-                                        </h1>
-                                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-black dark:text-white flex items-center gap-3">
-                                            <span>Windows <span className="text-teto dark:text-miku px-1">&rarr;</span> Linux</span>
-                                            <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors normal-case tracking-normal shadow-sm">
-                                                <img src="./images/BLZ pfp.png" className="w-4 h-4 rounded-full border border-blue-200 dark:border-blue-700 shadow-sm" alt="BLZ" />
-                                                <span className="font-bold text-[10px]">Featuring BLZ Cursors</span>
-                                            </a>
-                                        </p>
-                                    </div>
+                                    Copied to Clipboard
                                 </div>
+                            </div>
 
-                                <div className="flex items-center gap-4">
-                                    <button
-                                        onClick={() => {
-                                            const demoEl = document.getElementById('demo-area');
-                                            if (demoEl) {
-                                                const y = demoEl.getBoundingClientRect().top + window.scrollY - 100;
-                                                window.scrollTo({ top: y, behavior: 'smooth' });
-                                            }
-                                        }}
-                                        className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teto to-red-400 dark:from-miku dark:to-teal-500 text-white text-xs font-bold hover:scale-105 transition-all shadow-md hover:shadow-lg"
-                                    >
-                                        <MousePointer size={14} />
-                                        <span>DEMO</span>
-                                    </button>
+                            {/* HEADER */}
+                            <header className="border-b border-teto-200 dark:border-miku-500/20 bg-white/70 dark:bg-slate-900/70 glass-panel sticky top-0 z-50 transition-colors duration-500">
+                                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                                    <div className="flex items-center gap-4 group">
+                                        <div className="p-2.5 rounded-xl bg-gradient-to-br from-teto to-red-400 dark:from-miku dark:to-teal-600 shadow-lg shadow-teto-500/20 dark:shadow-miku-500/20 transition-all duration-500 group-hover:scale-105 group-hover:rotate-3 text-white">
+                                            <MousePointer size={24} strokeWidth={2.5} />
+                                        </div>
+                                        <div className="hidden sm:block">
+                                            <h1 className="text-2xl font-black tracking-tighter text-slate-800 dark:text-white transition-colors duration-500">
+                                                Cursor<span className="text-teto dark:text-miku transition-colors duration-500">Port</span>
+                                            </h1>
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-black dark:text-white flex items-center gap-3">
+                                                <span>Windows <span className="text-teto dark:text-miku px-1">&rarr;</span> Linux</span>
+                                                <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors normal-case tracking-normal shadow-sm">
+                                                    <img src="./images/BLZ pfp.png" className="w-4 h-4 rounded-full border border-blue-200 dark:border-blue-700 shadow-sm" alt="BLZ" />
+                                                    <span className="font-bold text-[10px]">Featuring BLZ Cursors</span>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
 
-                                    <a href="./documentation.html" className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:text-teto dark:hover:text-miku hover:border-teto dark:hover:border-miku transition-all shadow-sm">
-                                        <Code size={14} />
-                                        <span>DOCS</span>
-                                    </a>
+                                    <div className="flex items-center gap-4">
+                                        <button
+                                            onClick={() => {
+                                                const demoEl = document.getElementById('demo-area');
+                                                if (demoEl) {
+                                                    const y = demoEl.getBoundingClientRect().top + window.scrollY - 100;
+                                                    window.scrollTo({ top: y, behavior: 'smooth' });
+                                                }
+                                            }}
+                                            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teto to-red-400 dark:from-miku dark:to-teal-500 text-white text-xs font-bold hover:scale-105 transition-all shadow-md hover:shadow-lg"
+                                        >
+                                            <MousePointer size={14} />
+                                            <span>DEMO</span>
+                                        </button>
 
-                                    {/* THEME TOGGLE (NERU TRANSITION TRIGGER) */}
-                                    <button
-                                        onClick={toggleTheme}
-                                        className={`
+                                        <a href="./documentation.html" className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:text-teto dark:hover:text-miku hover:border-teto dark:hover:border-miku transition-all shadow-sm">
+                                            <Code size={14} />
+                                            <span>DOCS</span>
+                                        </a>
+
+                                        {/* THEME TOGGLE (NERU TRANSITION TRIGGER) */}
+                                        <button
+                                            onClick={toggleTheme}
+                                            className={`
                                             relative overflow-hidden group flex items-center justify-center w-12 h-12 rounded-full border 
                                             transition-all duration-500
                                             ${isDark
-                                                ? 'bg-slate-800 border-slate-700 hover:border-neru hover:shadow-[0_0_15px_rgba(242,201,17,0.3)]'
-                                                : 'bg-white border-slate-200 hover:border-neru hover:shadow-[0_0_15px_rgba(242,201,17,0.3)]'
-                                            }
+                                                    ? 'bg-slate-800 border-slate-700 hover:border-neru hover:shadow-[0_0_15px_rgba(242,201,17,0.3)]'
+                                                    : 'bg-white border-slate-200 hover:border-neru hover:shadow-[0_0_15px_rgba(242,201,17,0.3)]'
+                                                }
                                         `}
-                                    >
-                                        <div className="absolute inset-0 bg-neru opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                                        >
+                                            <div className="absolute inset-0 bg-neru opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
 
-                                        <div className={`absolute transition-all duration-500 transform ${isDark ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
-                                            <Sun size={20} className="text-teto group-hover:text-neru transition-colors duration-300" />
-                                        </div>
+                                            <div className={`absolute transition-all duration-500 transform ${isDark ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
+                                                <Sun size={20} className="text-teto group-hover:text-neru transition-colors duration-300" />
+                                            </div>
 
-                                        <div className={`absolute transition-all duration-500 transform ${isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'}`}>
-                                            <Moon size={20} className="text-miku group-hover:text-neru transition-colors duration-300" />
-                                        </div>
-                                    </button>
+                                            <div className={`absolute transition-all duration-500 transform ${isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'}`}>
+                                                <Moon size={20} className="text-miku group-hover:text-neru transition-colors duration-300" />
+                                            </div>
+                                        </button>
 
-                                    <a href="#" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                                        <span className="w-2 h-2 rounded-full bg-neru animate-pulse"></span>
-                                        v2.1.0
-                                    </a>
+                                        <a href="#" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                                            <span className="w-2 h-2 rounded-full bg-neru animate-pulse"></span>
+                                            v2.1.0
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </header>
+                            </header>
 
-                        <main className="max-w-7xl mx-auto px-6 pt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 animate-fade-in">
+                            <main className="max-w-7xl mx-auto px-6 pt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 animate-fade-in">
 
-                            {/* LEFT COLUMN: CONFIG */}
-                            <div className="lg:col-span-4 space-y-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                                {/* LEFT COLUMN: CONFIG */}
+                                <div className="lg:col-span-4 space-y-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
 
-                                {/* SETTINGS CARD */}
-                                <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl shadow-teto-500/5 dark:shadow-miku-500/5 transition-all duration-500 hover:border-teto-300 dark:hover:border-miku-500/30">
-                                    <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
-                                        <Settings size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
-                                    </div>
-
-                                    <h2 className="relative text-sm font-black text-black dark:text-white uppercase tracking-widest mb-8 flex items-center gap-3">
-                                        <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><Settings size={18} /></span>
-                                        Configuration
-                                    </h2>
-
-                                    <div className="space-y-6 relative">
-                                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex items-start gap-3">
-                                            <Info size={16} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
-                                            <p className="text-[10px] sm:text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed font-medium">
-                                                Update <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{username}</span> to your username and <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{themeName}</span> to your theme name.
-                                            </p>
+                                    {/* SETTINGS CARD */}
+                                    <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl shadow-teto-500/5 dark:shadow-miku-500/5 transition-all duration-500 hover:border-teto-300 dark:hover:border-miku-500/30">
+                                        <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
+                                            <Settings size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
                                         </div>
-                                        <div>
-                                            <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">Device Username</label>
-                                            <input
-                                                type="text"
-                                                placeholder="e.g., eagle"
-                                                value={username}
-                                                onChange={handleUsernameChange}
-                                                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-sm font-mono text-black dark:text-white dark:text-slate-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <div className="flex justify-between items-end mb-2">
-                                                <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Theme Name</label>
-                                                <button
-                                                    onClick={() => setAutoSync(!autoSync)}
-                                                    className="flex items-center gap-2 group cursor-pointer focus:outline-none"
-                                                    title="Automatically update Source Path folder name"
-                                                >
-                                                    <span className="text-[9px] font-bold text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors uppercase">Auto-Sync Path</span>
-                                                    <div className={`w-8 h-4 rounded-full p-0.5 transition-colors duration-300 ${autoSync ? 'bg-teto dark:bg-miku' : 'bg-slate-200 dark:bg-slate-700'}`}>
-                                                        <div className={`w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-300 ${autoSync ? 'translate-x-4' : 'translate-x-0'}`}></div>
-                                                    </div>
-                                                </button>
+
+                                        <h2 className="relative text-sm font-black text-black dark:text-white uppercase tracking-widest mb-8 flex items-center gap-3">
+                                            <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><Settings size={18} /></span>
+                                            Configuration
+                                        </h2>
+
+                                        <div className="space-y-6 relative">
+                                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex items-start gap-3">
+                                                <Info size={16} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
+                                                <p className="text-[10px] sm:text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed font-medium">
+                                                    Update <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{username}</span> to your username and <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{themeName}</span> to your theme name.
+                                                </p>
                                             </div>
-                                            <input
-                                                type="text"
-                                                placeholder="e.g., MikuTheme"
-                                                value={themeName}
-                                                onChange={handleThemeNameChange}
-                                                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-sm font-mono text-black dark:text-white dark:text-slate-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">
-                                                Source Path (.ani)
-                                                <span className="ml-2 text-[9px] normal-case text-black dark:text-white font-normal tracking-normal">(Absolute path to original files)</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                placeholder="/home/user/Downloads/cursors"
-                                                value={sourcePath}
-                                                onChange={(e) => setSourcePath(e.target.value)}
-                                                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-[11px] font-mono text-black dark:text-white dark:text-slate-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <div className="flex justify-between items-center mb-3">
-                                                <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Cursor Size</label>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative group/preview transition-all duration-300">
-                                                        <div className="absolute inset-0 bg-gradient-to-br from-teto/5 to-transparent dark:from-miku/5 opacity-0 group-hover/preview:opacity-100 transition-opacity"></div>
-                                                        {demoPack !== 'none' ? (
-                                                            <img 
-                                                                src={`./demo-cursors/${demoPack}/${demoMapping.normal}.gif`}
-                                                                alt="Preview"
-                                                                className="transition-all duration-300 drop-shadow-xl"
-                                                                style={{ 
-                                                                    width: `${cursorSize}px`, 
-                                                                    height: `${cursorSize}px`,
-                                                                    imageRendering: 'pixelated'
-                                                                }} 
-                                                            />
-                                                        ) : (
-                                                            <MousePointer 
-                                                                size={cursorSize} 
-                                                                className="text-teto dark:text-miku transition-all duration-300 drop-shadow-xl" 
-                                                                style={{ 
-                                                                    width: `${cursorSize}px`, 
-                                                                    height: `${cursorSize}px` 
-                                                                }} 
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <span className="text-xs font-mono font-bold text-teto dark:text-miku bg-teto-50 dark:bg-miku-900/30 px-2 py-0.5 rounded shadow-sm">{cursorSize}px</span>
-                                                </div>
-                                            </div>
-                                            <input
-                                                type="range"
-                                                min="24" max="96" step="8"
-                                                value={cursorSize}
-                                                onChange={(e) => setCursorSize(parseInt(e.target.value))}
-                                                className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teto dark:[&::-webkit-slider-thumb]:bg-miku [&::-webkit-slider-thumb]:transition-all hover:[&::-webkit-slider-thumb]:scale-125"
-                                            />
-                                        </div>
-                                    </div>
-                                </section>
-
-                                {/* MAPPING CARD */}
-                                <section className={`relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl transition-colors duration-500`}>
-                                    <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
-                                        <FileCode size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
-                                    </div>
-                                    <h2 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-6 flex items-center gap-3">
-                                        <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><FileCode size={18} /></span>
-                                        File Mapping
-                                    </h2>
-                                    <p className="text-[10px] text-black dark:text-white mb-4 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                                        Map your Windows cursor filenames (without .ani) to Linux cursor roles.
-                                    </p>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                                        {Object.keys(mappings).map(key => (
-                                            <div key={key} className="group">
-                                                <label className="block text-[9px] font-bold text-black dark:text-white uppercase mb-1.5 group-hover:text-teto dark:group-hover:text-miku transition-colors">{key}</label>
+                                            <div>
+                                                <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">Device Username</label>
                                                 <input
                                                     type="text"
-                                                    value={mappings[key]}
-                                                    onChange={(e) => setMappings({ ...mappings, [key]: e.target.value })}
-                                                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-lg px-3 py-2 text-xs font-mono text-black dark:text-white dark:text-slate-200 focus:border-teto dark:focus:border-miku focus:ring-1 focus:ring-teto dark:focus:ring-miku outline-none transition-all"
+                                                    placeholder="e.g., eagle"
+                                                    value={username}
+                                                    onChange={handleUsernameChange}
+                                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-sm font-mono text-black dark:text-white dark:text-slate-200"
                                                 />
                                             </div>
-                                        ))}
-                                    </div>
-                                </section>
-
-                                {/* PERMANENT BROWSER FIX CARD (MOVED HERE) */}
-                                <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xl group transition-colors duration-500">
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <Globe size={18} className="text-neru" />
-                                        <h2 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-widest">Permanent Browser Fix</h2>
-                                    </div>
-
-                                    <p className="text-[10px] text-black dark:text-white mb-6 leading-relaxed">
-                                        Some Chromium-based browsers default to XWayland, which breaks custom cursors. Force native Wayland with a flags file.
-                                    </p>
-
-                                    <div className="space-y-4">
-                                        <div>
-                                            <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2 flex justify-between">
-                                                <span>1. Create Config File</span>
-                                                <span className="text-[8px] opacity-70">Replace *browser* with app name</span>
-                                            </p>
-                                            <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors mb-2">
-                                                <code className="text-[10px] font-mono text-green-600 dark:text-green-400 break-all pr-2">
-                                                    nano ~/.config/*browser*-flags.conf
-                                                </code>
-                                                <button
-                                                    onClick={() => copyToClipboard('nano ~/.config/microsoft-edge-stable-flags.conf', 'edge-conf-2')}
-                                                    className=" text-black dark:text-white hover: text-black dark:text-white dark:hover:text-white transition-colors"
-                                                    title="Copy Default (Edge)"
-                                                >
-                                                    {copied === 'edge-conf-2' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                </button>
-                                            </div>
-                                            {/* BROWSER LIST HINT */}
-                                            <div className="px-2 py-1.5 rounded bg-slate-100 dark:bg-slate-800/50 text-[9px] text-black dark:text-white font-mono grid grid-cols-2 gap-x-2">
-                                                <span>microsoft-edge-stable-flags.conf</span>
-                                                <span>google-chrome-flags.conf</span>
-                                                <span>chromium-flags.conf</span>
-                                                <span>brave-flags.conf</span>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2">2. Paste These Flags</p>
-                                            <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors">
-                                                <code className="text-[10px] font-mono text-teto-600 dark:text-miku break-all pr-2">
-                                                    --enable-features=UseOzonePlatform<br />
-                                                    --ozone-platform=wayland
-                                                </code>
-                                                <button
-                                                    onClick={() => copyToClipboard('--enable-features=UseOzonePlatform\n--ozone-platform=wayland', 'edge-flags-2')}
-                                                    className=" text-black dark:text-white hover: text-black dark:text-white dark:hover:text-white transition-colors"
-                                                >
-                                                    {copied === 'edge-flags-2' ? <Check size={14} className="text-green-500" /> : <Copy size={12} />}
-                                                </button>
-                                            </div>
-                                            <p className="mt-2 text-[9px] text-black dark:text-white italic text-right">
-                                                (To save in Nano: Press <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+O</strong>, Enter, then <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+X</strong>)
-                                            </p>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-
-                            {/* RIGHT COLUMN: PREVIEW & DEPLOY */}
-                            <div className="lg:col-span-8 space-y-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-
-
-                                {/* DEPLOYMENT PIPELINE */}
-                                <section className="relative">
-                                    <div className={`absolute -top-6 -right-6 p-4 transition-all duration-300 pointer-events-none ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
-                                        <Terminal size={80} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
-                                    </div>
-                                    <h2 className="relative text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
-                                        <div className="p-2 rounded-lg bg-neru text-amber-900 shadow-lg shadow-neru/20 animate-float">
-                                            <Command size={24} strokeWidth={2.5} />
-                                        </div>
-                                        Deployment Pipeline
-                                    </h2>
-                                    <p className="text-xs text-black dark:text-white mb-6">
-                                        Follow these steps sequentially to convert your .ani files and install them.
-                                    </p>
-                                    <div className="space-y-4">
-                                        {/* STEP 1: INSTALLATION */}
-                                        <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
-                                            <div className="flex items-center justify-between mb-3">
-                                                <div>
-                                                    <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">1. Install win2xcur</h3>
-                                                    <p className="text-[10px] text-black dark:text-white">Tool needed for .ani conversion</p>
+                                            <div>
+                                                <div className="flex justify-between items-end mb-2">
+                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Theme Name</label>
+                                                    <button
+                                                        onClick={() => setAutoSync(!autoSync)}
+                                                        className="flex items-center gap-2 group cursor-pointer focus:outline-none"
+                                                        title="Automatically update Source Path folder name"
+                                                    >
+                                                        <span className="text-[9px] font-bold text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors uppercase">Auto-Sync Path</span>
+                                                        <div className={`w-8 h-4 rounded-full p-0.5 transition-colors duration-300 ${autoSync ? 'bg-teto dark:bg-miku' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                                                            <div className={`w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-300 ${autoSync ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                                                        </div>
+                                                    </button>
                                                 </div>
-                                                <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">SETUP</span>
+                                                <input
+                                                    type="text"
+                                                    placeholder="e.g., MikuTheme"
+                                                    value={themeName}
+                                                    onChange={handleThemeNameChange}
+                                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-sm font-mono text-black dark:text-white dark:text-slate-200"
+                                                />
                                             </div>
-
-                                            <div className="space-y-3">
-                                                {/* Arch Option */}
-                                                <div>
-                                                    <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">Arch Linux (AUR)</div>
-                                                    <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                        <code className="flex-1 font-mono text-[10px] text-red-500 dark:text-red-400 truncate">yay -S win2xcur</code>
-                                                        <button
-                                                            onClick={() => copyToClipboard('yay -S win2xcur', 'install-arch')}
-                                                            className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'install-arch' ? 'animate-copy-pulse' : ''}`}
-                                                        >
-                                                            {copied === 'install-arch' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                        </button>
+                                            <div>
+                                                <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">
+                                                    Source Path (.ani)
+                                                    <span className="ml-2 text-[9px] normal-case text-black dark:text-white font-normal tracking-normal">(Absolute path to original files)</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="/home/user/Downloads/cursors"
+                                                    value={sourcePath}
+                                                    onChange={(e) => setSourcePath(e.target.value)}
+                                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-[11px] font-mono text-black dark:text-white dark:text-slate-200"
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="flex justify-between items-center mb-3">
+                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Cursor Size</label>
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-[100px] h-[100px] flex items-center justify-center bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative group/preview transition-all duration-300">
+                                                            <div className="absolute inset-0 bg-gradient-to-br from-teto/5 to-transparent dark:from-miku/5 opacity-0 group-hover/preview:opacity-100 transition-opacity"></div>
+                                                            {demoPack !== 'none' ? (
+                                                                <img
+                                                                    src={`./demo-cursors/${demoPack}/${demoMapping.normal}.gif`}
+                                                                    alt="Preview"
+                                                                    className="transition-all duration-300 drop-shadow-xl"
+                                                                    style={{
+                                                                        width: `${cursorSize}px`,
+                                                                        height: `${cursorSize}px`,
+                                                                        imageRendering: 'pixelated'
+                                                                    }}
+                                                                />
+                                                            ) : (
+                                                                <MousePointer
+                                                                    size={cursorSize}
+                                                                    className="text-teto dark:text-miku transition-all duration-300 drop-shadow-xl"
+                                                                    style={{
+                                                                        width: `${cursorSize}px`,
+                                                                        height: `${cursorSize}px`
+                                                                    }}
+                                                                />
+                                                            )}
+                                                        </div>
+                                                        <span className="text-xs font-mono font-bold text-teto dark:text-miku bg-teto-50 dark:bg-miku-900/30 px-2 py-0.5 rounded shadow-sm">{cursorSize}px</span>
                                                     </div>
                                                 </div>
+                                                <input
+                                                    type="range"
+                                                    min="24" max="96" step="8"
+                                                    value={cursorSize}
+                                                    onChange={(e) => setCursorSize(parseInt(e.target.value))}
+                                                    className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teto dark:[&::-webkit-slider-thumb]:bg-miku [&::-webkit-slider-thumb]:transition-all hover:[&::-webkit-slider-thumb]:scale-125"
+                                                />
+                                            </div>
+                                        </div>
+                                    </section>
 
-                                                {/* Universal Option */}
-                                                <div>
-                                                    <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">Universal (Python/Pip)</div>
-                                                    <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                        <code className="flex-1 font-mono text-[10px] text-blue-500 dark:text-blue-400 truncate">pip install win2xcur</code>
-                                                        <button
-                                                            onClick={() => copyToClipboard('pip install win2xcur', 'install-pip')}
-                                                            className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'install-pip' ? 'animate-copy-pulse' : ''}`}
-                                                        >
-                                                            {copied === 'install-pip' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                        </button>
+                                    {/* MAPPING CARD */}
+                                    <section className={`relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl transition-colors duration-500`}>
+                                        <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
+                                            <FileCode size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
+                                        </div>
+                                        <h2 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-6 flex items-center gap-3">
+                                            <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><FileCode size={18} /></span>
+                                            File Mapping
+                                        </h2>
+                                        <p className="text-[10px] text-black dark:text-white mb-4 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                                            Map your Windows cursor filenames (without .ani) to Linux cursor roles.
+                                        </p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                            {Object.keys(mappings).map(key => (
+                                                <div key={key} className="group">
+                                                    <label className="block text-[9px] font-bold text-black dark:text-white uppercase mb-1.5 group-hover:text-teto dark:group-hover:text-miku transition-colors">{key}</label>
+                                                    <input
+                                                        type="text"
+                                                        value={mappings[key]}
+                                                        onChange={(e) => setMappings({ ...mappings, [key]: e.target.value })}
+                                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-lg px-3 py-2 text-xs font-mono text-black dark:text-white dark:text-slate-200 focus:border-teto dark:focus:border-miku focus:ring-1 focus:ring-teto dark:focus:ring-miku outline-none transition-all"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </section>
+
+                                    {/* PERMANENT BROWSER FIX CARD (MOVED HERE) */}
+                                    <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xl group transition-colors duration-500">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <Globe size={18} className="text-neru" />
+                                            <h2 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-widest">Permanent Browser Fix</h2>
+                                        </div>
+
+                                        <p className="text-[10px] text-black dark:text-white mb-6 leading-relaxed">
+                                            Some Chromium-based browsers default to XWayland, which breaks custom cursors. Force native Wayland with a flags file.
+                                        </p>
+
+                                        <div className="space-y-4">
+                                            <div>
+                                                <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2 flex justify-between">
+                                                    <span>1. Create Config File</span>
+                                                    <span className="text-[8px] opacity-70">Replace *browser* with app name</span>
+                                                </p>
+                                                <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors mb-2">
+                                                    <code className="text-[10px] font-mono text-green-600 dark:text-green-400 break-all pr-2">
+                                                        nano ~/.config/*browser*-flags.conf
+                                                    </code>
+                                                    <button
+                                                        onClick={() => copyToClipboard('nano ~/.config/microsoft-edge-stable-flags.conf', 'edge-conf-2')}
+                                                        className=" text-black dark:text-white hover: text-black dark:text-white dark:hover:text-white transition-colors"
+                                                        title="Copy Default (Edge)"
+                                                    >
+                                                        {copied === 'edge-conf-2' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                    </button>
+                                                </div>
+                                                {/* BROWSER LIST HINT */}
+                                                <div className="px-2 py-1.5 rounded bg-slate-100 dark:bg-slate-800/50 text-[9px] text-black dark:text-white font-mono grid grid-cols-2 gap-x-2">
+                                                    <span>microsoft-edge-stable-flags.conf</span>
+                                                    <span>google-chrome-flags.conf</span>
+                                                    <span>chromium-flags.conf</span>
+                                                    <span>brave-flags.conf</span>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2">2. Paste These Flags</p>
+                                                <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors">
+                                                    <code className="text-[10px] font-mono text-teto-600 dark:text-miku break-all pr-2">
+                                                        --enable-features=UseOzonePlatform<br />
+                                                        --ozone-platform=wayland
+                                                    </code>
+                                                    <button
+                                                        onClick={() => copyToClipboard('--enable-features=UseOzonePlatform\n--ozone-platform=wayland', 'edge-flags-2')}
+                                                        className=" text-black dark:text-white hover: text-black dark:text-white dark:hover:text-white transition-colors"
+                                                    >
+                                                        {copied === 'edge-flags-2' ? <Check size={14} className="text-green-500" /> : <Copy size={12} />}
+                                                    </button>
+                                                </div>
+                                                <p className="mt-2 text-[9px] text-black dark:text-white italic text-right">
+                                                    (To save in Nano: Press <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+O</strong>, Enter, then <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+X</strong>)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+
+                                {/* RIGHT COLUMN: PREVIEW & DEPLOY */}
+                                <div className="lg:col-span-8 space-y-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+
+
+                                    {/* DEPLOYMENT PIPELINE */}
+                                    <section className="relative">
+                                        <div className={`absolute -top-6 -right-6 p-4 transition-all duration-300 pointer-events-none ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
+                                            <Terminal size={80} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
+                                        </div>
+                                        <h2 className="relative text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
+                                            <div className="p-2 rounded-lg bg-neru text-amber-900 shadow-lg shadow-neru/20 animate-float">
+                                                <Command size={24} strokeWidth={2.5} />
+                                            </div>
+                                            Deployment Pipeline
+                                        </h2>
+                                        <p className="text-xs text-black dark:text-white mb-6">
+                                            Follow these steps sequentially to convert your .ani files and install them.
+                                        </p>
+                                        <div className="space-y-4">
+                                            {/* STEP 1: INSTALLATION */}
+                                            <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div>
+                                                        <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">1. Install win2xcur</h3>
+                                                        <p className="text-[10px] text-black dark:text-white">Tool needed for .ani conversion</p>
+                                                    </div>
+                                                    <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">SETUP</span>
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    {/* Arch Option */}
+                                                    <div>
+                                                        <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">Arch Linux (AUR)</div>
+                                                        <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
+                                                            <code className="flex-1 font-mono text-[10px] text-red-500 dark:text-red-400 overflow-x-auto whitespace-nowrap custom-scrollbar">yay -S win2xcur</code>
+                                                            <button
+                                                                onClick={() => copyToClipboard('yay -S win2xcur', 'install-arch')}
+                                                                className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'install-arch' ? 'animate-copy-pulse' : ''}`}
+                                                            >
+                                                                {copied === 'install-arch' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Universal Option */}
+                                                    <div>
+                                                        <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">Universal (Python/Pip)</div>
+                                                        <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
+                                                            <code className="flex-1 font-mono text-[10px] text-blue-500 dark:text-blue-400 overflow-x-auto whitespace-nowrap custom-scrollbar">pip install win2xcur</code>
+                                                            <button
+                                                                onClick={() => copyToClipboard('pip install win2xcur', 'install-pip')}
+                                                                className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'install-pip' ? 'animate-copy-pulse' : ''}`}
+                                                            >
+                                                                {copied === 'install-pip' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {/* STEP 2: CONVERSION */}
-                                        <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
-                                            <div className="flex items-center justify-between mb-3">
-                                                <div>
-                                                    <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">2. Convert Files</h3>
-                                                    <p className="text-[10px] text-black dark:text-white">Process all animations</p>
+                                            {/* STEP 2: CONVERSION */}
+                                            <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div>
+                                                        <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">2. Convert Files</h3>
+                                                        <p className="text-[10px] text-black dark:text-white">Process all animations</p>
+                                                    </div>
+                                                    <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">BUILD</span>
                                                 </div>
-                                                <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">BUILD</span>
+
+                                                <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
+                                                    <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-1">
+                                                        {`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.{ani,cur} -o ~/.local/share/icons/${themeName}/cursors/`}
+                                                    </code>
+                                                    <button
+                                                        onClick={() => copyToClipboard(`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.{ani,cur} -o ~/.local/share/icons/${themeName}/cursors/`, 'convert-cmd')}
+                                                        className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
+                                                    >
+                                                        {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                    </button>
+                                                </div>
                                             </div>
 
-                                            <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku truncate mr-2">
-                                                    {`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.ani -o ~/.local/share/icons/${themeName}/cursors/`}
-                                                </code>
-                                                <button
-                                                    onClick={() => copyToClipboard(`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.ani -o ~/.local/share/icons/${themeName}/cursors/`, 'convert-cmd')}
-                                                    className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
-                                                >
-                                                    {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        {/* STEP 3: REGISTER THEME */}
-                                        <div className={`
+                                            {/* STEP 3: REGISTER THEME */}
+                                            <div className={`
                                         relative overflow-hidden
                                         bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl 
                                         transition-all duration-300 hover:shadow-lg hover:-translate-y-1
                                         ${copied === `pipe-2` ? 'border-green-500 dark:border-green-500' : 'hover:border-teto dark:hover:border-miku'}
                                     `}>
-                                            <div className="flex flex-col md:flex-row">
-                                                <div className="flex-1 p-5">
-                                                    <div className="flex items-center justify-between mb-3">
-                                                        <span className="text-[10px] font-black uppercase text-black dark:text-white tracking-wider">3. Register Theme</span>
-                                                        <span className="text-[9px] font-bold text-black dark:text-white bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">Make visible to GNOME</span>
-                                                    </div>
-                                                    <code className="block font-mono text-[11px] text-black dark:text-white dark:text-miku-100 bg-slate-50 dark:bg-black/30 p-3 rounded-lg break-all border border-slate-100 dark:border-slate-800/50">
-                                                        <span className="text-teto dark:text-miku font-bold mr-2">$</span>{`cat <<EOF > ~/.local/share/icons/${themeName}/index.theme\n[Icon Theme]\nName=${themeName}\nInherits=Adwaita\nEOF`}
-                                                    </code>
-                                                </div>
-                                                <div className={`border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 w-full md:w-16 flex items-center justify-center bg-slate-50 dark:bg-slate-900/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 transition-all cursor-pointer ${copied === 'pipe-2' ? 'animate-copy-pulse bg-green-50 dark:bg-green-900/10' : ''}`} onClick={() => copyToClipboard(`cat <<EOF > ~/.local/share/icons/${themeName}/index.theme\n[Icon Theme]\nName=${themeName}\nInherits=Adwaita\nEOF`, `pipe-2`)}>
-                                                    {copied === `pipe-2` ? <Check size={20} className="text-green-500" /> : <Copy size={20} className=" text-black dark:text-white" />}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                {/* SCRIPT GENERATOR */}
-                                <section className="relative group transition-all duration-500">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-teto to-orange-400 dark:from-miku dark:to-blue-500 rounded-3xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
-                                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-colors duration-500">
-                                        <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-3 h-3 rounded-full bg-neru shadow-[0_0_10px_rgba(242,201,17,0.5)]"></div>
-                                                <div className="w-3 h-3 rounded-full bg-miku shadow-[0_0_10px_rgba(57,197,187,0.5)]"></div>
-                                                <div className="w-3 h-3 rounded-full bg-teto shadow-[0_0_10px_rgba(208,62,92,0.5)]"></div>
-                                                <span className="ml-4 text-xs font-mono font-bold text-black dark:text-white">generate_symlink.sh</span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <button
-                                                    onClick={downloadScript}
-                                                    className="flex items-center gap-2 px-4 py-1.5 bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-600 dark:text-sky-300 rounded-lg text-[10px] font-bold transition-all border border-sky-100 dark:border-sky-800 uppercase tracking-wider"
-                                                >
-                                                    <Icon size={12}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>
-                                                    Download .sh
-                                                </button>
-                                                <button
-                                                    onClick={() => copyToClipboard(scriptContent, 'full-script')}
-                                                    className={`flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-black dark:text-white rounded-lg text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-700 uppercase tracking-wider ${copied === 'full-script' ? 'animate-copy-pulse border-green-500' : ''}`}
-                                                >
-                                                    {copied === 'full-script' ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
-                                                    {copied === 'full-script' ? 'Copied' : 'Copy'}
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div className="relative">
-                                            <textarea
-                                                value={scriptContent}
-                                                onChange={(e) => setScriptContent(e.target.value)}
-                                                className="w-full bg-slate-100 dark:bg-[#0b1120] p-6 font-mono text-[11px] leading-relaxed min-h-[400px] resize-none focus:outline-none focus:bg-white dark:focus:bg-black/40 text-black dark:text-white dark:text-slate-200 transition-colors custom-scrollbar border-0"
-                                                spellCheck="false"
-                                            />
-                                            {/* Line Counter (Visual approximation) */}
-                                            <div className="absolute top-6 left-2 bottom-6 w-8 pointer-events-none hidden md:block text-right pr-2 select-none">
-                                                {/* Requires more complex logic to sync scroll, simplified for now to just be the editor area */}
-                                            </div>
-                                        </div>
-
-                                        <div className="border-t border-slate-200 dark:border-slate-800 p-6 bg-slate-50 dark:bg-[#0b1120] transition-colors">
-                                            {/* COMMAND INSTRUCTIONS */}
-                                            <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 flex gap-3">
-                                                <div className="mt-0.5 text-amber-500"><Info size={16} /></div>
-                                                <div className="text-[10px] text-amber-800 dark:text-amber-200 leading-relaxed">
-                                                    <strong className="block mb-1 uppercase tracking-wider text-amber-600 dark:text-amber-400">How to run this script:</strong>
-                                                    <ol className="list-decimal pl-4 space-y-1">
-                                                        <li>Click <strong>Download .sh</strong> to save the file.</li>
-                                                        <li>Open your terminal and navigate to the download location.</li>
-                                                        <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">chmod +x install_cursors.sh</code> to make it executable.</li>
-                                                        <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">./install_cursors.sh</code> to execute it.</li>
-                                                    </ol>
-                                                    <div className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/30">
-                                                        <span className="font-bold">Compatibility:</span> Universal Linux Support. Works on Ubuntu, Fedora, Arch, Debian, etc. Supports GNOME, KDE Plasma, XFCE, Cinnamon, Mate, and Budgie.
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <div className="p-1 rounded bg-slate-200 dark:bg-slate-800 text-black dark:text-white">
-                                                    <MousePointer size={12} />
-                                                </div>
-                                                <span className="text-[10px] font-bold text-black dark:text-white uppercase tracking-wide">Optional: Change Cursor Size</span>
-                                            </div>
-
-                                            <div className="space-y-3">
-                                                {[
-                                                    { label: "GNOME / Cinnamon / Budgie", cmd: `gsettings set org.gnome.desktop.interface cursor-size ${cursorSize}` },
-                                                    { label: "XFCE Desktop", cmd: `xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s ${cursorSize}` },
-                                                    { label: "KDE Plasma 5/6 (Requires Restart)", cmd: `kwriteconfig5 --file kcminputrc --group Mouse --key cursorSize ${cursorSize}` }
-                                                ].map((item, idx) => (
-                                                    <div key={idx} className="group relative">
-                                                        <div className="text-[9px] font-bold text-black dark:text-white mb-1 uppercase tracking-wider pl-1">{item.label}</div>
-                                                        <div className="flex items-center bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-2 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
-                                                            <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku truncate mr-2">
-                                                                {item.cmd}
-                                                            </code>
-                                                            <button
-                                                                onClick={() => copyToClipboard(item.cmd, `cmd-${idx}`)}
-                                                                className={`p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === `cmd-${idx}` ? 'animate-copy-pulse' : ''}`}
-                                                                title="Copy Command"
-                                                            >
-                                                                {copied === `cmd-${idx}` ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                            </button>
+                                                <div className="flex flex-col md:flex-row">
+                                                    <div className="flex-1 p-5">
+                                                        <div className="flex items-center justify-between mb-3">
+                                                            <span className="text-[10px] font-black uppercase text-black dark:text-white tracking-wider">3. Register Theme</span>
+                                                            <span className="text-[9px] font-bold text-black dark:text-white bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">Make visible to GNOME</span>
                                                         </div>
+                                                        <code className="block font-mono text-[11px] text-black dark:text-white dark:text-miku-100 bg-slate-50 dark:bg-black/30 p-3 rounded-lg break-all border border-slate-100 dark:border-slate-800/50">
+                                                            <span className="text-teto dark:text-miku font-bold mr-2">$</span>{`cat <<EOF > ~/.local/share/icons/${themeName}/index.theme\n[Icon Theme]\nName=${themeName}\nInherits=Adwaita\nEOF`}
+                                                        </code>
                                                     </div>
-                                                ))}
-                                            </div>
-                                            <div className="mt-3 flex items-start gap-2">
-                                                <Info size={12} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
-                                                <p className="text-[10px] text-black dark:text-white leading-relaxed">
-                                                    <span className="font-bold text-blue-600 dark:text-blue-400">Post-deployment Tip:</span> If the default cursor size ({cursorSize}px) doesn't look right, run the command above to force an update.
-                                                </p>
+                                                    <div className={`border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 w-full md:w-16 flex items-center justify-center bg-slate-50 dark:bg-slate-900/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 transition-all cursor-pointer ${copied === 'pipe-2' ? 'animate-copy-pulse bg-green-50 dark:bg-green-900/10' : ''}`} onClick={() => copyToClipboard(`cat <<EOF > ~/.local/share/icons/${themeName}/index.theme\n[Icon Theme]\nName=${themeName}\nInherits=Adwaita\nEOF`, `pipe-2`)}>
+                                                        {copied === `pipe-2` ? <Check size={20} className="text-green-500" /> : <Copy size={20} className=" text-black dark:text-white" />}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                    </section>
 
-                                        <div className="px-6 py-3 bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[10px] text-black dark:text-white font-bold transition-colors">
-                                            <span className="flex items-center gap-2"><Smartphone size={12} className="text-neru" /> NERU-OPTIMIZED PIPELINE</span>
-                                            <span className="uppercase tracking-widest">Target: ~/.local/share/icons/{themeName}</span>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                {/* SYSTEM OPTIONAL */}
-                                <section className="relative overflow-hidden bg-gradient-to-br from-slate-100 to-white dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl">
-                                    <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
-                                        <ShieldCheck size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
-                                    </div>
-                                    <div className="relative flex items-center gap-3 mb-8">
-                                        <ShieldCheck size={24} className="text-teto dark:text-miku" />
-                                        <div>
-                                            <h2 className="font-bold text-slate-800 dark:text-white">Admin Operations</h2>
-                                            <p className="text-xs text-black dark:text-white">Optional system-wide deployment steps</p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {[
-                                            { label: "Global Install", cmd: `sudo cp -r ~/.local/share/icons/${themeName} /usr/share/icons/` },
-                                            { label: "Flatpak Permissions", cmd: `flatpak override --user --filesystem=/usr/share/icons/:ro` }
-                                        ].map((item, i) => (
-                                            <div key={i} className="group p-4 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-slate-800 hover:border-neru dark:hover:border-neru transition-all">
-                                                <div className="flex justify-between items-center mb-3">
-                                                    <span className="text-[9px] font-black uppercase text-black dark:text-white">{item.label}</span>
-                                                    <button onClick={() => copyToClipboard(item.cmd, `sys-${i}`)} className=" text-black dark:text-white hover:text-neru transition-colors">
-                                                        {copied === `sys-${i}` ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                    {/* SCRIPT GENERATOR */}
+                                    <section className="relative group transition-all duration-500">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-teto to-orange-400 dark:from-miku dark:to-blue-500 rounded-3xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
+                                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-colors duration-500">
+                                            <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-3 h-3 rounded-full bg-neru shadow-[0_0_10px_rgba(242,201,17,0.5)]"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-miku shadow-[0_0_10px_rgba(57,197,187,0.5)]"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-teto shadow-[0_0_10px_rgba(208,62,92,0.5)]"></div>
+                                                    <span className="ml-4 text-xs font-mono font-bold text-black dark:text-white">generate_symlink.sh</span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <button
+                                                        onClick={downloadScript}
+                                                        className="flex items-center gap-2 px-4 py-1.5 bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-600 dark:text-sky-300 rounded-lg text-[10px] font-bold transition-all border border-sky-100 dark:border-sky-800 uppercase tracking-wider"
+                                                    >
+                                                        <Icon size={12}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>
+                                                        Download .sh
+                                                    </button>
+                                                    <button
+                                                        onClick={() => copyToClipboard(scriptContent, 'full-script')}
+                                                        className={`flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-black dark:text-white rounded-lg text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-700 uppercase tracking-wider ${copied === 'full-script' ? 'animate-copy-pulse border-green-500' : ''}`}
+                                                    >
+                                                        {copied === 'full-script' ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
+                                                        {copied === 'full-script' ? 'Copied' : 'Copy'}
                                                     </button>
                                                 </div>
-                                                <code className="text-[10px] font-mono block break-all text-black dark:text-white group-hover:text-amber-600 dark:group-hover:text-neru transition-colors">
-                                                    {item.cmd}
-                                                </code>
                                             </div>
-                                        ))}
 
-                                        {/* REMOVED FROM HERE */}
-                                    </div>
-                                </section>
-
-                                {/* INTERACTIVE DEMO AREA */}
-                                <section id="demo-area" className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl transition-colors duration-500 hover:border-teto-300 dark:hover:border-miku-500/30">
-                                    <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
-                                        <MousePointer size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
-                                    </div>
-                                    <h2 className="relative text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
-                                        <div className="p-2 rounded-lg bg-teto-50 dark:bg-miku-900/30 text-teto dark:text-miku shadow-sm">
-                                            <MousePointer size={24} strokeWidth={2.5} />
-                                        </div>
-                                        Interactive Demo Area
-                                    </h2>
-
-                                    <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 p-1">
-                                        <p className="text-xs text-black dark:text-white max-w-md leading-relaxed opacity-80">
-                                            Hover over the blocks below to preview behavior. 
-                                            Select a custom pack to test it live with our <span className="text-teto dark:text-miku font-bold">Custom JS Tracker</span>.
-                                        </p>
-                                        <div className="flex flex-col gap-2 min-w-[240px] relative">
-                                            <span className="text-[9px] font-black text-black dark:text-white uppercase tracking-[0.3em] opacity-50 ml-1">Test Pack</span>
                                             <div className="relative">
-                                                <button
-                                                    onClick={() => setIsPackDropdownOpen(!isPackDropdownOpen)}
-                                                    className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all hover:border-teto dark:hover:border-miku shadow-sm group"
-                                                >
-                                                    <div className="flex items-center gap-3">
-                                                        <div className={`w-2 h-2 rounded-full ${demoPack === 'none' ? 'bg-slate-300 dark:bg-slate-700' : 'bg-teto dark:bg-miku animate-pulse shadow-[0_0_8px_rgba(57,197,187,0.5)]'}`}></div>
-                                                        <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? 'Browser Default' : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
-                                                    </div>
-                                                    <ChevronDown size={14} className={`text-slate-400 group-hover:text-teto dark:group-hover:text-miku transition-transform duration-300 ${isPackDropdownOpen ? 'rotate-180' : ''}`} />
-                                                </button>
+                                                <textarea
+                                                    value={scriptContent}
+                                                    onChange={(e) => setScriptContent(e.target.value)}
+                                                    className="w-full bg-slate-100 dark:bg-[#0b1120] p-6 font-mono text-[11px] leading-relaxed min-h-[400px] resize-none focus:outline-none focus:bg-white dark:focus:bg-black/40 text-black dark:text-white dark:text-slate-200 transition-colors custom-scrollbar border-0"
+                                                    spellCheck="false"
+                                                />
+                                                {/* Line Counter (Visual approximation) */}
+                                                <div className="absolute top-6 left-2 bottom-6 w-8 pointer-events-none hidden md:block text-right pr-2 select-none">
+                                                    {/* Requires more complex logic to sync scroll, simplified for now to just be the editor area */}
+                                                </div>
+                                            </div>
 
-                                                {isPackDropdownOpen && (
-                                                    <>
-                                                        <div className="fixed inset-0 z-[90]" onClick={() => setIsPackDropdownOpen(false)}></div>
-                                                        <div className="absolute top-full left-0 right-0 mt-2 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[100] animate-fade-in backdrop-blur-xl">
-                                                            {[
-                                                                { id: 'none', label: 'Browser Default', desc: 'Native OS Cursors' },
-                                                                { id: 'Aemeath', label: 'Aemeath BLZ Free', desc: 'By BLZ on Ko-fi' },
-                                                                { id: 'Frieren', label: 'Frieren BLZ', desc: 'Premium Pack by BLZ on Ko-fi' }
-                                                            ].map(pack => (
-                                                                <button
-                                                                    key={pack.id}
-                                                                    onClick={() => {
-                                                                        setDemoPack(pack.id);
-                                                                        setIsPackDropdownOpen(false);
-                                                                    }}
-                                                                    className={`w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex items-center justify-between group/item`}
-                                                                >
-                                                                    <div>
-                                                                        <div className={`text-[10px] font-bold uppercase tracking-wider ${demoPack === pack.id ? 'text-teto dark:text-miku' : 'text-slate-700 dark:text-slate-300'}`}>
-                                                                            {pack.label}
-                                                                        </div>
-                                                                        <div className="text-[8px] text-slate-400 font-medium">{pack.desc}</div>
-                                                                    </div>
-                                                                    {demoPack === pack.id && <Check size={14} className="text-teto dark:text-miku" />}
-                                                                </button>
-                                                            ))}
+                                            <div className="border-t border-slate-200 dark:border-slate-800 p-6 bg-slate-50 dark:bg-[#0b1120] transition-colors">
+                                                {/* COMMAND INSTRUCTIONS */}
+                                                <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 flex gap-3">
+                                                    <div className="mt-0.5 text-amber-500"><Info size={16} /></div>
+                                                    <div className="text-[10px] text-amber-800 dark:text-amber-200 leading-relaxed">
+                                                        <strong className="block mb-1 uppercase tracking-wider text-amber-600 dark:text-amber-400">How to run this script:</strong>
+                                                        <ol className="list-decimal pl-4 space-y-1">
+                                                            <li>Click <strong>Download .sh</strong> to save the file.</li>
+                                                            <li>Open your terminal and navigate to the download location.</li>
+                                                            <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">chmod +x install_cursors.sh</code> to make it executable.</li>
+                                                            <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">./install_cursors.sh</code> to execute it.</li>
+                                                        </ol>
+                                                        <div className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/30">
+                                                            <span className="font-bold">Compatibility:</span> Universal Linux Support. Works on Ubuntu, Fedora, Arch, Debian, etc. Supports GNOME, KDE Plasma, XFCE, Cinnamon, Mate, and Budgie.
                                                         </div>
-                                                    </>
-                                                )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <div className="p-1 rounded bg-slate-200 dark:bg-slate-800 text-black dark:text-white">
+                                                        <MousePointer size={12} />
+                                                    </div>
+                                                    <span className="text-[10px] font-bold text-black dark:text-white uppercase tracking-wide">Optional: Change Cursor Size</span>
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    {[
+                                                        { label: "GNOME / Cinnamon / Budgie", cmd: `gsettings set org.gnome.desktop.interface cursor-size ${cursorSize}` },
+                                                        { label: "XFCE Desktop", cmd: `xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s ${cursorSize}` },
+                                                        { label: "KDE Plasma 5/6 (Requires Restart)", cmd: `kwriteconfig5 --file kcminputrc --group Mouse --key cursorSize ${cursorSize}` }
+                                                    ].map((item, idx) => (
+                                                        <div key={idx} className="group relative">
+                                                            <div className="text-[9px] font-bold text-black dark:text-white mb-1 uppercase tracking-wider pl-1">{item.label}</div>
+                                                            <div className="flex items-center bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-2 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+                                                                <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-1">
+                                                                    {item.cmd}
+                                                                </code>
+                                                                <button
+                                                                    onClick={() => copyToClipboard(item.cmd, `cmd-${idx}`)}
+                                                                    className={`p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === `cmd-${idx}` ? 'animate-copy-pulse' : ''}`}
+                                                                    title="Copy Command"
+                                                                >
+                                                                    {copied === `cmd-${idx}` ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="mt-3 flex items-start gap-2">
+                                                    <Info size={12} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
+                                                    <p className="text-[10px] text-black dark:text-white leading-relaxed">
+                                                        <span className="font-bold text-blue-600 dark:text-blue-400">Post-deployment Tip:</span> If the default cursor size ({cursorSize}px) doesn't look right, run the command above to force an update.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div className="px-6 py-3 bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[10px] text-black dark:text-white font-bold transition-colors">
+                                                <span className="flex items-center gap-2"><Smartphone size={12} className="text-neru" /> NERU-OPTIMIZED PIPELINE</span>
+                                                <span className="uppercase tracking-widest">Target: ~/.local/share/icons/{themeName}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </section>
 
-                                    {demoPack !== 'none' && (
-                                        <div className="mb-6 flex flex-col gap-3">
-                                            <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800/50 rounded-xl p-4 flex items-start gap-4 shadow-sm">
-                                                <Info size={20} className="text-red-600 dark:text-red-400 shrink-0" />
-                                                <div className="text-xs text-red-900 dark:text-red-100 leading-relaxed">
-                                                    <h4 className="font-black text-red-700 dark:text-red-400 uppercase tracking-wider mb-2 text-sm">Disclaimer on Animations & Quality</h4>
-                                                    <p className="mb-2">
-                                                        Because modern web browsers explicitly block CSS cursor animations, I built a Custom JavaScript Tracker for this demo area to show the animations. The demo area cursors are displayed at <strong>32px</strong> size.
-                                                    </p>
-                                                    <p className="mb-2">
-                                                        Please note that the quality of cursors here may appear lower due to browser rendering and scaling limitations, and this is <strong>NOT</strong> a fault of the artist-provided cursors. The original <code>.ani</code> files and converted files retain their original high quality when used natively in Linux/Windows!
-                                                    </p>
-                                                    {demoPack !== 'Frieren' && (
-                                                        <p className="font-bold text-red-800 dark:text-red-200">
-                                                            Also, please note that not all cursors are available for some demo options due to missing files in the free demo pack.
-                                                        </p>
+                                    {/* SYSTEM OPTIONAL */}
+                                    <section className="relative overflow-hidden bg-gradient-to-br from-slate-100 to-white dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl">
+                                        <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
+                                            <ShieldCheck size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
+                                        </div>
+                                        <div className="relative flex items-center gap-3 mb-8">
+                                            <ShieldCheck size={24} className="text-teto dark:text-miku" />
+                                            <div>
+                                                <h2 className="font-bold text-slate-800 dark:text-white">Admin Operations</h2>
+                                                <p className="text-xs text-black dark:text-white">Optional system-wide deployment steps</p>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {[
+                                                { label: "Global Install", cmd: `sudo cp -r ~/.local/share/icons/${themeName} /usr/share/icons/` },
+                                                { label: "Flatpak Permissions", cmd: `flatpak override --user --filesystem=/usr/share/icons/:ro` }
+                                            ].map((item, i) => (
+                                                <div key={i} className="group p-4 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-slate-800 hover:border-neru dark:hover:border-neru transition-all">
+                                                    <div className="flex justify-between items-center mb-3">
+                                                        <span className="text-[9px] font-black uppercase text-black dark:text-white">{item.label}</span>
+                                                        <button onClick={() => copyToClipboard(item.cmd, `sys-${i}`)} className=" text-black dark:text-white hover:text-neru transition-colors">
+                                                            {copied === `sys-${i}` ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                        </button>
+                                                    </div>
+                                                    <code className="text-[10px] font-mono block break-all text-black dark:text-white group-hover:text-amber-600 dark:group-hover:text-neru transition-colors">
+                                                        {item.cmd}
+                                                    </code>
+                                                </div>
+                                            ))}
+
+                                            {/* REMOVED FROM HERE */}
+                                        </div>
+                                    </section>
+
+                                    {/* INTERACTIVE DEMO AREA */}
+                                    <section id="demo-area" className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl transition-colors duration-500 hover:border-teto-300 dark:hover:border-miku-500/30">
+                                        <div className={`absolute top-0 right-0 p-4 transition-all duration-300 ${isTransitioning ? 'opacity-40 scale-110 rotate-12' : 'opacity-20'}`}>
+                                            <MousePointer size={70} className={`transition-colors duration-300 ${isTransitioning ? 'text-neru' : 'text-teto dark:text-miku'}`} />
+                                        </div>
+                                        <h2 className="relative text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
+                                            <div className="p-2 rounded-lg bg-teto-50 dark:bg-miku-900/30 text-teto dark:text-miku shadow-sm">
+                                                <MousePointer size={24} strokeWidth={2.5} />
+                                            </div>
+                                            Interactive Demo Area
+                                        </h2>
+
+                                        <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 p-1">
+                                            <p className="text-xs text-black dark:text-white max-w-md leading-relaxed opacity-80">
+                                                Hover over the blocks below to preview behavior.
+                                                Select a custom pack to test it live with our <span className="text-teto dark:text-miku font-bold">Custom JS Tracker</span>.
+                                            </p>
+                                            <div className="flex flex-col gap-2 min-w-[240px] relative">
+                                                <span className="text-[9px] font-black text-black dark:text-white uppercase tracking-[0.3em] opacity-50 ml-1">Test Pack</span>
+                                                <div className="relative">
+                                                    <button
+                                                        onClick={() => setIsPackDropdownOpen(!isPackDropdownOpen)}
+                                                        className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all hover:border-teto dark:hover:border-miku shadow-sm group"
+                                                    >
+                                                        <div className="flex items-center gap-3">
+                                                            <div className={`w-2 h-2 rounded-full ${demoPack === 'none' ? 'bg-slate-300 dark:bg-slate-700' : 'bg-teto dark:bg-miku animate-pulse shadow-[0_0_8px_rgba(57,197,187,0.5)]'}`}></div>
+                                                            <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? 'Browser Default' : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
+                                                        </div>
+                                                        <ChevronDown size={14} className={`text-slate-400 group-hover:text-teto dark:group-hover:text-miku transition-transform duration-300 ${isPackDropdownOpen ? 'rotate-180' : ''}`} />
+                                                    </button>
+
+                                                    {isPackDropdownOpen && (
+                                                        <>
+                                                            <div className="fixed inset-0 z-[90]" onClick={() => setIsPackDropdownOpen(false)}></div>
+                                                            <div className="absolute top-full left-0 right-0 mt-2 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[100] animate-fade-in backdrop-blur-xl">
+                                                                {[
+                                                                    { id: 'none', label: 'Browser Default', desc: 'Native OS Cursors' },
+                                                                    { id: 'Aemeath', label: 'Aemeath BLZ Free', desc: 'By BLZ on Ko-fi' },
+                                                                    { id: 'Frieren', label: 'Frieren BLZ', desc: 'Premium Pack by BLZ on Ko-fi' }
+                                                                ].map(pack => (
+                                                                    <button
+                                                                        key={pack.id}
+                                                                        onClick={() => {
+                                                                            setDemoPack(pack.id);
+                                                                            setIsPackDropdownOpen(false);
+                                                                        }}
+                                                                        className={`w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex items-center justify-between group/item`}
+                                                                    >
+                                                                        <div>
+                                                                            <div className={`text-[10px] font-bold uppercase tracking-wider ${demoPack === pack.id ? 'text-teto dark:text-miku' : 'text-slate-700 dark:text-slate-300'}`}>
+                                                                                {pack.label}
+                                                                            </div>
+                                                                            <div className="text-[8px] text-slate-400 font-medium">{pack.desc}</div>
+                                                                        </div>
+                                                                        {demoPack === pack.id && <Check size={14} className="text-teto dark:text-miku" />}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        </>
                                                     )}
                                                 </div>
                                             </div>
-                                            {demoPack === 'Aemeath' && (
-                                                <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800/50 rounded-xl p-4 flex items-center justify-between shadow-sm">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-300 dark:border-blue-700 shrink-0 shadow-sm">
-                                                            <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
-                                                        </div>
-                                                        <div>
-                                                            <div className="text-[10px] font-black text-blue-500 dark:text-blue-400 uppercase tracking-widest mb-0.5">Now Demoing</div>
-                                                            <a href="https://ko-fi.com/s/514a1a4b11" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-blue-800 dark:text-blue-200 hover:text-blue-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
-                                                                Aemeath cursors by BLZ
-                                                            </a>
-                                                            <a href="https://ko-fi.com/s/514a1a4b11" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">
-                                                                Please check them out and support them!
-                                                            </a>
-                                                        </div>
+                                        </div>
+
+                                        {demoPack !== 'none' && (
+                                            <div className="mb-6 flex flex-col gap-3">
+                                                <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800/50 rounded-xl p-4 flex items-start gap-4 shadow-sm">
+                                                    <Info size={20} className="text-red-600 dark:text-red-400 shrink-0" />
+                                                    <div className="text-xs text-red-900 dark:text-red-100 leading-relaxed">
+                                                        <h4 className="font-black text-red-700 dark:text-red-400 uppercase tracking-wider mb-2 text-sm">Disclaimer on Animations & Quality</h4>
+                                                        <p className="mb-2">
+                                                            Because modern web browsers explicitly block CSS cursor animations, I built a Custom JavaScript Tracker for this demo area to show the animations. The demo area cursors are displayed at <strong>32px</strong> size.
+                                                        </p>
+                                                        <p className="mb-2">
+                                                            Please note that the quality of cursors here may appear lower due to browser rendering and scaling limitations, and this is <strong>NOT</strong> a fault of the artist-provided cursors. The original <code>.ani</code> files and converted files retain their original high quality when used natively in Linux/Windows!
+                                                        </p>
+                                                        {demoPack !== 'Frieren' && (
+                                                            <p className="font-bold text-red-800 dark:text-red-200">
+                                                                Also, please note that not all cursors are available for some demo options due to missing files in the free demo pack.
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
-                                            )}
-                                            {demoPack === 'Frieren' && (
-                                                <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-800/50 rounded-xl p-4 flex items-center justify-between shadow-sm animate-fade-in">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-300 dark:border-purple-700 shrink-0 shadow-sm">
-                                                            <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
-                                                        </div>
-                                                        <div>
-                                                            <div className="text-[10px] font-black text-purple-500 dark:text-purple-400 uppercase tracking-widest mb-0.5">Special Feature</div>
-                                                            <a href="https://ko-fi.com/s/774f762696" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-purple-800 dark:text-purple-200 hover:text-purple-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
-                                                                Frieren Pack by BLZ
-                                                            </a>
-                                                            <div className="flex items-center gap-2">
-                                                                <a href="https://ko-fi.com/s/774f762696" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline">
-                                                                    Support the artist and get the pack here!
+                                                {demoPack === 'Aemeath' && (
+                                                    <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800/50 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                                                        <div className="flex items-center gap-4">
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-300 dark:border-blue-700 shrink-0 shadow-sm">
+                                                                <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
+                                                            </div>
+                                                            <div>
+                                                                <div className="text-[10px] font-black text-blue-500 dark:text-blue-400 uppercase tracking-widest mb-0.5">Now Demoing</div>
+                                                                <a href="https://ko-fi.com/s/514a1a4b11" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-blue-800 dark:text-blue-200 hover:text-blue-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
+                                                                    Aemeath cursors by BLZ
+                                                                </a>
+                                                                <a href="https://ko-fi.com/s/514a1a4b11" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                                                                    Please check them out and support them!
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="hidden sm:block text-right">
-                                                        <div className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Permission Status</div>
-                                                        <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-[8px] font-black text-green-600 dark:text-green-400">
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                                                            AUTHORIZED DEMO
+                                                )}
+                                                {demoPack === 'Frieren' && (
+                                                    <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-800/50 rounded-xl p-4 flex items-center justify-between shadow-sm animate-fade-in">
+                                                        <div className="flex items-center gap-4">
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-300 dark:border-purple-700 shrink-0 shadow-sm">
+                                                                <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
+                                                            </div>
+                                                            <div>
+                                                                <div className="text-[10px] font-black text-purple-500 dark:text-purple-400 uppercase tracking-widest mb-0.5">Special Feature</div>
+                                                                <a href="https://ko-fi.com/s/774f762696" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-purple-800 dark:text-purple-200 hover:text-purple-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
+                                                                    Frieren Pack by BLZ
+                                                                </a>
+                                                                <div className="flex items-center gap-2">
+                                                                    <a href="https://ko-fi.com/s/774f762696" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline">
+                                                                        Support the artist and get the pack here!
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="hidden sm:block text-right">
+                                                            <div className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Permission Status</div>
+                                                            <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-[8px] font-black text-green-600 dark:text-green-400">
+                                                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                                                                AUTHORIZED DEMO
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        <div className="relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                            {[
+                                                { label: 'Normal Select', action: 'default', mapKey: 'normal', icon: <MousePointer size={16} />, style: 'cursor-default' },
+                                                { label: 'Link Select', action: 'pointer', mapKey: 'link', icon: <MousePointer size={16} />, style: 'cursor-pointer' },
+                                                { label: 'Text Select', action: 'text', mapKey: 'text', icon: <Code size={16} />, style: 'cursor-text' },
+                                                { label: 'Precision', action: 'crosshair', mapKey: 'precision', icon: <MousePointer size={16} />, style: 'cursor-crosshair' },
+                                                { label: 'Working', action: 'progress', mapKey: 'working', icon: <Settings size={16} />, style: 'cursor-progress' },
+                                                { label: 'Busy', action: 'wait', mapKey: 'busy', icon: <Info size={16} />, style: 'cursor-wait' },
+                                                { label: 'Help', action: 'help', mapKey: 'help', icon: <Info size={16} />, style: 'cursor-help' },
+                                                { label: 'Unavailable', action: 'not-allowed', mapKey: 'unavailable', icon: <ShieldCheck size={16} />, style: 'cursor-not-allowed' },
+                                                { label: 'Move', action: 'move', mapKey: 'move', icon: <Maximize size={16} />, style: 'cursor-move' },
+                                                { label: 'Vertical Resize', action: 'ns-resize', mapKey: 'vertical', icon: <Maximize size={16} />, style: 'cursor-ns-resize' },
+                                                { label: 'Horizontal', action: 'ew-resize', mapKey: 'horizontal', icon: <Maximize size={16} />, style: 'cursor-ew-resize' },
+                                                { label: 'Diag 1', action: 'nwse-resize', mapKey: 'diag1', icon: <Maximize size={16} />, style: 'cursor-nwse-resize' },
+                                                { label: 'Diag 2', action: 'nesw-resize', mapKey: 'diag2', icon: <Maximize size={16} />, style: 'cursor-nesw-resize' },
+                                                { label: 'All Scroll', action: 'all-scroll', mapKey: 'all_scroll', icon: <Maximize size={16} />, style: 'cursor-all-scroll' },
+                                                { label: 'Handwriting', action: 'cell', mapKey: 'hand', icon: <FileCode size={16} />, style: 'cursor-cell' },
+                                                { label: 'Pin', action: 'alias', mapKey: 'pin', icon: <Check size={16} />, style: 'cursor-alias' },
+                                                { label: 'Alternate Select', action: 'default', mapKey: 'alternate', icon: <MousePointer size={16} />, style: 'cursor-default' },
+                                                { label: 'Person Select', action: 'default', mapKey: 'person', icon: <MousePointer size={16} />, style: 'cursor-default' }
+                                            ].map((item, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className={`group flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 hover:border-teto-300 dark:hover:border-miku-500/30 transition-all ${demoPack === 'none' ? item.style : 'cursor-none'}`}
+                                                    title={`Test ${item.label} cursor`}
+                                                    onMouseEnter={() => {
+                                                        if (demoPack !== 'none') {
+                                                            setActiveCursor(`./demo-cursors/${demoPack}/${demoMapping[item.mapKey] || item.action}.gif`);
+                                                        }
+                                                    }}
+                                                    onMouseLeave={() => setActiveCursor(null)}
+                                                >
+                                                    <div className=" text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors mb-2">
+                                                        {item.icon}
+                                                    </div>
+                                                    <span className="text-[10px] font-bold text-black dark:text-white dark:text-slate-200 text-center uppercase tracking-wider">{item.label}</span>
+                                                    <span className="text-[8px] font-mono text-black dark:text-white mt-1 opacity-70 group-hover:opacity-100 transition-opacity">{item.action}</span>
                                                 </div>
-                                            )}
+                                            ))}
                                         </div>
-                                    )}
+                                    </section>
 
-                                    <div className="relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                        {[
-                                            { label: 'Normal Select', action: 'default', mapKey: 'normal', icon: <MousePointer size={16} />, style: 'cursor-default' },
-                                            { label: 'Link Select', action: 'pointer', mapKey: 'link', icon: <MousePointer size={16} />, style: 'cursor-pointer' },
-                                            { label: 'Text Select', action: 'text', mapKey: 'text', icon: <Code size={16} />, style: 'cursor-text' },
-                                            { label: 'Precision', action: 'crosshair', mapKey: 'precision', icon: <MousePointer size={16} />, style: 'cursor-crosshair' },
-                                            { label: 'Working', action: 'progress', mapKey: 'working', icon: <Settings size={16} />, style: 'cursor-progress' },
-                                            { label: 'Busy', action: 'wait', mapKey: 'busy', icon: <Info size={16} />, style: 'cursor-wait' },
-                                            { label: 'Help', action: 'help', mapKey: 'help', icon: <Info size={16} />, style: 'cursor-help' },
-                                            { label: 'Unavailable', action: 'not-allowed', mapKey: 'unavailable', icon: <ShieldCheck size={16} />, style: 'cursor-not-allowed' },
-                                            { label: 'Move', action: 'move', mapKey: 'move', icon: <Maximize size={16} />, style: 'cursor-move' },
-                                            { label: 'Vertical Resize', action: 'ns-resize', mapKey: 'vertical', icon: <Maximize size={16} />, style: 'cursor-ns-resize' },
-                                            { label: 'Horizontal', action: 'ew-resize', mapKey: 'horizontal', icon: <Maximize size={16} />, style: 'cursor-ew-resize' },
-                                            { label: 'Diag 1', action: 'nwse-resize', mapKey: 'diag1', icon: <Maximize size={16} />, style: 'cursor-nwse-resize' },
-                                            { label: 'Diag 2', action: 'nesw-resize', mapKey: 'diag2', icon: <Maximize size={16} />, style: 'cursor-nesw-resize' },
-                                            { label: 'All Scroll', action: 'all-scroll', mapKey: 'all_scroll', icon: <Maximize size={16} />, style: 'cursor-all-scroll' },
-                                            { label: 'Handwriting', action: 'cell', mapKey: 'hand', icon: <FileCode size={16} />, style: 'cursor-cell' },
-                                            { label: 'Pin', action: 'alias', mapKey: 'pin', icon: <Check size={16} />, style: 'cursor-alias' },
-                                            { label: 'Alternate Select', action: 'default', mapKey: 'alternate', icon: <MousePointer size={16} />, style: 'cursor-default' },
-                                            { label: 'Person Select', action: 'default', mapKey: 'person', icon: <MousePointer size={16} />, style: 'cursor-default' }
-                                        ].map((item, idx) => (
-                                            <div
-                                                key={idx}
-                                                className={`group flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 hover:border-teto-300 dark:hover:border-miku-500/30 transition-all ${demoPack === 'none' ? item.style : 'cursor-none'}`}
-                                                title={`Test ${item.label} cursor`}
-                                                onMouseEnter={() => {
-                                                    if (demoPack !== 'none') {
-                                                        setActiveCursor(`./demo-cursors/${demoPack}/${demoMapping[item.mapKey] || item.action}.gif`);
-                                                    }
-                                                }}
-                                                onMouseLeave={() => setActiveCursor(null)}
-                                            >
-                                                <div className=" text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors mb-2">
-                                                    {item.icon}
-                                                </div>
-                                                <span className="text-[10px] font-bold text-black dark:text-white dark:text-slate-200 text-center uppercase tracking-wider">{item.label}</span>
-                                                <span className="text-[8px] font-mono text-black dark:text-white mt-1 opacity-70 group-hover:opacity-100 transition-opacity">{item.action}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </section>
+                                </div>
 
-                            </div>
+                            </main>
 
-                        </main>
+                            {/* REFINED FOOTER */}
+                            <footer className="mt-32 border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-950 transition-colors duration-500">
+                                <div className="max-w-6xl mx-auto px-6 py-12">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-center sm:text-left">
 
-                        {/* REFINED FOOTER */}
-                        <footer className="mt-32 border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-950 transition-colors duration-500">
-                            <div className="max-w-6xl mx-auto px-6 py-12">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-center sm:text-left">
-
-                                    {/* BRAND */}
-                                    <div className="space-y-4">
-                                        <h3 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">
-                                            Cursor<span className="text-teto dark:text-miku">Port</span>
-                                        </h3>
-                                        <p className="text-sm text-black dark:text-white leading-relaxed font-medium">
-                                            Bridging the gap between Windows customization and the Linux desktop experience with style and precision.
-                                        </p>
-                                        <div className="flex justify-center md:justify-start gap-4 pt-2">
-                                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer">
-                                                <i className="fa-brands fa-github"><Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon></i>
-                                            </div>
-                                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-neru hover:text-amber-900 transition-all cursor-pointer">
-                                                <Icon size={16}><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></Icon>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* LINKS */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Resources</h4>
-                                        <ul className="space-y-2 text-sm font-medium text-black dark:text-white">
-                                            <li><a href="./documentation.html" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Documentation</a></li>
-                                            <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">GitHub Repository</a></li>
-                                            <li><a href="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Icon Theme Specs</a></li>
-                                            <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Report Issues</a></li>
-                                        </ul>
-                                    </div>
-
-                                    {/* ARTIST CREDIT */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Featured Artist</h4>
-                                        <div className="flex flex-col sm:items-start items-center gap-3">
-                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-300 dark:border-blue-700 shadow-sm">
-                                                <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
-                                            </div>
-                                            <div>
-                                                <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 dark:text-blue-400 hover:underline text-sm block mb-1">
-                                                    BLZ on Ko-fi
+                                        {/* BRAND */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">
+                                                Cursor<span className="text-teto dark:text-miku">Port</span>
+                                            </h3>
+                                            <p className="text-sm text-black dark:text-white leading-relaxed font-medium">
+                                                Bridging the gap between Windows customization and the Linux desktop experience with style and precision.
+                                            </p>
+                                            <div className="flex justify-center md:justify-start gap-4 pt-2">
+                                                <a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer">
+                                                    <i className="fa-brands fa-github"><Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon></i>
                                                 </a>
-                                                <p className="text-xs text-black dark:text-white font-medium mb-1">Custom Animated Cursor Artist</p>
-                                                <p className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                                                    <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer">Please check them out and support them!</a>
+                                                <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-neru hover:text-amber-900 transition-all cursor-pointer">
+                                                    <Icon size={16}><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></Icon>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        {/* LINKS */}
+                                        <div className="space-y-4">
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Resources</h4>
+                                            <ul className="space-y-2 text-sm font-medium text-black dark:text-white">
+                                                <li><a href="./documentation.html" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Documentation</a></li>
+                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">GitHub Repository</a></li>
+                                                <li><a href="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Icon Theme Specs</a></li>
+                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Report Issues</a></li>
+                                            </ul>
+                                        </div>
+
+                                        {/* ARTIST CREDIT */}
+                                        <div className="space-y-4">
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Featured Artist</h4>
+                                            <div className="flex flex-col sm:items-start items-center gap-3">
+                                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-300 dark:border-blue-700 shadow-sm">
+                                                    <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
+                                                </div>
+                                                <div>
+                                                    <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 dark:text-blue-400 hover:underline text-sm block mb-1">
+                                                        BLZ on Ko-fi
+                                                    </a>
+                                                    <p className="text-xs text-black dark:text-white font-medium mb-1">Custom Animated Cursor Artist</p>
+                                                    <p className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                                                        <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer">Please check them out and support them!</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* CHARACTER THEMES */}
+                                        <div className="space-y-4">
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Active Theme</h4>
+                                            <div className="flex items-center gap-3 justify-center md:justify-start">
+                                                <div className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${isDark ? 'bg-miku/20 border-miku' : 'bg-teto/20 border-teto'}`}>
+                                                    <img
+                                                        src={isDark ? "./images/miku.png" : "./images/teto.png"}
+                                                        alt="Character"
+                                                        style={{ imageRendering: 'auto', transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+                                                        className={`w-full h-full object-cover object-top transition-opacity duration-300 ${isDark ? 'opacity-100' : 'opacity-100'}`}
+                                                    />
+                                                </div>
+                                                <div className="text-left">
+                                                    <div className={`text-xl font-black ${isDark ? 'text-miku' : 'text-teto'}`}>
+                                                        {isDark ? 'HATSUNE MIKU' : 'KASANE TETO'}
+                                                    </div>
+                                                    <div className="text-[10px] uppercase font-bold text-black dark:text-white tracking-wider">
+                                                        {isDark ? 'Project DIVA Mode' : 'Synthetic Chimera Mode'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="pt-4 border-t border-slate-100 dark:border-slate-900">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="h-14 w-14 rounded-full bg-neru/20 border-2 border-neru overflow-hidden shrink-0 shadow-[0_0_15px_rgba(242,201,17,0.3)]">
+                                                        <img
+                                                            src="./images/neru.png"
+                                                            alt="Neru"
+                                                            style={{ imageRendering: 'auto', transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+                                                            className="w-full h-full object-cover object-top"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs text-neru font-black flex items-center gap-2 uppercase tracking-wide">
+                                                            <span className="w-2 h-2 rounded-full bg-neru animate-pulse shadow-[0_0_8px_#F2C911]"></span>
+                                                            Akita Neru transition engine
+                                                        </p>
+                                                        <p className="text-[10px] text-black dark:text-white font-bold opacity-70 mt-0.5">
+                                                            ART SOURCE: © Smith Hioka / CFM
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <p className="text-[10px] text-black dark:text-white mt-2 font-bold tracking-wide">
+                                                    ART SOURCE: {isDark ? '© Crypton Future Media, Inc.' : '© AH-Software Co. Ltd.'}
+                                                </p>
+                                                <p className="text-[10px] text-black dark:text-white mt-2 font-bold tracking-wide">
+                                                    DEMO CURSORS: <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="text-teto dark:text-miku hover:underline">BLZ on Ko-fi</a>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* CHARACTER THEMES */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Active Theme</h4>
-                                        <div className="flex items-center gap-3 justify-center md:justify-start">
-                                            <div className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${isDark ? 'bg-miku/20 border-miku' : 'bg-teto/20 border-teto'}`}>
-                                                <img
-                                                    src={isDark ? "./images/miku.png" : "./images/teto.png"}
-                                                    alt="Character"
-                                                    style={{ imageRendering: 'auto', transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
-                                                    className={`w-full h-full object-cover object-top transition-opacity duration-300 ${isDark ? 'opacity-100' : 'opacity-100'}`}
-                                                />
-                                            </div>
-                                            <div className="text-left">
-                                                <div className={`text-xl font-black ${isDark ? 'text-miku' : 'text-teto'}`}>
-                                                    {isDark ? 'HATSUNE MIKU' : 'KASANE TETO'}
-                                                </div>
-                                                <div className="text-[10px] uppercase font-bold text-black dark:text-white tracking-wider">
-                                                    {isDark ? 'Project DIVA Mode' : 'Synthetic Chimera Mode'}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="pt-4 border-t border-slate-100 dark:border-slate-900">
-                                            <div className="flex items-center gap-4">
-                                                <div className="h-14 w-14 rounded-full bg-neru/20 border-2 border-neru overflow-hidden shrink-0 shadow-[0_0_15px_rgba(242,201,17,0.3)]">
-                                                    <img
-                                                        src="./images/neru.png"
-                                                        alt="Neru"
-                                                        style={{ imageRendering: 'auto', transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
-                                                        className="w-full h-full object-cover object-top"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <p className="text-xs text-neru font-black flex items-center gap-2 uppercase tracking-wide">
-                                                        <span className="w-2 h-2 rounded-full bg-neru animate-pulse shadow-[0_0_8px_#F2C911]"></span>
-                                                        Akita Neru transition engine
-                                                    </p>
-                                                    <p className="text-[10px] text-black dark:text-white font-bold opacity-70 mt-0.5">
-                                                        ART SOURCE: © Smith Hioka / CFM
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <p className="text-[10px] text-black dark:text-white mt-2 font-bold tracking-wide">
-                                                ART SOURCE: {isDark ? '© Crypton Future Media, Inc.' : '© AH-Software Co. Ltd.'}
-                                            </p>
-                                            <p className="text-[10px] text-black dark:text-white mt-2 font-bold tracking-wide">
-                                                DEMO CURSORS: <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="text-teto dark:text-miku hover:underline">BLZ on Ko-fi</a>
+                                    <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="group">
+                                                <img src="./images/eagle_logo.png" alt="Eagle Logo" className="w-10 h-10 object-contain border border-slate-500 rounded-full p-0.5 transition-transform duration-300 group-hover:scale-110 shadow-lg shadow-black/20" />
+                                            </a>
+                                            <p className="text-[10px] font-black text-black dark:text-white uppercase tracking-widest">
+                                                &copy; 2026 EAGLE
                                             </p>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
-                                    <div className="flex items-center gap-4">
-                                        <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="group">
-                                            <img src="./images/eagle_logo.png" alt="Eagle Logo" className="w-10 h-10 object-contain border border-slate-500 rounded-full p-0.5 transition-transform duration-300 group-hover:scale-110 shadow-lg shadow-black/20" />
-                                        </a>
-                                        <p className="text-[10px] font-black text-black dark:text-white uppercase tracking-widest">
-                                            &copy; 2026 EAGLE
+                                        <p className="text-[10px] font-bold text-slate-300">
+                                            Built with <span className="text-red-500">♥</span> and React
                                         </p>
                                     </div>
-                                    <p className="text-[10px] font-bold text-slate-300">
-                                        Built with <span className="text-red-500">♥</span> and React
-                                    </p>
                                 </div>
-                            </div>
-                        </footer>
+                            </footer>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -59,6 +59,7 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -67,8 +68,9 @@ body {
 
 /* Light Mode Internal Scrollbar */
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(208, 62, 92, 0.3);
-    border-radius: 3px;
+    background: rgba(208, 62, 92, 0.4);
+    border-radius: 5px;
+    border: 1.5px solid #FFF1F2;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -77,8 +79,9 @@ body {
 
 /* Dark Mode Internal Scrollbar */
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(57, 197, 187, 0.3);
-    border-radius: 3px;
+    background: rgba(57, 197, 187, 0.4);
+    border-radius: 5px;
+    border: 1.5px solid #020617;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
