@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /cursors/
+Disallow: /cursors
 Disallow: /demo-cursors/
 
 
