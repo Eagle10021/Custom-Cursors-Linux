@@ -172,6 +172,218 @@
         const Globe = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></Icon>;
         const ChevronDown = (p) => <Icon {...p}><polyline points="6 9 12 15 18 9"></polyline></Icon>;
 
+        // --- TRANSLATIONS ---
+        const translations = {
+            en: {
+                langLabel: 'EN',
+                copied: 'Copied to Clipboard',
+                copiedShort: 'Copied',
+                copyShort: 'Copy',
+                configTitle: 'Configuration',
+                infoHint: (u, t) => `Update ${u} to your username and ${t} to your theme name.`,
+                deviceUsername: 'Device Username',
+                themeName: 'Theme Name',
+                autoSyncPath: 'Auto-Sync Path',
+                autoSyncTitle: 'Automatically update Source Path folder name',
+                sourcePath: 'Source Path (.ani)',
+                sourcePathHint: '(Absolute path to original files)',
+                installLocation: 'Install Location',
+                sudoRequired: 'sudo required',
+                user: 'User',
+                system: 'System',
+                customPathPlaceholder: '/custom/path/icons',
+                cursorSize: 'Cursor Size',
+                fileMappingTitle: 'File Mapping',
+                fileMappingDesc: 'Map your Windows cursor filenames (without .ani/.cur) to Linux cursor roles.',
+                filenameWrapper: 'Filename Wrapper',
+                prefix: 'Prefix',
+                suffix: 'Suffix',
+                wrapperHint: 'In the script, each filename is used as Prefix + Value + Suffix.',
+                step1Title: '1. Install win2xcur',
+                step1Desc: 'Tool needed for .ani conversion',
+                step2Title: '2. Convert Files',
+                step2Desc: 'Process all animations',
+                step3Title: '3. Register Theme',
+                step3GnomeHint: 'Make visible to GNOME',
+                optionalSize: 'Optional: Change Cursor Size',
+                postTip: 'Post-deployment Tip:',
+                postMsg: (size) => `If the default cursor size (${size}px) doesn't look right, run the command above to force an update.`,
+                download: 'Download',
+                copyScript: 'Copy Script',
+                scriptEditable: 'Script is editable',
+                footerDesc: 'Bridging the gap between Windows customization and the Linux desktop experience with style and precision.',
+                resources: 'Resources',
+                documentation: 'Documentation',
+                githubRepo: 'GitHub Repository',
+                iconSpecs: 'Icon Theme Specs',
+                reportIssues: 'Report Issues',
+                featuredArtist: 'Featured Artist',
+                build: 'BUILD',
+                convert: 'CONVERT',
+                adminOpsTitle: 'Admin Operations',
+                adminOpsDesc: 'Optional system-wide deployment steps',
+                globalInstall: 'Global Install',
+                flatpakPerms: 'Flatpak Permissions',
+                browserFixTitle: 'Permanent Browser Fix',
+                browserFixDesc: 'Some Chromium-based browsers default to XWayland, which breaks custom cursors. Force native Wayland with a flags file.',
+                browserFixStep1: '1. Create Config File',
+                browserFixStep1Hint: 'Replace *browser* with app name',
+                browserFixStep2: '2. Paste These Flags',
+                browserFixStep2Hint: '(To save in Nano: Press Ctrl+O, Enter, then Ctrl+X)',
+                pipelineTitle: 'Deployment Pipeline',
+                pipelineDesc: 'Follow these steps sequentially to convert your .ani files and install them.',
+                howToRun: 'How to run this script:',
+                howToRunStep1: 'Click Download .sh to save the file.',
+                howToRunStep2: 'Open your terminal and navigate to the download location.',
+                howToRunStep3: 'Run chmod +x install_cursors.sh to make it executable.',
+                howToRunStep4: 'Run ./install_cursors.sh to execute it.',
+                compatibility: 'Compatibility:',
+                compatibilityDesc: 'Universal Linux Support. Works on Ubuntu, Fedora, Arch, Debian, etc. Supports GNOME, KDE Plasma, XFCE, Cinnamon, Mate, and Budgie.',
+                demoTitle: 'Interactive Demo Area',
+                demoDesc: 'Hover over the blocks below to preview behavior. Select a custom pack to test it live with our Custom JS Tracker.',
+                testPack: 'Test Pack',
+                browserDefault: 'Browser Default',
+                nativeCursors: 'Native OS Cursors',
+                byBlz: 'By BLZ on Ko-fi',
+                premiumPack: 'Premium Pack by BLZ on Ko-fi',
+                disclaimerTitle: 'Disclaimer on Animations & Quality',
+                disclaimerDesc: 'Because modern web browsers explicitly block CSS cursor animations, I built a Custom JavaScript Tracker for this demo area to show the animations. The demo area cursors are displayed at 32px size.',
+                disclaimerQuality: 'Please note that the quality of cursors here may appear lower due to browser rendering and scaling limitations, and this is NOT a fault of the artist-provided cursors. The original .ani files and converted files retain their original high quality when used natively in Linux/Windows!',
+                disclaimerFree: 'Also, please note that not all cursors are available for some demo options due to missing files in the free demo pack.',
+                nowDemoing: 'Now Demoing',
+                specialFeature: 'Special Feature',
+                supportArtist: 'Please check them out and support them!',
+                checkoutKoFi: 'Check out on Ko-fi',
+                normalSelect: 'Normal Select',
+                linkSelect: 'Link Select',
+                textSelect: 'Text Select',
+                precision: 'Precision',
+                working: 'Working',
+                busy: 'Busy',
+                help: 'Help',
+                unavailable: 'Unavailable',
+                move: 'Move',
+                verticalResize: 'Vertical Resize',
+                horizontal: 'Horizontal',
+                diag1: 'Diag 1',
+                diag2: 'Diag 2',
+                allScroll: 'All Scroll',
+                handwriting: 'Handwriting',
+                pin: 'Pin',
+                alternateSelect: 'Alternate Select',
+                personSelect: 'Person Select',
+                permissionStatus: 'Permission Status',
+                authorizedDemo: 'AUTHORIZED DEMO',
+                activeTheme: 'Active Theme',
+                neruTransitionEngine: 'Akita Neru transition engine',
+                customArtistDesc: 'Custom Animated Cursor Artist',
+            },
+            tr: {
+                langLabel: 'TR',
+                copied: 'Panoya Kopyalandı',
+                copiedShort: 'Kopyalandı',
+                copyShort: 'Kopyala',
+                configTitle: 'Yapılandırma',
+                infoHint: (u, t) => `${u} kısmını Linux kullanıcı adınızla, ${t} kısmını tema adınızla güncelleyin.`,
+                deviceUsername: 'Kullanıcı Adı',
+                themeName: 'Tema Adı',
+                autoSyncPath: 'Otomatik Senkronizasyon',
+                autoSyncTitle: 'Kaynak Yol klasör adını otomatik güncelle',
+                sourcePath: 'Kaynak Yol (.ani)',
+                sourcePathHint: '(Orijinal dosyaların tam yolu)',
+                installLocation: 'Kurulum Konumu',
+                sudoRequired: 'sudo gerekli',
+                user: 'Kullanıcı',
+                system: 'Sistem',
+                customPathPlaceholder: '/özel/yol/ikonlar',
+                cursorSize: 'Cursor Boyutu',
+                fileMappingTitle: 'Dosya Eşleştirme',
+                fileMappingDesc: 'Windows cursor dosya adlarınızı (uzantısız) Linux cursor rolleriyle eşleştirin.',
+                filenameWrapper: 'Dosya Adı Sarmalayıcı',
+                prefix: 'Önek',
+                suffix: 'Sonek',
+                wrapperHint: "Script'te her dosya adı Önek + Değer + Sonek olarak kullanılır.",
+                step1Title: '1. win2xcur Kurulumu',
+                step1Desc: '.ani dönüşümü için gerekli araç',
+                step2Title: '2. Dosyaları Dönüştür',
+                step2Desc: 'Tüm animasyonları işle',
+                step3Title: '3. Temayı Kaydet',
+                step3GnomeHint: "GNOME'a görünür yap",
+                optionalSize: 'İsteğe Bağlı: Cursor Boyutunu Değiştir',
+                postTip: 'Kurulum Sonrası İpucu:',
+                postMsg: (size) => `Varsayılan cursor boyutu (${size}px) doğru görünmüyorsa, güncellemeye zorlamak için yukarıdaki komutu çalıştırın.`,
+                download: 'İndir',
+                copyScript: "Script'i Kopyala",
+                scriptEditable: 'Script düzelenebilir',
+                footerDesc: 'Windows özelleştirmesi ile Linux masaüstü deneyimi arasındaki boşluğu zarafetle ve hassasiyetle köprüleyin.',
+                resources: 'Kaynaklar',
+                documentation: 'Dokümantasyon',
+                githubRepo: 'GitHub Deposu',
+                iconSpecs: 'İkon Tema Özellikleri',
+                reportIssues: 'Sorun Bildir',
+                featuredArtist: 'Öne Çıkan Sanatçı',
+                build: 'OLUŞTUR',
+                convert: 'DÖNÜŞTÜR',
+                adminOpsTitle: 'Yönetici İşlemleri',
+                adminOpsDesc: 'İsteğe bağlı sistem genelinde kurulum adımları',
+                globalInstall: 'Global Kurulum',
+                flatpakPerms: 'Flatpak İzinleri',
+                browserFixTitle: 'Kalıcı Tarayıcı Düzeltmesi',
+                browserFixDesc: 'Bazı Chromium tabanlı tarayıcılar varsayılan olarak XWayland kullanır ve bu da özel cursorları bozar. Bir bayrak dosyasıyla yerel Wayland\'i zorlayın.',
+                browserFixStep1: '1. Yapılandırma Dosyası Oluştur',
+                browserFixStep1Hint: '*browser* kısmını uygulama adıyla değiştirin',
+                browserFixStep2: '2. Bu Bayrakları Yapıştırın',
+                browserFixStep2Hint: '(Nano\'da kaydetmek için: Ctrl+O, Enter, ardından Ctrl+X tuşlarına basın)',
+                pipelineTitle: 'Kurulum Hattı',
+                pipelineDesc: '.ani dosyalarınızı dönüştürmek ve yüklemek için bu adımları sırayla takip edin.',
+                howToRun: 'Bu betik nasıl çalıştırılır:',
+                howToRunStep1: 'Dosyayı kaydetmek için Download .sh butonuna tıklayın.',
+                howToRunStep2: 'Terminalinizi açın ve indirme konumuna gidin.',
+                howToRunStep3: 'Çalıştırılabilir yapmak için chmod +x install_cursors.sh komutunu çalıştırın.',
+                howToRunStep4: 'Çalıştırmak için ./install_cursors.sh komutunu çalıştırın.',
+                compatibility: 'Uyumluluk:',
+                compatibilityDesc: 'Evrensel Linux Desteği. Ubuntu, Fedora, Arch, Debian vb. üzerinde çalışır. GNOME, KDE Plasma, XFCE, Cinnamon, Mate ve Budgie\'yi destekler.',
+                demoTitle: 'Etkileşimli Demo Alanı',
+                demoDesc: 'Davranışları önizlemek için aşağıdaki blokların üzerine gelin. Özel JS Takipçimiz ile canlı test etmek için özel bir paket seçin.',
+                testPack: 'Test Paketi',
+                browserDefault: 'Tarayıcı Varsayılanı',
+                nativeCursors: 'Sistem Cursorları',
+                byBlz: 'Ko-fi\'de BLZ tarafından',
+                premiumPack: 'Ko-fi\'de BLZ tarafından sunulan Premium Paket',
+                disclaimerTitle: 'Animasyonlar ve Kalite Hakkında Feragatname',
+                disclaimerDesc: 'Modern web tarayıcıları CSS imleç animasyonlarını açıkça engellediği için, bu demo alanındaki animasyonları göstermek için Özel bir JavaScript Takipçisi oluşturdum. Demo alanı imleçleri 32px boyutunda gösterilmektedir.',
+                disclaimerQuality: 'Tarayıcı işleme ve ölçeklendirme sınırlamaları nedeniyle buradaki imleçlerin kalitesinin daha düşük görünebileceğini ve bunun sanatçı tarafından sağlanan imleçlerin bir hatası OLMADIĞINI lütfen unutmayın. Orijinal .ani dosyaları ve dönüştürülen dosyalar, Linux/Windows\'ta yerel olarak kullanıldığında orijinal yüksek kalitelerini korurlar!',
+                disclaimerFree: 'Ayrıca, ücretsiz demo paketindeki eksik dosyalar nedeniyle bazı demo seçenekleri için tüm imleçlerin mevcut olmadığını lütfen unutmayın.',
+                nowDemoing: 'Şu Anda Gösterilen',
+                specialFeature: 'Özel Bölüm',
+                supportArtist: 'Lütfen onlara göz atın ve destek olun!',
+                checkoutKoFi: 'Ko-fi\'de İncele',
+                normalSelect: 'Normal Seçim',
+                linkSelect: 'Bağlantı Seçimi',
+                textSelect: 'Metin Seçimi',
+                precision: 'Hassas Seçim',
+                working: 'Çalışıyor',
+                busy: 'Meşgul',
+                help: 'Yardım',
+                unavailable: 'Kullanılamaz',
+                move: 'Taşı',
+                verticalResize: 'Dikey Boyutlandırma',
+                horizontal: 'Yatay Boyutlandırma',
+                diag1: 'Çapraz 1',
+                diag2: 'Çapraz 2',
+                allScroll: 'Tüm Yönlere Kaydır',
+                handwriting: 'El Yazısı',
+                pin: 'İğne',
+                alternateSelect: 'Alternatif Seçim',
+                personSelect: 'Kişi Seçimi',
+                permissionStatus: 'İzin Durumu',
+                authorizedDemo: 'YETKİLİ DEMO',
+                activeTheme: 'Aktif Tema',
+                neruTransitionEngine: 'Akita Neru geçiş motoru',
+                customArtistDesc: 'Özel Animasyonlu Cursors Sanatçısı',
+            },
+        };
+
         // --- PERSISTENCE HELPER (defined outside App to avoid re-creation on render) ---
         const useStickyState = (defaultValue, key) => {
             const [value, setValue] = React.useState(() => {
@@ -248,6 +460,13 @@
             const [installPath, setInstallPath] = useStickyState('$HOME/.local/share/icons', 'cp_installPath');
             const [filePrefix, setFilePrefix] = useStickyState('', 'cp_filePrefix');
             const [fileSuffix, setFileSuffix] = useStickyState('', 'cp_fileSuffix');
+            const [lang, setLang] = useStickyState(
+                (navigator.language || '').startsWith('tr') ? 'tr' : 'en',
+                'cp_lang'
+            );
+
+            // Translation helper — falls back to English then to the key itself
+            const t = (key) => (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en'][key]) || key;
 
             // Computed: does the install path require sudo?
             const needsSudo = installPath.startsWith('/usr') || installPath.startsWith('/etc') || installPath.startsWith('/opt') || installPath.startsWith('/root');
@@ -520,7 +739,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                     <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center">
                                         <Check size={14} strokeWidth={3} />
                                     </div>
-                                    Copied to Clipboard
+                                    {t('copied')}
                                 </div>
                             </div>
 
@@ -564,6 +783,23 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             <Code size={14} />
                                             <span>DOCS</span>
                                         </a>
+
+                                        {/* LANGUAGE TOGGLE */}
+                                        <button
+                                            onClick={() => setLang(lang === 'en' ? 'tr' : 'en')}
+                                            className={`
+                                            relative overflow-hidden group flex items-center justify-center w-12 h-12 rounded-full border 
+                                            transition-all duration-500 font-black text-[10px] tracking-wider
+                                            ${isDark
+                                                    ? 'bg-slate-800 border-slate-700 text-miku hover:border-miku hover:shadow-[0_0_15px_rgba(57,197,187,0.3)]'
+                                                    : 'bg-white border-slate-200 text-teto hover:border-teto hover:shadow-[0_0_15px_rgba(208,62,92,0.3)]'
+                                                }
+                                        `}
+                                            title="Change Language / Dili Değiştir"
+                                        >
+                                            <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                                            <span>{t('langLabel')}</span>
+                                        </button>
 
                                         {/* THEME TOGGLE (NERU TRANSITION TRIGGER) */}
                                         <button
@@ -609,18 +845,18 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
 
                                         <h2 className="relative text-sm font-black text-black dark:text-white uppercase tracking-widest mb-8 flex items-center gap-3">
                                             <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><Settings size={18} /></span>
-                                            Configuration
+                                            {t('configTitle')}
                                         </h2>
 
                                         <div className="space-y-6 relative">
                                             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex items-start gap-3">
                                                 <Info size={16} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
                                                 <p className="text-[10px] sm:text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed font-medium">
-                                                    Update <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{username}</span> to your username and <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded text-blue-800 dark:text-blue-200">{themeName}</span> to your theme name.
+                                                    {t('infoHint')(username, themeName)}
                                                 </p>
                                             </div>
                                             <div>
-                                                <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">Device Username</label>
+                                                <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">{t('deviceUsername')}</label>
                                                 <input
                                                     type="text"
                                                     placeholder="e.g., eagle"
@@ -631,13 +867,13 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             </div>
                                             <div>
                                                 <div className="flex justify-between items-end mb-2">
-                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Theme Name</label>
+                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">{t('themeName')}</label>
                                                     <button
                                                         onClick={() => setAutoSync(!autoSync)}
                                                         className="flex items-center gap-2 group cursor-pointer focus:outline-none"
-                                                        title="Automatically update Source Path folder name"
+                                                        title={t('autoSyncTitle')}
                                                     >
-                                                        <span className="text-[9px] font-bold text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors uppercase">Auto-Sync Path</span>
+                                                        <span className="text-[9px] font-bold text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors uppercase">{t('autoSyncPath')}</span>
                                                         <div className={`w-8 h-4 rounded-full p-0.5 transition-colors duration-300 ${autoSync ? 'bg-teto dark:bg-miku' : 'bg-slate-200 dark:bg-slate-700'}`}>
                                                             <div className={`w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-300 ${autoSync ? 'translate-x-4' : 'translate-x-0'}`}></div>
                                                         </div>
@@ -653,8 +889,8 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             </div>
                                             <div>
                                                 <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">
-                                                    Source Path (.ani)
-                                                    <span className="ml-2 text-[9px] normal-case text-black dark:text-white font-normal tracking-normal">(Absolute path to original files)</span>
+                                                    {t('sourcePath')}
+                                                    <span className="ml-2 text-[9px] normal-case text-black dark:text-white font-normal tracking-normal">{t('sourcePathHint')}</span>
                                                 </label>
                                                 <input
                                                     type="text"
@@ -668,18 +904,18 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             {/* INSTALL LOCATION */}
                                             <div>
                                                 <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide flex items-center gap-2">
-                                                    Install Location
+                                                    {t('installLocation')}
                                                     {needsSudo && (
                                                         <span className="text-[8px] normal-case font-bold px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 tracking-normal flex items-center gap-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                                            sudo required
+                                                            {t('sudoRequired')}
                                                         </span>
                                                     )}
                                                 </label>
                                                 <div className="flex gap-2 mb-2">
                                                     {[
-                                                        { label: 'User', desc: '~/.local/share/icons', value: '$HOME/.local/share/icons' },
-                                                        { label: 'System', desc: '/usr/share/icons', value: '/usr/share/icons' },
+                                                        { label: t('user'), desc: '~/.local/share/icons', value: '$HOME/.local/share/icons' },
+                                                        { label: t('system'), desc: '/usr/share/icons', value: '/usr/share/icons' },
                                                     ].map(opt => (
                                                         <button
                                                             key={opt.value}
@@ -697,7 +933,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 </div>
                                                 <input
                                                     type="text"
-                                                    placeholder="/custom/path/icons"
+                                                    placeholder={t('customPathPlaceholder')}
                                                     value={installPath}
                                                     onChange={(e) => setInstallPath(e.target.value)}
                                                     className={`w-full bg-slate-50 dark:bg-slate-950/50 border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 transition-all text-[11px] font-mono text-black dark:text-white ${
@@ -709,7 +945,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             </div>
                                             <div>
                                                 <div className="flex justify-between items-center mb-3">
-                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">Cursor Size</label>
+                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">{t('cursorSize')}</label>
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-[100px] h-[100px] flex items-center justify-center bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative group/preview transition-all duration-300">
                                                             <div className="absolute inset-0 bg-gradient-to-br from-teto/5 to-transparent dark:from-miku/5 opacity-0 group-hover/preview:opacity-100 transition-opacity"></div>
@@ -756,16 +992,16 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                         </div>
                                         <h2 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-6 flex items-center gap-3">
                                             <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><FileCode size={18} /></span>
-                                            File Mapping
+                                            {t('fileMappingTitle')}
                                         </h2>
                                         <p className="text-[10px] text-black dark:text-white mb-4 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                                            Map your Windows cursor filenames (without .ani/.cur) to Linux cursor roles.
+                                            {t('fileMappingDesc')}
                                         </p>
 
                                         {/* PREFIX / SUFFIX */}
                                         <div className="mb-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 space-y-3">
                                             <div className="flex items-center justify-between">
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-black dark:text-white">Filename Wrapper</span>
+                                                <span className="text-[9px] font-black uppercase tracking-widest text-black dark:text-white">{t('filenameWrapper')}</span>
                                                 {(filePrefix || fileSuffix) && (
                                                     <span className="text-[8px] font-mono bg-teto/10 dark:bg-miku/10 text-teto dark:text-miku border border-teto/20 dark:border-miku/20 px-2 py-0.5 rounded-full">
                                                         {filePrefix || '…'}<span className="opacity-40">value</span>{fileSuffix || '…'}
@@ -774,7 +1010,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             </div>
                                             <div className="grid grid-cols-2 gap-2">
                                                 <div>
-                                                    <label className="block text-[8px] font-bold text-black dark:text-white uppercase mb-1">Prefix</label>
+                                                    <label className="block text-[8px] font-bold text-black dark:text-white uppercase mb-1">{t('prefix')}</label>
                                                     <input
                                                         type="text"
                                                         placeholder="[Pr-IR] "
@@ -784,7 +1020,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[8px] font-bold text-black dark:text-white uppercase mb-1">Suffix</label>
+                                                    <label className="block text-[8px] font-bold text-black dark:text-white uppercase mb-1">{t('suffix')}</label>
                                                     <input
                                                         type="text"
                                                         placeholder=" v4"
@@ -795,7 +1031,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 </div>
                                             </div>
                                             <p className="text-[8px] text-black/50 dark:text-white/40">
-                                                Script'te her dosya adı <span className="font-mono">Prefix + Değer + Suffix</span> olarak kullanılır.
+                                                {t('wrapperHint')}
                                             </p>
                                         </div>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
@@ -822,18 +1058,18 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                     <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xl group transition-colors duration-500">
                                         <div className="flex items-center gap-3 mb-6">
                                             <Globe size={18} className="text-neru" />
-                                            <h2 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-widest">Permanent Browser Fix</h2>
+                                            <h2 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-widest">{t('browserFixTitle')}</h2>
                                         </div>
 
                                         <p className="text-[10px] text-black dark:text-white mb-6 leading-relaxed">
-                                            Some Chromium-based browsers default to XWayland, which breaks custom cursors. Force native Wayland with a flags file.
+                                            {t('browserFixDesc')}
                                         </p>
 
                                         <div className="space-y-4">
                                             <div>
                                                 <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2 flex justify-between">
-                                                    <span>1. Create Config File</span>
-                                                    <span className="text-[8px] opacity-70">Replace *browser* with app name</span>
+                                                    <span>{t('browserFixStep1')}</span>
+                                                    <span className="text-[8px] opacity-70">{t('browserFixStep1Hint')}</span>
                                                 </p>
                                                 <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors mb-2">
                                                     <code className="text-[10px] font-mono text-green-600 dark:text-green-400 break-all pr-2">
@@ -857,7 +1093,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             </div>
 
                                             <div>
-                                                <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2">2. Paste These Flags</p>
+                                                <p className="text-[9px] font-bold text-black dark:text-white uppercase mb-2">{t('browserFixStep2')}</p>
                                                 <div className="bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 flex justify-between items-center group/code transition-colors">
                                                     <code className="text-[10px] font-mono text-teto-600 dark:text-miku break-all pr-2">
                                                         --enable-features=UseOzonePlatform<br />
@@ -871,7 +1107,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     </button>
                                                 </div>
                                                 <p className="mt-2 text-[9px] text-black dark:text-white italic text-right">
-                                                    (To save in Nano: Press <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+O</strong>, Enter, then <strong className=" text-black dark:text-white dark:text-slate-200">Ctrl+X</strong>)
+                                                    {t('browserFixStep2Hint')}
                                                 </p>
                                             </div>
                                         </div>
@@ -891,18 +1127,18 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             <div className="p-2 rounded-lg bg-neru text-amber-900 shadow-lg shadow-neru/20 animate-float">
                                                 <Command size={24} strokeWidth={2.5} />
                                             </div>
-                                            Deployment Pipeline
+                                            {t('pipelineTitle')}
                                         </h2>
                                         <p className="text-xs text-black dark:text-white mb-6">
-                                            Follow these steps sequentially to convert your .ani files and install them.
+                                            {t('pipelineDesc')}
                                         </p>
                                         <div className="space-y-4">
                                             {/* STEP 1: INSTALLATION */}
                                             <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
                                                 <div className="flex items-center justify-between mb-3">
                                                     <div>
-                                                        <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">1. Install win2xcur</h3>
-                                                        <p className="text-[10px] text-black dark:text-white">Tool needed for .ani conversion</p>
+                                                        <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">{t('step1Title')}</h3>
+                                                        <p className="text-[10px] text-black dark:text-white">{t('step1Desc')}</p>
                                                     </div>
                                                     <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">SETUP</span>
                                                 </div>
@@ -941,25 +1177,25 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             {/* STEP 2: CONVERSION */}
                                             <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teto dark:hover:border-miku transition-colors shadow-sm group">
                                                 <div className="flex items-center justify-between mb-3">
-                                                    <div>
-                                                        <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">2. Convert Files</h3>
-                                                        <p className="text-[10px] text-black dark:text-white">Process all animations</p>
-                                                    </div>
-                                                    <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">BUILD</span>
-                                                </div>
+                                                     <div>
+                                                         <h3 className="font-bold text-black dark:text-white dark:text-slate-200 text-sm">{t('step2Title')}</h3>
+                                                         <p className="text-[10px] text-black dark:text-white">{t('step2Desc')}</p>
+                                                     </div>
+                                                     <span className="text-[10px] font-mono font-bold text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{t('build')}</span>
+                                                 </div>
 
-                                                <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                    <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-3 px-2 leading-relaxed">
-                                                        {`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`}
-                                                    </code>
-                                                    <button
-                                                        onClick={() => copyToClipboard(`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`, 'convert-cmd')}
-                                                        className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
-                                                    >
-                                                        {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                 <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
+                                                     <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-3 px-2 leading-relaxed">
+                                                         {`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`}
+                                                     </code>
+                                                     <button
+                                                         onClick={() => copyToClipboard(`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`, 'convert-cmd')}
+                                                         className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
+                                                     >
+                                                         {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                                     </button>
+                                                 </div>
+                                             </div>
 
                                             {/* STEP 3: REGISTER THEME */}
                                             <div className={`
@@ -971,8 +1207,8 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 <div className="flex flex-col md:flex-row">
                                                     <div className="flex-1 p-5">
                                                         <div className="flex items-center justify-between mb-3">
-                                                            <span className="text-[10px] font-black uppercase text-black dark:text-white tracking-wider">3. Register Theme</span>
-                                                            <span className="text-[9px] font-bold text-black dark:text-white bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">Make visible to GNOME</span>
+                                                            <span className="text-[10px] font-black uppercase text-black dark:text-white tracking-wider">{t('step3Title')}</span>
+                                                            <span className="text-[9px] font-bold text-black dark:text-white bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">{t('step3GnomeHint')}</span>
                                                         </div>
                                                         <code className="block font-mono text-[11px] text-black dark:text-white dark:text-miku-100 bg-slate-50 dark:bg-black/30 p-3 rounded-lg break-all border border-slate-100 dark:border-slate-800/50">
                                                             <span className="text-teto dark:text-miku font-bold mr-2">$</span>{`${needsSudo ? 'sudo ' : ''}cat <<EOF > "${installPath}/${themeName}/index.theme"\n[Icon Theme]\nName=${themeName}\nInherits=Adwaita\nEOF`}
@@ -1003,14 +1239,14 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                         className="flex items-center gap-2 px-4 py-1.5 bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-600 dark:text-sky-300 rounded-lg text-[10px] font-bold transition-all border border-sky-100 dark:border-sky-800 uppercase tracking-wider"
                                                     >
                                                         <Icon size={12}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>
-                                                        Download .sh
+                                                        {t('download')} .sh
                                                     </button>
                                                     <button
                                                         onClick={() => copyToClipboard(scriptContent, 'full-script')}
                                                         className={`flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-black dark:text-white rounded-lg text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-700 uppercase tracking-wider ${copied === 'full-script' ? 'animate-copy-pulse border-green-500' : ''}`}
                                                     >
                                                         {copied === 'full-script' ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
-                                                        {copied === 'full-script' ? 'Copied' : 'Copy'}
+                                                        {copied === 'full-script' ? t('copiedShort') : t('copyShort')}
                                                     </button>
                                                 </div>
                                             </div>
@@ -1033,15 +1269,15 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 flex gap-3">
                                                     <div className="mt-0.5 text-amber-500"><Info size={16} /></div>
                                                     <div className="text-[10px] text-amber-800 dark:text-amber-200 leading-relaxed">
-                                                        <strong className="block mb-1 uppercase tracking-wider text-amber-600 dark:text-amber-400">How to run this script:</strong>
+                                                        <strong className="block mb-1 uppercase tracking-wider text-amber-600 dark:text-amber-400">{t('howToRun')}</strong>
                                                         <ol className="list-decimal pl-4 space-y-1">
-                                                            <li>Click <strong>Download .sh</strong> to save the file.</li>
-                                                            <li>Open your terminal and navigate to the download location.</li>
+                                                            <li>{t('howToRunStep1')}</li>
+                                                            <li>{t('howToRunStep2')}</li>
                                                             <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">chmod +x install_cursors.sh</code> to make it executable.</li>
                                                             <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">./install_cursors.sh</code> to execute it.</li>
                                                         </ol>
                                                         <div className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/30">
-                                                            <span className="font-bold">Compatibility:</span> Universal Linux Support. Works on Ubuntu, Fedora, Arch, Debian, etc. Supports GNOME, KDE Plasma, XFCE, Cinnamon, Mate, and Budgie.
+                                                            <span className="font-bold">{t('compatibility')}</span> {t('compatibilityDesc')}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1050,7 +1286,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     <div className="p-1 rounded bg-slate-200 dark:bg-slate-800 text-black dark:text-white">
                                                         <MousePointer size={12} />
                                                     </div>
-                                                    <span className="text-[10px] font-bold text-black dark:text-white uppercase tracking-wide">Optional: Change Cursor Size</span>
+                                                    <span className="text-[10px] font-bold text-black dark:text-white uppercase tracking-wide">{t('optionalSize')}</span>
                                                 </div>
 
                                                 <div className="space-y-3">
@@ -1079,7 +1315,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 <div className="mt-3 flex items-start gap-2">
                                                     <Info size={12} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
                                                     <p className="text-[10px] text-black dark:text-white leading-relaxed">
-                                                        <span className="font-bold text-blue-600 dark:text-blue-400">Post-deployment Tip:</span> If the default cursor size ({cursorSize}px) doesn't look right, run the command above to force an update.
+                                                        <span className="font-bold text-blue-600 dark:text-blue-400">{t('postTip')}</span> {t('postMsg')(cursorSize)}
                                                     </p>
                                                 </div>
                                             </div>
@@ -1099,14 +1335,14 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                         <div className="relative flex items-center gap-3 mb-8">
                                             <ShieldCheck size={24} className="text-teto dark:text-miku" />
                                             <div>
-                                                <h2 className="font-bold text-slate-800 dark:text-white">Admin Operations</h2>
-                                                <p className="text-xs text-black dark:text-white">Optional system-wide deployment steps</p>
+                                                <h2 className="font-bold text-slate-800 dark:text-white">{t('adminOpsTitle')}</h2>
+                                                <p className="text-xs text-black dark:text-white">{t('adminOpsDesc')}</p>
                                             </div>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {[
-                                                { label: "Global Install", cmd: `sudo cp -r ~/.local/share/icons/${themeName} /usr/share/icons/` },
-                                                { label: "Flatpak Permissions", cmd: `flatpak override --user --filesystem=/usr/share/icons/:ro` }
+                                                { label: t('globalInstall'), cmd: `sudo cp -r ~/.local/share/icons/${themeName} /usr/share/icons/` },
+                                                { label: t('flatpakPerms'), cmd: `flatpak override --user --filesystem=/usr/share/icons/:ro` }
                                             ].map((item, i) => (
                                                 <div key={i} className="group p-4 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-slate-800 hover:border-neru dark:hover:border-neru transition-all">
                                                     <div className="flex justify-between items-center mb-3">
@@ -1120,7 +1356,6 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     </code>
                                                 </div>
                                             ))}
-
                                             {/* REMOVED FROM HERE */}
                                         </div>
                                     </section>
@@ -1134,16 +1369,15 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                             <div className="p-2 rounded-lg bg-teto-50 dark:bg-miku-900/30 text-teto dark:text-miku shadow-sm">
                                                 <MousePointer size={24} strokeWidth={2.5} />
                                             </div>
-                                            Interactive Demo Area
+                                            {t('demoTitle')}
                                         </h2>
 
                                         <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 p-1">
                                             <p className="text-xs text-black dark:text-white max-w-md leading-relaxed opacity-80">
-                                                Hover over the blocks below to preview behavior.
-                                                Select a custom pack to test it live with our <span className="text-teto dark:text-miku font-bold">Custom JS Tracker</span>.
+                                                {t('demoDesc')}
                                             </p>
                                             <div className="flex flex-col gap-2 min-w-[240px] relative">
-                                                <span className="text-[9px] font-black text-black dark:text-white uppercase tracking-[0.3em] opacity-50 ml-1">Test Pack</span>
+                                                <span className="text-[9px] font-black text-black dark:text-white uppercase tracking-[0.3em] opacity-50 ml-1">{t('testPack')}</span>
                                                 <div className="relative">
                                                     <button
                                                         onClick={() => setIsPackDropdownOpen(!isPackDropdownOpen)}
@@ -1151,7 +1385,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <div className={`w-2 h-2 rounded-full ${demoPack === 'none' ? 'bg-slate-300 dark:bg-slate-700' : 'bg-teto dark:bg-miku animate-pulse shadow-[0_0_8px_rgba(57,197,187,0.5)]'}`}></div>
-                                                            <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? 'Browser Default' : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
+                                                            <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? t('browserDefault') : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
                                                         </div>
                                                         <ChevronDown size={14} className={`text-slate-400 group-hover:text-teto dark:group-hover:text-miku transition-transform duration-300 ${isPackDropdownOpen ? 'rotate-180' : ''}`} />
                                                     </button>
@@ -1161,9 +1395,9 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                             <div className="fixed inset-0 z-[90]" onClick={() => setIsPackDropdownOpen(false)}></div>
                                                             <div className="absolute top-full left-0 right-0 mt-2 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[100] animate-fade-in backdrop-blur-xl">
                                                                 {[
-                                                                    { id: 'none', label: 'Browser Default', desc: 'Native OS Cursors' },
-                                                                    { id: 'Aemeath', label: 'Aemeath BLZ Free', desc: 'By BLZ on Ko-fi' },
-                                                                    { id: 'Frieren', label: 'Frieren BLZ', desc: 'Premium Pack by BLZ on Ko-fi' }
+                                                                    { id: 'none', label: t('browserDefault'), desc: t('nativeCursors') },
+                                                                    { id: 'Aemeath', label: 'Aemeath BLZ Free', desc: t('byBlz') },
+                                                                    { id: 'Frieren', label: 'Frieren BLZ', desc: t('premiumPack') }
                                                                 ].map(pack => (
                                                                     <button
                                                                         key={pack.id}
@@ -1194,16 +1428,16 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800/50 rounded-xl p-4 flex items-start gap-4 shadow-sm">
                                                     <Info size={20} className="text-red-600 dark:text-red-400 shrink-0" />
                                                     <div className="text-xs text-red-900 dark:text-red-100 leading-relaxed">
-                                                        <h4 className="font-black text-red-700 dark:text-red-400 uppercase tracking-wider mb-2 text-sm">Disclaimer on Animations & Quality</h4>
+                                                        <h4 className="font-black text-red-700 dark:text-red-400 uppercase tracking-wider mb-2 text-sm">{t('disclaimerTitle')}</h4>
                                                         <p className="mb-2">
-                                                            Because modern web browsers explicitly block CSS cursor animations, I built a Custom JavaScript Tracker for this demo area to show the animations. The demo area cursors are displayed at <strong>32px</strong> size.
+                                                            {t('disclaimerDesc')}
                                                         </p>
                                                         <p className="mb-2">
-                                                            Please note that the quality of cursors here may appear lower due to browser rendering and scaling limitations, and this is <strong>NOT</strong> a fault of the artist-provided cursors. The original <code>.ani</code> files and converted files retain their original high quality when used natively in Linux/Windows!
+                                                            {t('disclaimerQuality')}
                                                         </p>
                                                         {demoPack !== 'Frieren' && (
                                                             <p className="font-bold text-red-800 dark:text-red-200">
-                                                                Also, please note that not all cursors are available for some demo options due to missing files in the free demo pack.
+                                                                {t('disclaimerFree')}
                                                             </p>
                                                         )}
                                                     </div>
@@ -1215,12 +1449,12 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                                 <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
                                                             </div>
                                                             <div>
-                                                                <div className="text-[10px] font-black text-blue-500 dark:text-blue-400 uppercase tracking-widest mb-0.5">Now Demoing</div>
+                                                                <div className="text-[10px] font-black text-blue-500 dark:text-blue-400 uppercase tracking-widest mb-0.5">{t('nowDemoing')}</div>
                                                                 <a href="https://ko-fi.com/s/7fdf26a913" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-blue-800 dark:text-blue-200 hover:text-blue-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
                                                                     Aemeath cursors by BLZ
                                                                 </a>
                                                                 <a href="https://ko-fi.com/s/7fdf26a913" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">
-                                                                    Please check them out and support them!
+                                                                    {t('supportArtist')}
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -1233,22 +1467,22 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                                 <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
                                                             </div>
                                                             <div>
-                                                                <div className="text-[10px] font-black text-purple-500 dark:text-purple-400 uppercase tracking-widest mb-0.5">Special Feature</div>
+                                                                <div className="text-[10px] font-black text-purple-500 dark:text-purple-400 uppercase tracking-widest mb-0.5">{t('specialFeature')}</div>
                                                                 <a href="https://ko-fi.com/s/ba5539ca33" target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-black text-purple-800 dark:text-purple-200 hover:text-purple-600 dark:hover:text-white hover:underline transition-colors block leading-none mb-1.5">
                                                                     Frieren Pack by BLZ
                                                                 </a>
                                                                 <div className="flex items-center gap-2">
                                                                     <a href="https://ko-fi.com/s/ba5539ca33" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline">
-                                                                        Support the artist and get the pack here!
+                                                                        {t('supportArtist')}
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="hidden sm:block text-right">
-                                                            <div className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Permission Status</div>
+                                                            <div className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mb-1">{t('permissionStatus')}</div>
                                                             <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-[8px] font-black text-green-600 dark:text-green-400">
                                                                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                                                                AUTHORIZED DEMO
+                                                                {t('authorizedDemo')}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1258,29 +1492,29 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
 
                                         <div className="relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                             {[
-                                                { label: 'Normal Select', action: 'default', mapKey: 'normal', icon: <MousePointer size={16} />, style: 'cursor-default' },
-                                                { label: 'Link Select', action: 'pointer', mapKey: 'link', icon: <MousePointer size={16} />, style: 'cursor-pointer' },
-                                                { label: 'Text Select', action: 'text', mapKey: 'text', icon: <Code size={16} />, style: 'cursor-text' },
-                                                { label: 'Precision', action: 'crosshair', mapKey: 'precision', icon: <MousePointer size={16} />, style: 'cursor-crosshair' },
-                                                { label: 'Working', action: 'progress', mapKey: 'working', icon: <Settings size={16} />, style: 'cursor-progress' },
-                                                { label: 'Busy', action: 'wait', mapKey: 'busy', icon: <Info size={16} />, style: 'cursor-wait' },
-                                                { label: 'Help', action: 'help', mapKey: 'help', icon: <Info size={16} />, style: 'cursor-help' },
-                                                { label: 'Unavailable', action: 'not-allowed', mapKey: 'unavailable', icon: <ShieldCheck size={16} />, style: 'cursor-not-allowed' },
-                                                { label: 'Move', action: 'move', mapKey: 'move', icon: <Maximize size={16} />, style: 'cursor-move' },
-                                                { label: 'Vertical Resize', action: 'ns-resize', mapKey: 'vertical', icon: <Maximize size={16} />, style: 'cursor-ns-resize' },
-                                                { label: 'Horizontal', action: 'ew-resize', mapKey: 'horizontal', icon: <Maximize size={16} />, style: 'cursor-ew-resize' },
-                                                { label: 'Diag 1', action: 'nwse-resize', mapKey: 'diag1', icon: <Maximize size={16} />, style: 'cursor-nwse-resize' },
-                                                { label: 'Diag 2', action: 'nesw-resize', mapKey: 'diag2', icon: <Maximize size={16} />, style: 'cursor-nesw-resize' },
-                                                { label: 'All Scroll', action: 'all-scroll', mapKey: 'all_scroll', icon: <Maximize size={16} />, style: 'cursor-all-scroll' },
-                                                { label: 'Handwriting', action: 'cell', mapKey: 'hand', icon: <FileCode size={16} />, style: 'cursor-cell' },
-                                                { label: 'Pin', action: 'alias', mapKey: 'pin', icon: <Check size={16} />, style: 'cursor-alias' },
-                                                { label: 'Alternate Select', action: 'default', mapKey: 'alternate', icon: <MousePointer size={16} />, style: 'cursor-default' },
-                                                { label: 'Person Select', action: 'default', mapKey: 'person', icon: <MousePointer size={16} />, style: 'cursor-default' }
+                                                { labelKey: 'normalSelect', action: 'default', mapKey: 'normal', icon: <MousePointer size={16} />, style: 'cursor-default' },
+                                                { labelKey: 'linkSelect', action: 'pointer', mapKey: 'link', icon: <MousePointer size={16} />, style: 'cursor-pointer' },
+                                                { labelKey: 'textSelect', action: 'text', mapKey: 'text', icon: <Code size={16} />, style: 'cursor-text' },
+                                                { labelKey: 'precision', action: 'crosshair', mapKey: 'precision', icon: <MousePointer size={16} />, style: 'cursor-crosshair' },
+                                                { labelKey: 'working', action: 'progress', mapKey: 'working', icon: <Settings size={16} />, style: 'cursor-progress' },
+                                                { labelKey: 'busy', action: 'wait', mapKey: 'busy', icon: <Info size={16} />, style: 'cursor-wait' },
+                                                { labelKey: 'help', action: 'help', mapKey: 'help', icon: <Info size={16} />, style: 'cursor-help' },
+                                                { labelKey: 'unavailable', action: 'not-allowed', mapKey: 'unavailable', icon: <ShieldCheck size={16} />, style: 'cursor-not-allowed' },
+                                                { labelKey: 'move', action: 'move', mapKey: 'move', icon: <Maximize size={16} />, style: 'cursor-move' },
+                                                { labelKey: 'verticalResize', action: 'ns-resize', mapKey: 'vertical', icon: <Maximize size={16} />, style: 'cursor-ns-resize' },
+                                                { labelKey: 'horizontal', action: 'ew-resize', mapKey: 'horizontal', icon: <Maximize size={16} />, style: 'cursor-ew-resize' },
+                                                { labelKey: 'diag1', action: 'nwse-resize', mapKey: 'diag1', icon: <Maximize size={16} />, style: 'cursor-nwse-resize' },
+                                                { labelKey: 'diag2', action: 'nesw-resize', mapKey: 'diag2', icon: <Maximize size={16} />, style: 'cursor-nesw-resize' },
+                                                { labelKey: 'allScroll', action: 'all-scroll', mapKey: 'all_scroll', icon: <Maximize size={16} />, style: 'cursor-all-scroll' },
+                                                { labelKey: 'handwriting', action: 'cell', mapKey: 'hand', icon: <FileCode size={16} />, style: 'cursor-cell' },
+                                                { labelKey: 'pin', action: 'alias', mapKey: 'pin', icon: <Check size={16} />, style: 'cursor-alias' },
+                                                { labelKey: 'alternateSelect', action: 'default', mapKey: 'alternate', icon: <MousePointer size={16} />, style: 'cursor-default' },
+                                                { labelKey: 'personSelect', action: 'default', mapKey: 'person', icon: <MousePointer size={16} />, style: 'cursor-default' }
                                             ].map((item, idx) => (
                                                 <div
                                                     key={idx}
                                                     className={`group flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 hover:border-teto-300 dark:hover:border-miku-500/30 transition-all ${demoPack === 'none' ? item.style : 'cursor-none'}`}
-                                                    title={`Test ${item.label} cursor`}
+                                                    title={`Test ${t(item.labelKey)} cursor`}
                                                     onMouseEnter={() => {
                                                         if (demoPack !== 'none') {
                                                             setActiveCursor(`./demo-cursors/${demoPack}/${demoMapping[item.mapKey] || item.action}.gif`);
@@ -1291,7 +1525,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     <div className=" text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors mb-2">
                                                         {item.icon}
                                                     </div>
-                                                    <span className="text-[10px] font-bold text-black dark:text-white dark:text-slate-200 text-center uppercase tracking-wider">{item.label}</span>
+                                                    <span className="text-[10px] font-bold text-black dark:text-white dark:text-slate-200 text-center uppercase tracking-wider">{t(item.labelKey)}</span>
                                                     <span className="text-[8px] font-mono text-black dark:text-white mt-1 opacity-70 group-hover:opacity-100 transition-opacity">{item.action}</span>
                                                 </div>
                                             ))}
@@ -1313,10 +1547,10 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                 Cursor<span className="text-teto dark:text-miku">Port</span>
                                             </h3>
                                             <p className="text-sm text-black dark:text-white leading-relaxed font-medium">
-                                                Bridging the gap between Windows customization and the Linux desktop experience with style and precision.
+                                                {t('footerDesc')}
                                             </p>
                                             <div className="flex justify-center md:justify-start gap-4 pt-2">
-                                                <a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer" title="GitHub Repository">
+                                                <a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer" title={t('githubRepo')}>
                                                     <Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon>
                                                 </a>
                                                 <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-neru hover:text-amber-900 transition-all cursor-pointer" title="GitHub Profile">
@@ -1327,18 +1561,18 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
 
                                         {/* LINKS */}
                                         <div className="space-y-4">
-                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Resources</h4>
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">{t('resources')}</h4>
                                             <ul className="space-y-2 text-sm font-medium text-black dark:text-white">
-                                                <li><a href="./documentation.html" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Documentation</a></li>
-                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">GitHub Repository</a></li>
-                                                <li><a href="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Icon Theme Specs</a></li>
-                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">Report Issues</a></li>
+                                                <li><a href="./documentation.html" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">{t('documentation')}</a></li>
+                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">{t('githubRepo')}</a></li>
+                                                <li><a href="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">{t('iconSpecs')}</a></li>
+                                                <li><a href="https://github.com/Eagle10021/Custom-Cursors-Linux/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teto dark:hover:text-miku cursor-pointer transition-colors">{t('reportIssues')}</a></li>
                                             </ul>
                                         </div>
 
                                         {/* ARTIST CREDIT */}
                                         <div className="space-y-4">
-                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Featured Artist</h4>
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">{t('featuredArtist')}</h4>
                                             <div className="flex flex-col sm:items-start items-center gap-3">
                                                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-300 dark:border-blue-700 shadow-sm">
                                                     <img src="./images/BLZ pfp.png" alt="BLZ" className="w-full h-full object-cover" />
@@ -1347,9 +1581,9 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 dark:text-blue-400 hover:underline text-sm block mb-1">
                                                         BLZ on Ko-fi
                                                     </a>
-                                                    <p className="text-xs text-black dark:text-white font-medium mb-1">Custom Animated Cursor Artist</p>
+                                                    <p className="text-xs text-black dark:text-white font-medium mb-1">{t('customArtistDesc')}</p>
                                                     <p className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                                                        <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer">Please check them out and support them!</a>
+                                                        <a href="https://ko-fi.com/U7U6Z367V" target="_blank" rel="noopener noreferrer">{t('supportArtist')}</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -1357,7 +1591,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
 
                                         {/* CHARACTER THEMES */}
                                         <div className="space-y-4">
-                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">Active Theme</h4>
+                                            <h4 className="text-xs font-black uppercase tracking-widest text-black dark:text-white">{t('activeTheme')}</h4>
                                             <div className="flex items-center gap-3 justify-center md:justify-start">
                                                 <div className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${isDark ? 'bg-miku/20 border-miku' : 'bg-teto/20 border-teto'}`}>
                                                     <img
@@ -1389,7 +1623,7 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                     <div>
                                                         <p className="text-xs text-neru font-black flex items-center gap-2 uppercase tracking-wide">
                                                             <span className="w-2 h-2 rounded-full bg-neru animate-pulse shadow-[0_0_8px_#F2C911]"></span>
-                                                            Akita Neru transition engine
+                                                            {t('neruTransitionEngine')}
                                                         </p>
                                                         <p className="text-[10px] text-black dark:text-white font-bold opacity-70 mt-0.5">
                                                             ART SOURCE: © Smith Hioka / CFM
