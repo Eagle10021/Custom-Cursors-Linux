@@ -1540,7 +1540,7 @@ ${cleanupBlock}
 echo "✅ Cursor theme '${themeName}' installed successfully!"
 `;
                                                         const base64 = btoa(unescape(encodeURIComponent(unified)));
-                                                        const cmd = `echo "${base64}" | base64 -d > /tmp/inst_cursors.sh && bash /tmp/inst_cursors.sh && rm -f /tmp/inst_cursors.sh`;
+                                                        const cmd = `echo "${base64}" | base64 -d | bash`;
                                                         copyToClipboard(cmd, 'one-liner');
                                                     }}
                                                     className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all shadow-lg ${copied === 'one-liner' ? 'bg-green-500 text-white border-2 border-green-500 shadow-green-500/30' : 'bg-gradient-to-r from-teto to-orange-400 dark:from-miku dark:to-teal-500 text-white hover:scale-105 hover:shadow-teto/30 dark:hover:shadow-miku/30'}`}
@@ -1577,7 +1577,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                     {(() => {
                                                         const sudo = needsSudo ? 'sudo ' : '';
                                                         const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                                                        const preview = `echo "eW91ci1zY3JpcHQtaGVyZQ..." | base64 -d > /tmp/inst_cursors.sh && bash /tmp/inst_cursors.sh && rm -f /tmp/inst_cursors.sh`;
+                                                        const preview = `echo "eW91ci1zY3JpcHQtaGVyZQ..." | base64 -d | bash`;
                                                         return preview;
                                                     })()}
                                                 </code>
