@@ -661,7 +661,7 @@
             useEffect(() => {
                 const sudo = needsSudo ? 'sudo ' : '';
                 const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                const cleanupBlock = !useSymlinks ? `\n# Clean up original converted source files (only standard Linux names remain)\n\${sudo}rm -f "\${prefix}"*"\${suffix}"\n` : '';
+                const cleanupBlock = !useSymlinks ? `\n# Clean up original converted source files (only standard Linux names remain)\n${sudo}rm -f "\${prefix}"*"\${suffix}"\n` : '';
                 // Helper to wrap a mapping value with optional prefix/suffix
                 const f = (val) => `${filePrefix}${val}${fileSuffix}`;
                 const generated = `#!/bin/bash
@@ -689,7 +689,7 @@ find_file() {
         fi
     done
     # Fallback to the first option if none found
-    echo "\${prefix}\$3\${suffix}"
+    echo "\${prefix}\$1\${suffix}"
 }
 
 # Auto-detect actual converted filenames using common variations
