@@ -661,6 +661,7 @@
             useEffect(() => {
                 const sudo = needsSudo ? 'sudo ' : '';
                 const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
+                const cleanupBlock = !useSymlinks ? `\n# Clean up original converted source files (only standard Linux names remain)\n\${sudo}rm -f "\${prefix}"*"\${suffix}"\n` : '';
                 // Helper to wrap a mapping value with optional prefix/suffix
                 const f = (val) => `${filePrefix}${val}${fileSuffix}`;
                 const generated = `#!/bin/bash
@@ -812,8 +813,8 @@ ${sudo}${lnCmd} "$alternate_file" plus
 
 # Person Select
 ${sudo}${lnCmd} "$person_file" person
-
-echo "✅ Symlinks created successfully for theme: ${themeName}"`;
+${cleanupBlock}
+echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                 setScriptContent(generated);
             }, [themeName, mappings, installPath, needsSudo, filePrefix, fileSuffix, useSymlinks]);
 
