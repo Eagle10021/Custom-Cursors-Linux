@@ -668,102 +668,102 @@ ${sudo}mkdir -p "${installPath}/${themeName}/cursors"
 cd "${installPath}/${themeName}/cursors"
 
 # --- SYMLINK COMMANDS ---
-# Pattern: ln -sf "[YOUR_FILE]" "[LINUX_NAME]"
+# Pattern: ${sudo}ln -sf "[YOUR_FILE]" "[LINUX_NAME]"
 
 # Normal / Default
-ln -sf "${f(mappings.normal)}" left_ptr
-ln -sf "${f(mappings.normal)}" default
-ln -sf "${f(mappings.normal)}" arrow
-ln -sf "${f(mappings.normal)}" top_left_arrow
+${sudo}ln -sf "${f(mappings.normal)}" left_ptr
+${sudo}ln -sf "${f(mappings.normal)}" default
+${sudo}ln -sf "${f(mappings.normal)}" arrow
+${sudo}ln -sf "${f(mappings.normal)}" top_left_arrow
 
 # Working / Busy
-ln -sf "${f(mappings.working)}" progress
-ln -sf "${f(mappings.working)}" left_ptr_watch
-ln -sf "${f(mappings.busy)}" watch
-ln -sf "${f(mappings.busy)}" wait
+${sudo}ln -sf "${f(mappings.working)}" progress
+${sudo}ln -sf "${f(mappings.working)}" left_ptr_watch
+${sudo}ln -sf "${f(mappings.busy)}" watch
+${sudo}ln -sf "${f(mappings.busy)}" wait
 
 # Link / Pointer
-ln -sf "${f(mappings.link)}" pointer
-ln -sf "${f(mappings.link)}" hand1
-ln -sf "${f(mappings.link)}" hand2
-ln -sf "${f(mappings.link)}" pointing_hand
+${sudo}ln -sf "${f(mappings.link)}" pointer
+${sudo}ln -sf "${f(mappings.link)}" hand1
+${sudo}ln -sf "${f(mappings.link)}" hand2
+${sudo}ln -sf "${f(mappings.link)}" pointing_hand
 
 # Text
-ln -sf "${f(mappings.text)}" xterm
-ln -sf "${f(mappings.text)}" text
-ln -sf "${f(mappings.text)}" ibeam
+${sudo}ln -sf "${f(mappings.text)}" xterm
+${sudo}ln -sf "${f(mappings.text)}" text
+${sudo}ln -sf "${f(mappings.text)}" ibeam
 
 # Precision
-ln -sf "${f(mappings.precision)}" crosshair
-ln -sf "${f(mappings.precision)}" cross
-ln -sf "${f(mappings.precision)}" diamond_cross
+${sudo}ln -sf "${f(mappings.precision)}" crosshair
+${sudo}ln -sf "${f(mappings.precision)}" cross
+${sudo}ln -sf "${f(mappings.precision)}" diamond_cross
 
 # Handwriting
-ln -sf "${f(mappings.hand)}" pencil
+${sudo}ln -sf "${f(mappings.hand)}" pencil
 
 # Unavailable
-ln -sf "${f(mappings.unavailable)}" forbidden
-ln -sf "${f(mappings.unavailable)}" crossed_circle
-ln -sf "${f(mappings.not_allowed)}" not-allowed
-ln -sf "${f(mappings.not_allowed)}" no-drop
+${sudo}ln -sf "${f(mappings.unavailable)}" forbidden
+${sudo}ln -sf "${f(mappings.unavailable)}" crossed_circle
+${sudo}ln -sf "${f(mappings.not_allowed)}" not-allowed
+${sudo}ln -sf "${f(mappings.not_allowed)}" no-drop
 
 # Help
-ln -sf "${f(mappings.help)}" help
-ln -sf "${f(mappings.help)}" question_arrow
-ln -sf "${f(mappings.help)}" dnd-ask
+${sudo}ln -sf "${f(mappings.help)}" help
+${sudo}ln -sf "${f(mappings.help)}" question_arrow
+${sudo}ln -sf "${f(mappings.help)}" dnd-ask
 
 # Move
-ln -sf "${f(mappings.move)}" move
-ln -sf "${f(mappings.move)}" fleur
-ln -sf "${f(mappings.move)}" size_all
-ln -sf "${f(mappings.move)}" grabbing
-ln -sf "${f(mappings.move)}" dnd-move
+${sudo}ln -sf "${f(mappings.move)}" move
+${sudo}ln -sf "${f(mappings.move)}" fleur
+${sudo}ln -sf "${f(mappings.move)}" size_all
+${sudo}ln -sf "${f(mappings.move)}" grabbing
+${sudo}ln -sf "${f(mappings.move)}" dnd-move
 
 # All Scroll
-ln -sf "${f(mappings.all_scroll)}" all-scroll
+${sudo}ln -sf "${f(mappings.all_scroll)}" all-scroll
 
 # Vertical Resize
-ln -sf "${f(mappings.vertical)}" ns-resize
-ln -sf "${f(mappings.vertical)}" n-resize
-ln -sf "${f(mappings.vertical)}" s-resize
-ln -sf "${f(mappings.vertical)}" sb_v_double_arrow
-ln -sf "${f(mappings.vertical)}" row-resize
-ln -sf "${f(mappings.vertical)}" top_side
-ln -sf "${f(mappings.vertical)}" bottom_side
+${sudo}ln -sf "${f(mappings.vertical)}" ns-resize
+${sudo}ln -sf "${f(mappings.vertical)}" n-resize
+${sudo}ln -sf "${f(mappings.vertical)}" s-resize
+${sudo}ln -sf "${f(mappings.vertical)}" sb_v_double_arrow
+${sudo}ln -sf "${f(mappings.vertical)}" row-resize
+${sudo}ln -sf "${f(mappings.vertical)}" top_side
+${sudo}ln -sf "${f(mappings.vertical)}" bottom_side
 
 # Horizontal Resize
-ln -sf "${f(mappings.horizontal)}" ew-resize
-ln -sf "${f(mappings.horizontal)}" e-resize
-ln -sf "${f(mappings.horizontal)}" w-resize
-ln -sf "${f(mappings.horizontal)}" sb_h_double_arrow
-ln -sf "${f(mappings.horizontal)}" col-resize
-ln -sf "${f(mappings.horizontal)}" left_side
-ln -sf "${f(mappings.horizontal)}" right_side
+${sudo}ln -sf "${f(mappings.horizontal)}" ew-resize
+${sudo}ln -sf "${f(mappings.horizontal)}" e-resize
+${sudo}ln -sf "${f(mappings.horizontal)}" w-resize
+${sudo}ln -sf "${f(mappings.horizontal)}" sb_h_double_arrow
+${sudo}ln -sf "${f(mappings.horizontal)}" col-resize
+${sudo}ln -sf "${f(mappings.horizontal)}" left_side
+${sudo}ln -sf "${f(mappings.horizontal)}" right_side
 
 # Diagonal Resize (NW-SE)
-ln -sf "${f(mappings.diag1)}" nwse-resize
-ln -sf "${f(mappings.diag1)}" nw-resize
-ln -sf "${f(mappings.diag1)}" se-resize
-ln -sf "${f(mappings.diag1)}" ul_angle
+${sudo}ln -sf "${f(mappings.diag1)}" nwse-resize
+${sudo}ln -sf "${f(mappings.diag1)}" nw-resize
+${sudo}ln -sf "${f(mappings.diag1)}" se-resize
+${sudo}ln -sf "${f(mappings.diag1)}" ul_angle
 
 # Diagonal Resize (NE-SW)
-ln -sf "${f(mappings.diag2)}" nesw-resize
-ln -sf "${f(mappings.diag2)}" ne-resize
-ln -sf "${f(mappings.diag2)}" sw-resize
-ln -sf "${f(mappings.diag2)}" ur_angle
+${sudo}ln -sf "${f(mappings.diag2)}" nesw-resize
+${sudo}ln -sf "${f(mappings.diag2)}" ne-resize
+${sudo}ln -sf "${f(mappings.diag2)}" sw-resize
+${sudo}ln -sf "${f(mappings.diag2)}" ur_angle
 
 # Pin
-ln -sf "${f(mappings.pin)}" pin
-ln -sf "${f(mappings.pin)}" location-arrow
-ln -sf "${f(mappings.pin)}" alias
-ln -sf "${f(mappings.pin)}" dnd-link
+${sudo}ln -sf "${f(mappings.pin)}" pin
+${sudo}ln -sf "${f(mappings.pin)}" location-arrow
+${sudo}ln -sf "${f(mappings.pin)}" alias
+${sudo}ln -sf "${f(mappings.pin)}" dnd-link
 
 # Alternate Select
-ln -sf "${f(mappings.alternate)}" cell
-ln -sf "${f(mappings.alternate)}" plus
+${sudo}ln -sf "${f(mappings.alternate)}" cell
+${sudo}ln -sf "${f(mappings.alternate)}" plus
 
 # Person Select
-ln -sf "${f(mappings.person)}" person
+${sudo}ln -sf "${f(mappings.person)}" person
 
 echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                 setScriptContent(generated);
