@@ -12,6 +12,41 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="./sitemap.xml">
     <link rel="canonical" href="https://cursorport.01blue.org/" />
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cursorport.01blue.org/">
+    <meta property="og:title" content="CursorPort | Port Windows Cursors to Linux">
+    <meta property="og:description" content="A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.">
+    <meta property="og:image" content="https://cursorport.01blue.org/images/miku.png">
+    <meta property="og:site_name" content="CursorPort">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CursorPort | Port Windows Cursors to Linux">
+    <meta name="twitter:description" content="A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.">
+    <meta name="twitter:image" content="https://cursorport.01blue.org/images/miku.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CursorPort",
+      "url": "https://cursorport.01blue.org/",
+      "description": "A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Eagle",
+        "url": "https://github.com/Eagle10021"
+      }
+    }
+    </script>
+
     <!-- 
         LIBRARIES:
         - Tailwind CSS: Utility-first CSS framework for rapid UI development.
@@ -137,6 +172,30 @@
         const Globe = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></Icon>;
         const ChevronDown = (p) => <Icon {...p}><polyline points="6 9 12 15 18 9"></polyline></Icon>;
 
+        // --- PERSISTENCE HELPER (defined outside App to avoid re-creation on render) ---
+        const useStickyState = (defaultValue, key) => {
+            const [value, setValue] = React.useState(() => {
+                const stickyValue = localStorage.getItem(key);
+                if (stickyValue !== null) {
+                    try {
+                        const parsed = JSON.parse(stickyValue);
+                        // Merge objects to ensure new default keys show up
+                        if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+                            return { ...defaultValue, ...parsed };
+                        }
+                        return parsed;
+                    } catch (e) {
+                        return defaultValue;
+                    }
+                }
+                return defaultValue;
+            });
+            React.useEffect(() => {
+                localStorage.setItem(key, JSON.stringify(value));
+            }, [key, value]);
+            return [value, setValue];
+        };
+
         // --- MAIN APP COMPONENT ---
         const App = () => {
             const [copied, setCopied] = useState(null);
@@ -177,29 +236,7 @@
                 document.documentElement.classList.toggle('dark', isDark);
             }, [isDark]);
 
-            // --- PERSISTENCE HELPERS ---
-            const useStickyState = (defaultValue, key) => {
-                const [value, setValue] = useState(() => {
-                    const stickyValue = localStorage.getItem(key);
-                    if (stickyValue !== null) {
-                        try {
-                            const parsed = JSON.parse(stickyValue);
-                            // Merge objects to ensure new default keys show up
-                            if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
-                                return { ...defaultValue, ...parsed };
-                            }
-                            return parsed;
-                        } catch (e) {
-                            return defaultValue;
-                        }
-                    }
-                    return defaultValue;
-                });
-                useEffect(() => {
-                    localStorage.setItem(key, JSON.stringify(value));
-                }, [key, value]);
-                return [value, setValue];
-            };
+            // useStickyState is defined at module level (above App) for correctness
 
             // --- CONFIG STATES (Persistent) ---
             const [username, setUsername] = useStickyState('eagle', 'cp_username');
@@ -227,7 +264,9 @@
                 diag1: 'Diagonal1',
                 diag2: 'Diagonal2',
                 pin: 'Pin',
-                all_scroll: 'Move'
+                all_scroll: 'Move',
+                alternate: 'Alternate',
+                person: 'Person'
             }, 'cp_mappings');
 
             // --- SCRIPT STATE ---
@@ -235,25 +274,35 @@
             const [scriptContent, setScriptContent] = useState('');
             const [isPackDropdownOpen, setIsPackDropdownOpen] = useState(false);
 
-            // Helper: Copies text to clipboard using a temporary textarea
-            // Fallback method used to ensure compatibility
+            // Helper: Copies text to clipboard
+            // Uses modern navigator.clipboard API with execCommand fallback for compatibility
             const copyToClipboard = (text, id) => {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-9999px";
-                textArea.style.top = "0";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
+                const onSuccess = () => {
                     setCopied(id);
                     setTimeout(() => setCopied(null), 2000);
-                } catch (err) {
-                    console.error('Fallback copy failed', err);
+                };
+                const fallback = () => {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    textArea.style.top = "0";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        onSuccess();
+                    } catch (err) {
+                        console.error('Fallback copy failed', err);
+                    }
+                    document.body.removeChild(textArea);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(onSuccess).catch(fallback);
+                } else {
+                    fallback();
                 }
-                document.body.removeChild(textArea);
             };
 
             // Helper: Download Script as .sh file
@@ -273,46 +322,116 @@
             // Note: This overrides manual edits, which is standard for generators. 
             // We could add a "lock" feature if requested later.
             useEffect(() => {
-                const generated = `cd ~/.local/share/icons/${themeName}/cursors
+                const generated = `#!/bin/bash
+# CursorPort — Generated Symlink Script
+# Theme: ${themeName}
+# Generated by https://cursorport.01blue.org/
+
+set -e  # Exit immediately on any error
+
+# Ensure the cursor directory exists before cd'ing into it
+mkdir -p ~/.local/share/icons/${themeName}/cursors
+cd ~/.local/share/icons/${themeName}/cursors
 
 # --- SYMLINK COMMANDS ---
 # Pattern: ln -sf [YOUR_FILE] [LINUX_NAME]
 
+# Normal / Default
 ln -sf ${mappings.normal} left_ptr
 ln -sf ${mappings.normal} default
 ln -sf ${mappings.normal} arrow
+ln -sf ${mappings.normal} top_left_arrow
+
+# Working / Busy
 ln -sf ${mappings.working} progress
 ln -sf ${mappings.working} left_ptr_watch
 ln -sf ${mappings.busy} watch
 ln -sf ${mappings.busy} wait
+
+# Link / Pointer
 ln -sf ${mappings.link} pointer
+ln -sf ${mappings.link} hand1
 ln -sf ${mappings.link} hand2
+ln -sf ${mappings.link} pointing_hand
+
+# Text
 ln -sf ${mappings.text} xterm
 ln -sf ${mappings.text} text
+ln -sf ${mappings.text} ibeam
+
+# Precision
 ln -sf ${mappings.precision} crosshair
+ln -sf ${mappings.precision} cross
+ln -sf ${mappings.precision} diamond_cross
+
+# Handwriting
 ln -sf ${mappings.hand} pencil
+
+# Unavailable
 ln -sf ${mappings.unavailable} forbidden
 ln -sf ${mappings.unavailable} crossed_circle
 ln -sf ${mappings.not_allowed} not-allowed
+ln -sf ${mappings.not_allowed} no-drop
+
+# Help
 ln -sf ${mappings.help} help
+ln -sf ${mappings.help} question_arrow
+ln -sf ${mappings.help} dnd-ask
+
+# Move
 ln -sf ${mappings.move} move
 ln -sf ${mappings.move} fleur
+ln -sf ${mappings.move} size_all
+ln -sf ${mappings.move} grabbing
+ln -sf ${mappings.move} dnd-move
+
+# All Scroll
 ln -sf ${mappings.all_scroll} all-scroll
-ln -sf ${mappings.all_scroll} size_all
+
+# Vertical Resize
 ln -sf ${mappings.vertical} ns-resize
 ln -sf ${mappings.vertical} n-resize
 ln -sf ${mappings.vertical} s-resize
+ln -sf ${mappings.vertical} sb_v_double_arrow
+ln -sf ${mappings.vertical} row-resize
+ln -sf ${mappings.vertical} top_side
+ln -sf ${mappings.vertical} bottom_side
+
+# Horizontal Resize
 ln -sf ${mappings.horizontal} ew-resize
 ln -sf ${mappings.horizontal} e-resize
 ln -sf ${mappings.horizontal} w-resize
+ln -sf ${mappings.horizontal} sb_h_double_arrow
+ln -sf ${mappings.horizontal} col-resize
+ln -sf ${mappings.horizontal} left_side
+ln -sf ${mappings.horizontal} right_side
+
+# Diagonal Resize (NW-SE)
 ln -sf ${mappings.diag1} nwse-resize
 ln -sf ${mappings.diag1} nw-resize
 ln -sf ${mappings.diag1} se-resize
+ln -sf ${mappings.diag1} ul_angle
+
+# Diagonal Resize (NE-SW)
 ln -sf ${mappings.diag2} nesw-resize
 ln -sf ${mappings.diag2} ne-resize
 ln -sf ${mappings.diag2} sw-resize
+ln -sf ${mappings.diag2} ur_angle
+
+# Pin
 ln -sf ${mappings.pin} pin
-ln -sf ${mappings.pin} location-arrow`;
+ln -sf ${mappings.pin} location-arrow
+ln -sf ${mappings.pin} alias
+ln -sf ${mappings.pin} dnd-link
+
+# Alternate Select
+ln -sf ${mappings.alternate} cell
+ln -sf ${mappings.alternate} plus
+
+# Person Select
+ln -sf ${mappings.person} person
+
+echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                 setScriptContent(generated);
             }, [themeName, mappings]);
 
@@ -459,7 +578,7 @@ ln -sf ${mappings.pin} location-arrow`;
                                             </div>
                                         </button>
 
-                                        <a href="#" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                                        <a href="https://github.com/Eagle10021/Custom-Cursors-Linux/releases" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                                             <span className="w-2 h-2 rounded-full bg-neru animate-pulse"></span>
                                             v2.1.0
                                         </a>
@@ -568,7 +687,7 @@ ln -sf ${mappings.pin} location-arrow`;
                                                 </div>
                                                 <input
                                                     type="range"
-                                                    min="24" max="96" step="8"
+                                                    min="16" max="96" step="4"
                                                     value={cursorSize}
                                                     onChange={(e) => setCursorSize(parseInt(e.target.value))}
                                                     className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teto dark:[&::-webkit-slider-thumb]:bg-miku [&::-webkit-slider-thumb]:transition-all hover:[&::-webkit-slider-thumb]:scale-125"
@@ -1102,11 +1221,11 @@ ln -sf ${mappings.pin} location-arrow`;
                                                 Bridging the gap between Windows customization and the Linux desktop experience with style and precision.
                                             </p>
                                             <div className="flex justify-center md:justify-start gap-4 pt-2">
-                                                <a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer">
-                                                    <i className="fa-brands fa-github"><Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon></i>
+                                                <a href="https://github.com/Eagle10021/Custom-Cursors-Linux" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-teto hover:text-white dark:hover:bg-miku dark:hover:text-black transition-all cursor-pointer" title="GitHub Repository">
+                                                    <Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon>
                                                 </a>
-                                                <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-neru hover:text-amber-900 transition-all cursor-pointer">
-                                                    <Icon size={16}><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></Icon>
+                                                <a href="https://github.com/Eagle10021" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-black dark:text-white hover:bg-neru hover:text-amber-900 transition-all cursor-pointer" title="GitHub Profile">
+                                                    <Icon size={16}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon>
                                                 </a>
                                             </div>
                                         </div>
