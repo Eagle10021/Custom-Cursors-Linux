@@ -1514,6 +1514,28 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                 </button>
                                             </div>
 
+                                            {/* Pipeline Steps Flow */}
+                                            <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+                                                {[
+                                                    { icon: '✓', label: t('step1Title') || 'Install win2xcur', color: 'bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800' },
+                                                    { icon: '✓', label: t('step2Title') || 'Convert Files', color: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800' },
+                                                    { icon: '✓', label: t('step3Title') || 'Register Theme', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' },
+                                                    { icon: '✓', label: useSymlinks ? 'Symlink' : 'Copy + Cleanup', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' },
+                                                ].map((step, i, arr) => (
+                                                    <React.Fragment key={i}>
+                                                        <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-[9px] font-bold uppercase tracking-wider ${step.color}`}>
+                                                            <span className="font-black">{step.icon}</span>
+                                                            <span>{step.label}</span>
+                                                        </div>
+                                                        {i < arr.length - 1 && (
+                                                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="text-slate-400 dark:text-slate-600 flex-shrink-0">
+                                                                <path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                            </svg>
+                                                        )}
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+
                                             <div className="relative bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center gap-3 overflow-hidden">
                                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teto to-orange-400 dark:from-miku dark:to-teal-500 rounded-l-2xl"></div>
                                                 <code className="flex-1 font-mono text-[10px] text-slate-300 overflow-x-auto whitespace-nowrap custom-scrollbar pl-3 select-all leading-relaxed">
