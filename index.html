@@ -1324,10 +1324,10 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
 
                                                  <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
                                                      <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-3 px-2 leading-relaxed">
-                                                         {`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`}
+                                                         {`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\n${needsSudo ? 'sudo ' : ''}win2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`}
                                                      </code>
                                                      <button
-                                                         onClick={() => copyToClipboard(`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\nwin2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`, 'convert-cmd')}
+                                                         onClick={() => copyToClipboard(`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\n${needsSudo ? 'sudo ' : ''}win2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"`, 'convert-cmd')}
                                                          className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
                                                      >
                                                          {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -1411,8 +1411,26 @@ echo "✅ Symlinks created successfully for theme: ${themeName}"`;
                                                         <ol className="list-decimal pl-4 space-y-1">
                                                             <li>{t('howToRunStep1')}</li>
                                                             <li>{t('howToRunStep2')}</li>
-                                                            <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">chmod +x install_cursors.sh</code> to make it executable.</li>
-                                                            <li>Run <code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">./install_cursors.sh</code> to execute it.</li>
+                                                            <li>
+                                                                {(() => {
+                                                                    const text = t('howToRunStep3');
+                                                                    const cmd = 'chmod +x install_cursors.sh';
+                                                                    const parts = text.split(cmd);
+                                                                    return parts.length > 1 ? (
+                                                                        <span>{parts[0]}<code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">{cmd}</code>{parts[1]}</span>
+                                                                    ) : text;
+                                                                })()}
+                                                            </li>
+                                                            <li>
+                                                                {(() => {
+                                                                    const cmd = `${needsSudo ? 'sudo ' : ''}./install_cursors.sh`;
+                                                                    const text = t('howToRunStep4').replace('./install_cursors.sh', cmd);
+                                                                    const parts = text.split(cmd);
+                                                                    return parts.length > 1 ? (
+                                                                        <span>{parts[0]}<code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">{cmd}</code>{parts[1]}</span>
+                                                                    ) : text;
+                                                                })()}
+                                                            </li>
                                                         </ol>
                                                         <div className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/30">
                                                             <span className="font-bold">{t('compatibility')}</span> {t('compatibilityDesc')}
