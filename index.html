@@ -661,7 +661,7 @@
             useEffect(() => {
                 const sudo = needsSudo ? 'sudo ' : '';
                 const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                const cleanupBlock = !useSymlinks ? `\n# Clean up original converted source files (only standard Linux names remain)\n${sudo}rm -f "\${prefix}"*"\${suffix}"\n` : '';
+                const cleanupBlock = !useSymlinks ? `\n# Clean up original converted source files (only standard Linux names remain)\n${sudo}rm -f "${filePrefix}"*"${fileSuffix}"\n` : '';
                 // Helper to wrap a mapping value with optional prefix/suffix
                 const f = (val) => `${filePrefix}${val}${fileSuffix}`;
                 const generated = `#!/bin/bash
@@ -697,28 +697,26 @@ find_file() {
 }
 
 # Auto-detect actual converted filenames using common variations
-prefix="${filePrefix}"
-suffix="${fileSuffix}"
 
-normal_file=$(find_file "$prefix" "$suffix" "Normal" "${mappings.normal}" "Normal" "default" "left_ptr")
-working_file=$(find_file "$prefix" "$suffix" "Working" "${mappings.working}" "Working" "work" "progress")
-busy_file=$(find_file "$prefix" "$suffix" "Busy" "${mappings.busy}" "Busy" "wait" "watch")
-link_file=$(find_file "$prefix" "$suffix" "Link" "${mappings.link}" "Link" "pointer" "hand")
-text_file=$(find_file "$prefix" "$suffix" "Text" "${mappings.text}" "Text" "ibeam" "xterm")
-precision_file=$(find_file "$prefix" "$suffix" "Precision" "${mappings.precision}" "Precision" "crosshair" "cross")
-hand_file=$(find_file "$prefix" "$suffix" "Handwriting" "${mappings.hand}" "Handwriting" "Handwrite" "pencil" "pen")
-unavailable_file=$(find_file "$prefix" "$suffix" "Unavailable" "${mappings.unavailable}" "Unavailable" "forbidden" "crossed_circle")
-not_allowed_file=$(find_file "$prefix" "$suffix" "Not Allowed" "${mappings.not_allowed}" "Unavailable" "not-allowed" "no-drop" "forbidden")
-help_file=$(find_file "$prefix" "$suffix" "Help" "${mappings.help}" "Help" "question" "dnd-ask")
-move_file=$(find_file "$prefix" "$suffix" "Move" "${mappings.move}" "Move" "fleur" "size_all")
-all_scroll_file=$(find_file "$prefix" "$suffix" "All Scroll" "${mappings.all_scroll}" "Move" "all-scroll" "fleur" "size_all")
-vertical_file=$(find_file "$prefix" "$suffix" "Vertical" "${mappings.vertical}" "Vertical" "VertRes" "ns-resize")
-horizontal_file=$(find_file "$prefix" "$suffix" "Horizontal" "${mappings.horizontal}" "Horizontal" "HoriRes" "ew-resize")
-diag1_file=$(find_file "$prefix" "$suffix" "Diagonal NW-SE" "${mappings.diag1}" "Diagonal1" "DiaRes1" "nwse-resize")
-diag2_file=$(find_file "$prefix" "$suffix" "Diagonal NE-SW" "${mappings.diag2}" "Diagonal2" "DiaRes2" "nesw-resize")
-pin_file=$(find_file "$prefix" "$suffix" "Pin" "${mappings.pin}" "Pin" "Location" "pin")
-alternate_file=$(find_file "$prefix" "$suffix" "Alternate" "${mappings.alternate}" "Alternate" "cell" "plus")
-person_file=$(find_file "$prefix" "$suffix" "Person" "${mappings.person}" "Person" "people")
+normal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Normal" "${mappings.normal}" "Normal" "default" "left_ptr")
+working_file=$(find_file "${filePrefix}" "${fileSuffix}" "Working" "${mappings.working}" "Working" "work" "progress")
+busy_file=$(find_file "${filePrefix}" "${fileSuffix}" "Busy" "${mappings.busy}" "Busy" "wait" "watch")
+link_file=$(find_file "${filePrefix}" "${fileSuffix}" "Link" "${mappings.link}" "Link" "pointer" "hand")
+text_file=$(find_file "${filePrefix}" "${fileSuffix}" "Text" "${mappings.text}" "Text" "ibeam" "xterm")
+precision_file=$(find_file "${filePrefix}" "${fileSuffix}" "Precision" "${mappings.precision}" "Precision" "crosshair" "cross")
+hand_file=$(find_file "${filePrefix}" "${fileSuffix}" "Handwriting" "${mappings.hand}" "Handwriting" "Handwrite" "pencil" "pen")
+unavailable_file=$(find_file "${filePrefix}" "${fileSuffix}" "Unavailable" "${mappings.unavailable}" "Unavailable" "forbidden" "crossed_circle")
+not_allowed_file=$(find_file "${filePrefix}" "${fileSuffix}" "Not Allowed" "${mappings.not_allowed}" "Unavailable" "not-allowed" "no-drop" "forbidden")
+help_file=$(find_file "${filePrefix}" "${fileSuffix}" "Help" "${mappings.help}" "Help" "question" "dnd-ask")
+move_file=$(find_file "${filePrefix}" "${fileSuffix}" "Move" "${mappings.move}" "Move" "fleur" "size_all")
+all_scroll_file=$(find_file "${filePrefix}" "${fileSuffix}" "All Scroll" "${mappings.all_scroll}" "Move" "all-scroll" "fleur" "size_all")
+vertical_file=$(find_file "${filePrefix}" "${fileSuffix}" "Vertical" "${mappings.vertical}" "Vertical" "VertRes" "ns-resize")
+horizontal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Horizontal" "${mappings.horizontal}" "Horizontal" "HoriRes" "ew-resize")
+diag1_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NW-SE" "${mappings.diag1}" "Diagonal1" "DiaRes1" "nwse-resize")
+diag2_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NE-SW" "${mappings.diag2}" "Diagonal2" "DiaRes2" "nesw-resize")
+pin_file=$(find_file "${filePrefix}" "${fileSuffix}" "Pin" "${mappings.pin}" "Pin" "Location" "pin")
+alternate_file=$(find_file "${filePrefix}" "${fileSuffix}" "Alternate" "${mappings.alternate}" "Alternate" "cell" "plus")
+person_file=$(find_file "${filePrefix}" "${fileSuffix}" "Person" "${mappings.person}" "Person" "people")
 
 # --- SYMLINK COMMANDS ---
 # Pattern: ${sudo}${lnCmd} "[YOUR_FILE]" "[LINUX_NAME]"
