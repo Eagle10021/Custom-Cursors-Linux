@@ -181,6 +181,8 @@
                 copied: 'Copied to Clipboard',
                 copiedShort: 'Copied',
                 copyOneLiner: 'Copy One-Liner',
+                quickInstall: 'Quick Install Command (No File Saving Needed)',
+                quickInstallDesc: 'Copies a single terminal command that checks for win2xcur, converts the files, registers the theme, maps all roles, and cleans up safely in one go.',
                 copyShort: 'Copy',
                 configTitle: 'Configuration',
                 infoHint: (u, t) => `Update ${u} to your username and ${t} to your theme name.`,
@@ -288,6 +290,8 @@
                 copied: 'Panoya Kopyalandı',
                 copiedShort: 'Kopyalandı',
                 copyOneLiner: 'Tek Satır Kopyala',
+                quickInstall: 'Hızlı Kurulum Komutu (Dosya Kaydetme Gerekmez)',
+                quickInstallDesc: 'win2xcur kontrolünü yapan, Windows dosyalarını çeviren, temayı kaydeden ve tüm imleç eşleştirmelerini yapıp güvenle temizleyen tek satırlık komple komutu kopyalar.',
                 copyShort: 'Kopyala',
                 configTitle: 'Yapılandırma',
                 infoHint: (u, t) => `${u} kısmını Linux kullanıcı adınızla, ${t} kısmını tema adınızla güncelleyin.`,
@@ -395,6 +399,8 @@
                 copied: '已复制到剪贴板',
                 copiedShort: '已复制',
                 copyOneLiner: '复制单行命令',
+                quickInstall: '快速安装命令（无需保存文件）',
+                quickInstallDesc: '复制单个终端命令，自动检查 win2xcur、转换光标文件、注册主题、映射所有角色并安全清理。',
                 copyShort: '复制',
                 configTitle: '配置',
                 infoHint: (u, t) => `将 ${u} 更新为您的用户名，将 ${t} 更新为您的主题名称。`,
@@ -1459,17 +1465,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                         <Icon size={12}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>
                                                         {t('download')} .sh
                                                     </button>
-                                                    <button
-                                                        onClick={() => {
-                                                            const base64 = btoa(unescape(encodeURIComponent(scriptContent)));
-                                                            const cmd = `echo "${base64}" | base64 -d > /tmp/inst_cursors.sh && bash /tmp/inst_cursors.sh && rm -f /tmp/inst_cursors.sh`;
-                                                            copyToClipboard(cmd, 'one-liner');
-                                                        }}
-                                                        className={`flex items-center gap-2 px-4 py-1.5 bg-teto-50 dark:bg-miku-900/20 hover:bg-teto-100 dark:hover:bg-miku-900/40 text-teto-700 dark:text-miku-300 rounded-lg text-[10px] font-bold transition-all border border-teto-200 dark:border-miku-800 uppercase tracking-wider ${copied === 'one-liner' ? 'animate-copy-pulse border-green-500' : ''}`}
-                                                    >
-                                                        {copied === 'one-liner' ? <Check size={12} className="text-green-500" /> : <Terminal size={12} />}
-                                                        {copied === 'one-liner' ? t('copiedShort') : t('copyOneLiner')}
-                                                    </button>
+
                                                     <button
                                                         onClick={() => copyToClipboard(scriptContent, 'full-script')}
                                                         className={`flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-black dark:text-white rounded-lg text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-700 uppercase tracking-wider ${copied === 'full-script' ? 'animate-copy-pulse border-green-500' : ''}`}
@@ -1494,6 +1490,183 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                             </div>
 
                                             <div className="border-t border-slate-200 dark:border-slate-800 p-6 bg-slate-50 dark:bg-[#0b1120] transition-colors">
+                                                {/* QUICK INSTALL COMMAND */}
+                                                <div className="mb-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 transition-colors">
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <span className="text-[10px] font-bold text-black dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                                                            <Terminal size={12} className="text-teto dark:text-miku" />
+                                                            {t('quickInstall')}
+                                                        </span>
+                                                        <button
+                                                            onClick={() => {
+                                                            const sudo = needsSudo ? 'sudo ' : '';
+                                                            const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
+                                                            const cleanupBlock = !useSymlinks ? `
+# Clean up original converted source files safely without wildcards
+for file in "$normal_file" "$working_file" "$busy_file" "$link_file" "$text_file" "$precision_file" "$hand_file" "$unavailable_file" "$not_allowed_file" "$help_file" "$move_file" "$all_scroll_file" "$vertical_file" "$horizontal_file" "$diag1_file" "$diag2_file" "$pin_file" "$alternate_file" "$person_file"; do
+    if [ -f "$file" ]; then
+        ${sudo}rm -f "$file"
+    fi
+done
+` : '';
+                                                            const unified = `#!/bin/bash
+# CursorPort — Unified Installation Script
+# Theme: ${themeName}
+# Source: ${sourcePath}
+# Destination: ${installPath}/${themeName}
+
+set -e
+
+# 1. Check if win2xcur is installed
+if ! command -v win2xcur &> /dev/null; then
+    echo "❌ Error: 'win2xcur' is not installed on your system." >&2
+    echo "Please install it first (e.g., 'pip install win2xcur' or via your package manager)." >&2
+    exit 1
+fi
+
+# 2. Ensure cursor directory exists
+${sudo}mkdir -p "${installPath}/${themeName}/cursors"
+
+# 3. Convert files
+echo "🌀 Converting Windows cursor files..."
+${sudo}win2xcur "${sourcePath}"/*.{ani,cur} -o "${installPath}/${themeName}/cursors/"
+
+# 4. Register Theme
+echo "📝 Registering icon theme..."
+printf '[Icon Theme]\\nName=${themeName}\\nInherits=Adwaita\\n' | ${sudo}tee "${installPath}/${themeName}/index.theme" > /dev/null
+
+# 5. Create symlinks or copy files
+cd "${installPath}/${themeName}/cursors"
+
+# Helper function to find the first existing file in current directory among alternatives
+find_file() {
+    local prefix="\\$1"
+    local suffix="\\$2"
+    local role="\\$3"
+    shift 3
+    for name in "\\$@"; do
+        local file="\\${prefix}\\${name}\\${suffix}"
+        if [ -f "\\$file" ]; then
+            echo "🔍 [\\${role}] -> Found: \\$file" >&2
+            echo "\\$file"
+            return 0
+        fi
+    done
+    # Fallback to the first option if none found
+    local fallback="\\${prefix}\\$1\\${suffix}"
+    echo "⚠️ [\\${role}] -> Not found! Falling back to: \\$fallback" >&2
+    echo "\\$fallback"
+}
+
+# Auto-detect actual converted filenames using common variations
+normal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Normal" "${mappings.normal}" "Normal" "default" "left_ptr")
+working_file=$(find_file "${filePrefix}" "${fileSuffix}" "Working" "${mappings.working}" "Working" "work" "progress")
+busy_file=$(find_file "${filePrefix}" "${fileSuffix}" "Busy" "${mappings.busy}" "Busy" "wait" "watch")
+link_file=$(find_file "${filePrefix}" "${fileSuffix}" "Link" "${mappings.link}" "Link" "pointer" "hand")
+text_file=$(find_file "${filePrefix}" "${fileSuffix}" "Text" "${mappings.text}" "Text" "ibeam" "xterm")
+precision_file=$(find_file "${filePrefix}" "${fileSuffix}" "Precision" "${mappings.precision}" "Precision" "crosshair" "cross")
+hand_file=$(find_file "${filePrefix}" "${fileSuffix}" "Handwriting" "${mappings.hand}" "Handwriting" "Handwrite" "pencil" "pen")
+unavailable_file=$(find_file "${filePrefix}" "${fileSuffix}" "Unavailable" "${mappings.unavailable}" "Unavailable" "forbidden" "crossed_circle")
+not_allowed_file=$(find_file "${filePrefix}" "${fileSuffix}" "Not Allowed" "${mappings.not_allowed}" "Unavailable" "not-allowed" "no-drop" "forbidden")
+help_file=$(find_file "${filePrefix}" "${fileSuffix}" "Help" "${mappings.help}" "Help" "question" "dnd-ask")
+move_file=$(find_file "${filePrefix}" "${fileSuffix}" "Move" "${mappings.move}" "Move" "fleur" "size_all")
+all_scroll_file=$(find_file "${filePrefix}" "${fileSuffix}" "All Scroll" "${mappings.all_scroll}" "Move" "all-scroll" "fleur" "size_all")
+vertical_file=$(find_file "${filePrefix}" "${fileSuffix}" "Vertical" "${mappings.vertical}" "Vertical" "VertRes" "ns-resize")
+horizontal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Horizontal" "${mappings.horizontal}" "Horizontal" "HoriRes" "ew-resize")
+diag1_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NW-SE" "${mappings.diag1}" "Diagonal1" "DiaRes1" "nwse-resize")
+diag2_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NE-SW" "${mappings.diag2}" "Diagonal2" "DiaRes2" "nesw-resize")
+pin_file=$(find_file "${filePrefix}" "${fileSuffix}" "Pin" "${mappings.pin}" "Pin" "Location" "pin")
+alternate_file=$(find_file "${filePrefix}" "${fileSuffix}" "Alternate" "${mappings.alternate}" "Alternate" "cell" "plus")
+person_file=$(find_file "${filePrefix}" "${fileSuffix}" "Person" "${mappings.person}" "Person" "people")
+
+# --- SYMLINK COMMANDS ---
+${sudo}${lnCmd} "$normal_file" left_ptr
+${sudo}${lnCmd} "$normal_file" default
+${sudo}${lnCmd} "$normal_file" arrow
+${sudo}${lnCmd} "$normal_file" top_left_arrow
+${sudo}${lnCmd} "$working_file" progress
+${sudo}${lnCmd} "$working_file" left_ptr_watch
+${sudo}${lnCmd} "$busy_file" watch
+${sudo}${lnCmd} "$busy_file" wait
+${sudo}${lnCmd} "$link_file" pointer
+${sudo}${lnCmd} "$link_file" hand1
+${sudo}${lnCmd} "$link_file" hand2
+${sudo}${lnCmd} "$link_file" pointing_hand
+${sudo}${lnCmd} "$text_file" xterm
+${sudo}${lnCmd} "$text_file" text
+${sudo}${lnCmd} "$text_file" ibeam
+${sudo}${lnCmd} "$precision_file" crosshair
+${sudo}${lnCmd} "$precision_file" cross
+${sudo}${lnCmd} "$precision_file" diamond_cross
+${sudo}${lnCmd} "$hand_file" pencil
+${sudo}${lnCmd} "$unavailable_file" forbidden
+${sudo}${lnCmd} "$unavailable_file" crossed_circle
+${sudo}${lnCmd} "$not_allowed_file" not-allowed
+${sudo}${lnCmd} "$not_allowed_file" no-drop
+${sudo}${lnCmd} "$help_file" help
+${sudo}${lnCmd} "$help_file" question_arrow
+${sudo}${lnCmd} "$help_file" dnd-ask
+${sudo}${lnCmd} "$move_file" move
+${sudo}${lnCmd} "$move_file" fleur
+${sudo}${lnCmd} "$move_file" size_all
+${sudo}${lnCmd} "$move_file" grabbing
+${sudo}${lnCmd} "$move_file" dnd-move
+${sudo}${lnCmd} "$all_scroll_file" all-scroll
+${sudo}${lnCmd} "$vertical_file" ns-resize
+${sudo}${lnCmd} "$vertical_file" n-resize
+${sudo}${lnCmd} "$vertical_file" s-resize
+${sudo}${lnCmd} "$vertical_file" sb_v_double_arrow
+${sudo}${lnCmd} "$vertical_file" row-resize
+${sudo}${lnCmd} "$vertical_file" top_side
+${sudo}${lnCmd} "$vertical_file" bottom_side
+${sudo}${lnCmd} "$horizontal_file" ew-resize
+${sudo}${lnCmd} "$horizontal_file" e-resize
+${sudo}${lnCmd} "$horizontal_file" w-resize
+${sudo}${lnCmd} "$horizontal_file" sb_h_double_arrow
+${sudo}${lnCmd} "$horizontal_file" col-resize
+${sudo}${lnCmd} "$horizontal_file" left_side
+${sudo}${lnCmd} "$horizontal_file" right_side
+${sudo}${lnCmd} "$diag1_file" nwse-resize
+${sudo}${lnCmd} "$diag1_file" nw-resize
+${sudo}${lnCmd} "$diag1_file" se-resize
+${sudo}${lnCmd} "$diag1_file" ul_angle
+${sudo}${lnCmd} "$diag2_file" nesw-resize
+${sudo}${lnCmd} "$diag2_file" ne-resize
+${sudo}${lnCmd} "$diag2_file" sw-resize
+${sudo}${lnCmd} "$diag2_file" ur_angle
+${sudo}${lnCmd} "$pin_file" pin
+${sudo}${lnCmd} "$pin_file" location-arrow
+${sudo}${lnCmd} "$pin_file" alias
+${sudo}${lnCmd} "$pin_file" dnd-link
+${sudo}${lnCmd} "$alternate_file" cell
+${sudo}${lnCmd} "$alternate_file" plus
+${sudo}${lnCmd} "$person_file" person
+
+${cleanupBlock}
+
+echo "✅ Cursor theme '${themeName}' installed successfully!"
+`;
+                                                            const base64 = btoa(unescape(encodeURIComponent(unified)));
+                                                            const cmd = `echo "${base64}" | base64 -d > /tmp/inst_cursors.sh && bash /tmp/inst_cursors.sh && rm -f /tmp/inst_cursors.sh`;
+                                                            copyToClipboard(cmd, 'one-liner');
+                                                        }}
+                                                            className={`flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold rounded-lg border border-slate-200 dark:border-slate-700 uppercase transition-all ${copied === 'one-liner' ? 'text-green-500 border-green-500' : 'text-slate-600 dark:text-slate-300'}`}
+                                                        >
+                                                            {copied === 'one-liner' ? <Check size={10} /> : <Copy size={10} />}
+                                                            {copied === 'one-liner' ? t('copiedShort') : t('copyShort')}
+                                                        </button>
+                                                    </div>
+                                                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 flex items-center">
+                                                        <code className="flex-1 font-mono text-[9px] text-slate-800 dark:text-slate-200 overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 select-all">
+                                                            {(() => {
+                                                                const base64 = btoa(unescape(encodeURIComponent(scriptContent)));
+                                                                return `echo "${base64.substring(0, 15)}..." | base64 -d > /tmp/inst_cursors.sh && bash /tmp/inst_cursors.sh && rm -f /tmp/inst_cursors.sh`;
+                                                            })()}
+                                                        </code>
+                                                    </div>
+                                                    <p className="text-[8px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{t('quickInstallDesc')}</p>
+                                                </div>
+
                                                 {/* COMMAND INSTRUCTIONS */}
                                                 <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 flex gap-3">
                                                     <div className="mt-0.5 text-amber-500"><Info size={16} /></div>
