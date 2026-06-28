@@ -681,14 +681,14 @@ find_file() {
     local suffix="$2"
     shift 2
     for name in "$@"; do
-        local file="${prefix}${name}${suffix}"
+        local file="\${prefix}\${name}\${suffix}"
         if [ -f "$file" ]; then
             echo "$file"
             return 0
         fi
     done
     # Fallback to the first option if none found
-    echo "${prefix}$3${suffix}"
+    echo "\${prefix}\$3\${suffix}"
 }
 
 # Auto-detect actual converted filenames using common variations
