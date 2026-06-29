@@ -736,10 +736,10 @@ ln -sf ${mappings.pin} location-arrow`;
 
                                                 <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
                                                     <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-3 px-2 leading-relaxed">
-                                                        {`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.{ani,cur} -o ~/.local/share/icons/${themeName}/cursors/`}
+                                                        {`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.ani -o ~/.local/share/icons/${themeName}/cursors/`}
                                                     </code>
                                                     <button
-                                                        onClick={() => copyToClipboard(`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.{ani,cur} -o ~/.local/share/icons/${themeName}/cursors/`, 'convert-cmd')}
+                                                        onClick={() => copyToClipboard(`mkdir -p ~/.local/share/icons/${themeName}/cursors\nwin2xcur "${sourcePath}"/*.ani -o ~/.local/share/icons/${themeName}/cursors/`, 'convert-cmd')}
                                                         className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
                                                     >
                                                         {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
