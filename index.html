@@ -843,7 +843,7 @@ ln -sf ${mappings.pin} location-arrow`;
                                                     {[
                                                         { label: "GNOME / Cinnamon / Budgie", cmd: `gsettings set org.gnome.desktop.interface cursor-size ${cursorSize}` },
                                                         { label: "XFCE Desktop", cmd: `xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s ${cursorSize}` },
-                                                        { label: "KDE Plasma 5/6 (Requires Restart)", cmd: `kwriteconfig5 --file kcminputrc --group Mouse --key cursorSize ${cursorSize}` }
+                                                        { label: "KDE Plasma 5/6 (Requires Restart)", cmd: `kwriteconfig6 --file kcminputrc --group Mouse --key cursorSize ${cursorSize}` }
                                                     ].map((item, idx) => (
                                                         <div key={idx} className="group relative">
                                                             <div className="text-[9px] font-bold text-black dark:text-white mb-1 uppercase tracking-wider pl-1">{item.label}</div>
