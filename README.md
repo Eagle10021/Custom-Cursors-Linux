@@ -37,7 +37,9 @@ The website handles the logic, but you'll need the `win2xcur` tool on your syste
 ## Credits & Support
 
 * **Featured Artist:** <img src="./images/BLZ pfp.png" width="20" height="20" align="center" /> Big thanks to [BLZ Cursors](https://ko-fi.com/U7U6Z367V) for letting me feature their work. If you like the cursors in the demo, definitely consider supporting them on Ko-fi!
-* **Contributors:** A huge shoutout to [hoangcaominh](https://github.com/hoangcaominh) for contributing a massive expansion to the symlink coverage. Thanks to their help, CursorPort now handles even more edge-case apps and desktop environments!
+* **Contributors:** 
+  * A huge shoutout to [hoangcaominh](https://github.com/hoangcaominh) for contributing a massive expansion to the symlink coverage. Thanks to their help, CursorPort now handles even more edge-case apps and desktop environments!
+  * Big thanks to [fr0stb1rd](https://github.com/fr0stb1rd) for implementing the quick install one-liner (no need to download the script!) and several awesome UI tweaks.
 * **Inspiration:** The UI themes are inspired by Hatsune Miku, Kasane Teto, and Akita Neru.
 
 ## License
