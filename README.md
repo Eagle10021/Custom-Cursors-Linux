@@ -44,4 +44,4 @@ The website handles the logic, but you'll need the `win2xcur` tool on your syste
 
 ## License
 
-This is an open-source project. Feel free to fork it, fix bugs, or add your own features!
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details. Feel free to fork it, fix bugs, or contribute new features!
