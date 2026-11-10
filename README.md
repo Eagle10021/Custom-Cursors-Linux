@@ -1,32 +1,59 @@
 # CursorPort
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-If you've ever tried moving your favorite Windows cursors over to Linux, you know it can be a bit of a headache. **CursorPort** is a simple, web-based tool I built to bridge that gap. It helps you take Windows animated (`.ani`) and static (`.cur`) cursors and turn them into a theme that actually works on your Linux desktop.
+If you've ever tried moving your favorite Windows cursors over to Linux, you know it can be a bit of a headache. **CursorPort** is a simple, web-based tool I built to bridge that gap. It helps you take Windows animated (`.ani`) and static (`.cur`) cursors and turn them into a theme that actually works on your Linux desktop, either right in your browser or with a generated install script.
 
 ## What it does
 
-- **Distro Friendly**: Whether you're on Arch, Ubuntu, Fedora, or something else entirely, it'll work.
-- **Live Commands**: As you type your username or theme name, the tool generates the exact terminal commands you need, no more guessing paths.
-- **Featured Packs**: I've teamed up with artists like **BLZ** to include authorized demos (like the Frieren pack) right in the app.
-- **Visual Mapping**: Instead of editing config files by hand, you can visually map Windows roles like "Working in Background" to their Linux equivalents.
-- **One-Click Script**: It generates a `generate_symlink.sh` script for you that handles all the messy symlinking (over 50+ variations) automatically.
-- **Beautiful UI**: Switch between "Miku" (Dark) and "Teto" (Light) modes depending on your vibe.
-- **Remembers Your Work**: Your paths and mappings are saved locally, so you can pick up right where you left off.
+- **Load your pack**: Pick the folder or `.zip` you downloaded (or drag it onto the page). CursorPort reads the pack's `install.inf` (or guesses from the file names) and fills in the role mapping, theme name and live preview for you. Your files never leave the browser.
+- **Build the theme in your browser**: Converts `.ani` and `.cur` files right on the page, no `win2xcur` needed, and downloads a ready-to-install Linux cursor theme (`.tar.gz` with an `install.sh`).
+- **`.ani` and `.cur` support**: Animated and static cursors, BMP and PNG frames, multiple sizes per file. The script and the manual commands handle packs with only `.ani`, only `.cur`, a mix, or upper-case extensions.
+- **One script that does it all**: The generated `install_cursors.sh` converts the files, registers the theme, links 100+ Linux cursor names to the right files, checks for broken links and tells you which roles the pack doesn't have.
+- **Applies itself**: After installing, the script switches your desktop to the new theme (KDE Plasma, GNOME, XFCE, Cinnamon, MATE, Hyprland, Sway, with a fallback for everything else). You can turn this off.
+- **Live preview**: Hover the demo blocks to see your own cursors animate, or try the featured BLZ packs.
+- **Edit the script safely**: Lock the script to keep your manual edits. Changing settings won't overwrite them until you hit Regenerate.
+- **Distro friendly**: Arch, Ubuntu/Kubuntu, Fedora, Debian or anything else with bash.
+- **Featured packs**: I've teamed up with artists like **BLZ** to include authorized demos (like the Frieren pack) right in the app.
+- **Beautiful UI**: Switch between "Miku" (Dark) and "Teto" (Light) modes depending on your vibe, in English, Turkish or Chinese.
+- **Remembers your work**: Your paths and mappings are saved locally, so you can pick up right where you left off.
 
 ## How to use it
 
-1. **[Open CursorPort](https://cursorport.01blue.org/)** — No installation needed, it runs right in your browser.
-2. **Grab your files**: Get the `.ani` or `.cur` files you want to use.
-3. **Convert**: Follow the steps in the tool to run `win2xcur`. It'll give you the exact command to copy-paste.
-4. **Organize**: Put your new cursors in `~/.local/share/icons/` using the command.
-5. **Run the script**: Download and run the generated shell script to finish the setup.
+### The easy way (no install)
+
+1. **[Open CursorPort](https://cursorport.01blue.org/)**.
+2. **Load your pack**: Click *Choose Folder* (or drop the folder / `.zip` on the card).
+3. **Check the mapping**: Each role shows a small preview, and anything the pack doesn't have is marked.
+4. **Download the theme**: Click *Download Theme* under *Build Theme in Browser*.
+5. **Install it**:
+   ```bash
+   tar xf "MyTheme.tar.gz" && bash "MyTheme/install.sh"
+   ```
+
+### With the install script
+
+1. Install `win2xcur` (see below).
+2. Load your pack on the page (or fill in the theme name, source folder and mapping yourself).
+3. Copy the one-liner, or download `install_cursors.sh` and run it as your normal user (not with `sudo`):
+   ```bash
+   bash install_cursors.sh ~/Downloads/MyCursors
+   ```
+
+Set `CURSORPORT_APPLY=0` before either script to install without switching to the theme.
 
 ## Prerequisites
 
-The website handles the logic, but you'll need the `win2xcur` tool on your system to do the heavy lifting:
+Only the install script needs `win2xcur`. Building in the browser doesn't.
 
 * **Arch Linux:** `yay -S win2xcur`
-* **Everywhere else (Pip):** `pip install win2xcur`
+* **Ubuntu / Kubuntu / Debian:** `sudo apt install pipx imagemagick && pipx install win2xcur`
+* **Fedora:** `sudo dnf install pipx ImageMagick && pipx install win2xcur`
+
+Plain `pip install` is blocked on most current distros, which is why it's `pipx`.
+
+## Fixed in v4
+
+* **Kubuntu (and every distro): broken links after install** ([#4](https://github.com/Eagle10021/Custom-Cursors-Linux/issues/4)). The old script only converted `*.ani` files, so any cursor that came as a `.cur` was never created, and roles it couldn't find were still linked to a file that didn't exist. On a test Kubuntu 26.04 install that left 22 broken links. The new script converts both types, never links to a missing file, checks for broken links at the end, and was tested on Kubuntu 26.04 with the real `win2xcur`.
 
 ## Gallery
 

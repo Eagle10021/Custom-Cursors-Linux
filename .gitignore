@@ -8,3 +8,18 @@ node_modules/
 install_cursors.sh
 Cursor Demos/
 cursor_tools.py
+
+# Cursor packs are paid artist work: never commit source or converted cursors.
+# (demo-cursors/*.gif previews are the only cursor art allowed in the repo.)
+*.ani
+*.ANI
+*.cur
+*.CUR
+*.ico
+*.inf
+*.INF
+*.zip
+*.tar
+*.tar.gz
+*.xcursor
+cursors/

@@ -7,7 +7,7 @@
     <meta name="google-site-verification" content="Iq4VjplwyCSG4Hkg1UaD0y5qH226S4cUjNtAWePIuyY" />
     <title>CursorPort | Port Windows Cursors to Linux</title>
     <meta name="description"
-        content="CursorPort | Windows to Linux Cursor Converter - A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.">
+        content="CursorPort | Windows to Linux Cursor Converter - A free tool to port Windows .ani and .cur cursors to Linux (KDE, GNOME, XFCE and more). Converts in your browser or generates an install script, for X11 and Wayland.">
     <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="./sitemap.xml">
     <link rel="canonical" href="https://cursorport.01blue.org/" />
@@ -17,13 +17,13 @@
     <meta property="og:url" content="https://cursorport.01blue.org/">
     <meta property="og:title" content="CursorPort | Port Windows Cursors to Linux">
     <meta property="og:description"
-        content="A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.">
+        content="A free tool to port Windows .ani and .cur cursors to Linux (KDE, GNOME, XFCE and more). Converts in your browser or generates an install script, for X11 and Wayland.">
     <meta property="og:image" content="https://cursorport.01blue.org/images/Page_Miku.jpeg">
     <meta property="og:site_name" content="CursorPort">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CursorPort | Port Windows Cursors to Linux">
     <meta name="twitter:description"
-        content="A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.">
+        content="A free tool to port Windows .ani and .cur cursors to Linux (KDE, GNOME, XFCE and more). Converts in your browser or generates an install script, for X11 and Wayland.">
     <meta name="twitter:image" content="https://cursorport.01blue.org/images/Page_Miku.jpeg">
     <meta property="og:image:alt" content="CursorPort Preview">
     <meta name="twitter:image:alt" content="CursorPort Preview">
@@ -35,7 +35,7 @@
       "@type": "WebApplication",
       "name": "CursorPort",
       "url": "https://cursorport.01blue.org/",
-      "description": "A premium tool to seamlessly port Windows .ani cursors to Linux (GNOME, KDE, XFCE). Featuring universal support for X11 & Wayland with instant installation.",
+      "description": "A free tool to port Windows .ani and .cur cursors to Linux (KDE, GNOME, XFCE and more). Converts in your browser or generates an install script, for X11 and Wayland.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Linux",
       "offers": {
@@ -141,6 +141,8 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+    <!-- Converter, install.inf reader and script generator (shared, testable in Node) -->
+    <script src="./js/cursorport-core.js?v=4.0"></script>
 
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -227,16 +229,16 @@
                 copiedShort: 'Copied',
                 copyOneLiner: 'Copy One-Liner',
                 quickInstall: 'Quick Install Command (No File Saving Needed)',
-                quickInstallDesc: 'Copies a single terminal command that checks for win2xcur, converts the files, registers the theme, maps all roles, and cleans up safely in one go.',
+                quickInstallDesc: 'Copies one terminal command that converts your .ani and .cur files, registers the theme, links every cursor name and applies it. Needs win2xcur.',
                 copyShort: 'Copy',
                 configTitle: 'Configuration',
-                infoHint: (u, t) => `Update ${u} to your username and ${t} to your theme name.`,
+                infoHint: 'Load a cursor pack above to fill this in automatically, or type it yourself. ~ means your home folder.',
                 deviceUsername: 'Device Username',
                 themeName: 'Theme Name',
                 autoSyncPath: 'Auto-Sync Path',
                 autoSyncTitle: 'Automatically update Source Path folder name',
-                sourcePath: 'Source Path (.ani)',
-                sourcePathHint: '(Absolute path to original files)',
+                sourcePath: 'Source Folder (.ani / .cur)',
+                sourcePathHint: '(where the Windows files are; ~ = home)',
                 installLocation: 'Install Location',
                 sudoRequired: 'sudo required',
                 user: 'User',
@@ -250,11 +252,11 @@
                 suffix: 'Suffix',
                 wrapperHint: 'In the script, each filename is used as Prefix + Value + Suffix.',
                 step1Title: '1. Install win2xcur',
-                step1Desc: 'Tool needed for .ani conversion',
+                step1Desc: 'Only needed for the script. Building in the browser does not need it.',
                 step2Title: '2. Convert Files',
-                step2Desc: 'Process all animations',
+                step2Desc: 'Converts every .ani and .cur file',
                 step3Title: '3. Register Theme',
-                step3GnomeHint: 'Make visible to GNOME',
+                step3GnomeHint: 'Makes the theme visible to KDE, GNOME and others',
                 optionalSize: 'Optional: Change Cursor Size',
                 postTip: 'Post-deployment Tip:',
                 postMsg: (size) => `If the default cursor size (${size}px) doesn't look right, run the command above to force an update.`,
@@ -281,12 +283,12 @@
                 browserFixStep2: '2. Paste These Flags',
                 browserFixStep2Hint: '(To save in Nano: Press Ctrl+O, Enter, then Ctrl+X)',
                 pipelineTitle: 'Deployment Pipeline',
-                pipelineDesc: 'Follow these steps sequentially to convert your .ani files and install them.',
+                pipelineDesc: 'Prefer doing it by hand? Run these steps in order.',
                 howToRun: 'How to run this script:',
                 howToRunStep1: 'Click Download .sh to save the file.',
                 howToRunStep2: 'Open your terminal and navigate to the download location.',
-                howToRunStep3: 'Run chmod +x install_cursors.sh to make it executable.',
-                howToRunStep4: 'Run ./install_cursors.sh to execute it.',
+                howToRunStep3: 'Run bash install_cursors.sh (add the cursor folder after it to use a different source folder).',
+                howToRunStep4: 'Run it as your normal user, not with sudo. It asks for a password only when installing system-wide.',
                 compatibility: 'Compatibility:',
                 compatibilityDesc: 'Universal Linux Support (Ubuntu, Fedora, Arch, etc.). Note: If copy-pasting directly in Fish shell, type `bash` first to switch shell, or download/save as a file and run it.',
                 demoTitle: 'Interactive Demo Area',
@@ -327,6 +329,42 @@
                 activeTheme: 'Active Theme',
                 neruTransitionEngine: 'Akita Neru transition engine',
                 customArtistDesc: 'Custom Animated Cursor Artist',
+                packTitle: 'Load Cursor Pack',
+                packDesc: 'Pick the folder or .zip you downloaded. CursorPort reads its install.inf (or the file names) and fills in the mapping, theme name and live preview. Your files never leave the browser.',
+                packFolder: 'Choose Folder',
+                packFiles: 'Files or .zip',
+                packDrop: 'or drop a folder, .zip, .ani or .cur files here',
+                packLoading: 'Reading cursors…',
+                packLoaded: (n) => `${n} cursors loaded`,
+                packFromInf: 'Mapping read from install.inf',
+                packFromNames: 'Mapping guessed from file names. Check it below.',
+                packErrors: (n) => `${n} file(s) could not be read`,
+                packNone: 'No .ani or .cur files found',
+                packClear: 'Clear',
+                packPathNote: 'Check the Source Folder path: browsers cannot see where the folder is on disk.',
+                buildTitle: 'Build Theme in Browser',
+                buildBadge: 'NO INSTALL',
+                buildDesc: 'Converts the loaded pack right here, without win2xcur, and downloads a ready Linux cursor theme with an install script.',
+                buildButton: 'Download Theme',
+                buildWorking: 'Building…',
+                buildNeedsPack: 'Load a cursor pack first (left column).',
+                buildThen: 'Then extract it and run:',
+                buildMissing: 'not in pack, uses system cursor',
+                buildShared: 'shares',
+                buildError: 'Build failed:',
+                autoApply: 'Apply Automatically',
+                autoApplyHint: 'After installing, the script switches KDE, GNOME, XFCE, Cinnamon, MATE, Hyprland or Sway to the new theme.',
+                lock: 'Lock',
+                unlock: 'Unlock',
+                lockedNote: 'Locked: your manual edits are kept and settings changes no longer rewrite the script.',
+                regenerate: 'Regenerate',
+                reset: 'Reset',
+                resetConfirm: 'Reset all settings to defaults?',
+                yourPack: 'Your Pack',
+                yourPackDesc: 'Loaded from your files',
+                yourPackNote: 'Previewing your own cursors. Animations play from the original frames.',
+                notInPack: 'not in pack',
+                step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora (plain pip is blocked there)',
             },
             tr: {
                 langLabel: 'TR',
@@ -336,16 +374,16 @@
                 copiedShort: 'Kopyalandı',
                 copyOneLiner: 'Tek Satır Kopyala',
                 quickInstall: 'Hızlı Kurulum Komutu (Dosya Kaydetme Gerekmez)',
-                quickInstallDesc: 'win2xcur kontrolünü yapan, Windows dosyalarını çeviren, temayı kaydeden ve tüm imleç eşleştirmelerini yapıp güvenle temizleyen tek satırlık komple komutu kopyalar.',
+                quickInstallDesc: '.ani ve .cur dosyalarınızı dönüştüren, temayı kaydeden, tüm imleç adlarını bağlayan ve temayı uygulayan tek bir terminal komutu kopyalar. win2xcur gerektirir.',
                 copyShort: 'Kopyala',
                 configTitle: 'Yapılandırma',
-                infoHint: (u, t) => `${u} kısmını Linux kullanıcı adınızla, ${t} kısmını tema adınızla güncelleyin.`,
+                infoHint: 'Yukarıdan imleç paketinizi yükleyerek bu alanları otomatik doldurun ya da kendiniz yazın. ~ ev klasörünüz anlamına gelir.',
                 deviceUsername: 'Kullanıcı Adı',
                 themeName: 'Tema Adı',
                 autoSyncPath: 'Otomatik Senkronizasyon',
                 autoSyncTitle: 'Kaynak Yol klasör adını otomatik güncelle',
-                sourcePath: 'Kaynak Yol (.ani)',
-                sourcePathHint: '(Orijinal dosyaların tam yolu)',
+                sourcePath: 'Kaynak Klasör (.ani / .cur)',
+                sourcePathHint: '(Windows dosyalarının yeri; ~ = ev klasörü)',
                 installLocation: 'Kurulum Konumu',
                 sudoRequired: 'sudo gerekli',
                 user: 'Kullanıcı',
@@ -359,11 +397,11 @@
                 suffix: 'Sonek',
                 wrapperHint: "Script'te her dosya adı Önek + Değer + Sonek olarak kullanılır.",
                 step1Title: '1. win2xcur Kurulumu',
-                step1Desc: '.ani dönüşümü için gerekli araç',
+                step1Desc: 'Yalnızca betik için gerekli. Tarayıcıda oluşturma için gerekmez.',
                 step2Title: '2. Dosyaları Dönüştür',
-                step2Desc: 'Tüm animasyonları işle',
+                step2Desc: 'Tüm .ani ve .cur dosyalarını dönüştürür',
                 step3Title: '3. Temayı Kaydet',
-                step3GnomeHint: "GNOME'a görünür yap",
+                step3GnomeHint: 'Temayı KDE, GNOME ve diğerlerine görünür yapar',
                 optionalSize: 'İsteğe Bağlı: Cursor Boyutunu Değiştir',
                 postTip: 'Kurulum Sonrası İpucu:',
                 postMsg: (size) => `Varsayılan cursor boyutu (${size}px) doğru görünmüyorsa, güncellemeye zorlamak için yukarıdaki komutu çalıştırın.`,
@@ -390,12 +428,12 @@
                 browserFixStep2: '2. Bu Bayrakları Yapıştırın',
                 browserFixStep2Hint: '(Nano\'da kaydetmek için: Ctrl+O, Enter, ardından Ctrl+X tuşlarına basın)',
                 pipelineTitle: 'Kurulum Hattı',
-                pipelineDesc: '.ani dosyalarınızı dönüştürmek ve yüklemek için bu adımları sırayla takip edin.',
+                pipelineDesc: 'Elle yapmayı mı tercih edersiniz? Bu adımları sırayla çalıştırın.',
                 howToRun: 'Bu betik nasıl çalıştırılır:',
                 howToRunStep1: 'Dosyayı kaydetmek için Download .sh butonuna tıklayın.',
                 howToRunStep2: 'Terminalinizi açın ve indirme konumuna gidin.',
-                howToRunStep3: 'Çalıştırılabilir yapmak için chmod +x install_cursors.sh komutunu çalıştırın.',
-                howToRunStep4: 'Çalıştırmak için ./install_cursors.sh komutunu çalıştırın.',
+                howToRunStep3: 'bash install_cursors.sh komutunu çalıştırın (farklı bir kaynak klasör için sonuna imleç klasörünü ekleyin).',
+                howToRunStep4: 'Normal kullanıcınızla çalıştırın, sudo ile değil. Parolayı yalnızca sistem geneline kurarken sorar.',
                 compatibility: 'Uyumluluk:',
                 compatibilityDesc: 'Evrensel Linux Desteği (Ubuntu, Fedora, Arch vb.). Not: Fish kabuğu kullanıyorsanız ve komutları doğrudan terminale yapıştıracaksanız, önce `bash` yazarak Bash\'e geçiş yapın veya betiği indirip dosya olarak çalıştırın.',
                 demoTitle: 'Etkileşimli Demo Alanı',
@@ -436,6 +474,42 @@
                 activeTheme: 'Aktif Tema',
                 neruTransitionEngine: 'Akita Neru geçiş motoru',
                 customArtistDesc: 'Özel Animasyonlu Cursors Sanatçısı',
+                packTitle: 'İmleç Paketi Yükle',
+                packDesc: 'İndirdiğiniz klasörü veya .zip dosyasını seçin. CursorPort install.inf dosyasını (veya dosya adlarını) okuyup eşleştirmeyi, tema adını ve canlı önizlemeyi doldurur. Dosyalarınız tarayıcıdan çıkmaz.',
+                packFolder: 'Klasör Seç',
+                packFiles: 'Dosya veya .zip',
+                packDrop: 'veya buraya klasör, .zip, .ani ya da .cur dosyaları bırakın',
+                packLoading: 'İmleçler okunuyor…',
+                packLoaded: (n) => `${n} imleç yüklendi`,
+                packFromInf: 'Eşleştirme install.inf dosyasından okundu',
+                packFromNames: 'Eşleştirme dosya adlarından tahmin edildi. Aşağıdan kontrol edin.',
+                packErrors: (n) => `${n} dosya okunamadı`,
+                packNone: '.ani veya .cur dosyası bulunamadı',
+                packClear: 'Temizle',
+                packPathNote: 'Kaynak Klasör yolunu kontrol edin: tarayıcılar klasörün diskteki yerini göremez.',
+                buildTitle: 'Temayı Tarayıcıda Oluştur',
+                buildBadge: 'KURULUM YOK',
+                buildDesc: 'Yüklenen paketi win2xcur olmadan burada dönüştürür ve kurulum betiği içeren hazır bir Linux imleç teması indirir.',
+                buildButton: 'Temayı İndir',
+                buildWorking: 'Oluşturuluyor…',
+                buildNeedsPack: 'Önce bir imleç paketi yükleyin (sol sütun).',
+                buildThen: 'Ardından arşivi açıp şunu çalıştırın:',
+                buildMissing: 'pakette yok, sistem imleci kullanılır',
+                buildShared: 'paylaşır',
+                buildError: 'Oluşturma başarısız:',
+                autoApply: 'Otomatik Uygula',
+                autoApplyHint: 'Kurulumdan sonra betik KDE, GNOME, XFCE, Cinnamon, MATE, Hyprland veya Sway\'i yeni temaya geçirir.',
+                lock: 'Kilitle',
+                unlock: 'Kilidi Aç',
+                lockedNote: 'Kilitli: elle yaptığınız düzenlemeler korunur ve ayar değişiklikleri betiği artık yeniden yazmaz.',
+                regenerate: 'Yeniden Oluştur',
+                reset: 'Sıfırla',
+                resetConfirm: 'Tüm ayarlar varsayılana sıfırlansın mı?',
+                yourPack: 'Sizin Paketiniz',
+                yourPackDesc: 'Dosyalarınızdan yüklendi',
+                yourPackNote: 'Kendi imleçlerinizi önizliyorsunuz. Animasyonlar orijinal karelerden oynatılır.',
+                notInPack: 'pakette yok',
+                step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora (orada düz pip engellidir)',
             },
             zh: {
                 langLabel: 'ZH',
@@ -445,16 +519,16 @@
                 copiedShort: '已复制',
                 copyOneLiner: '复制单行命令',
                 quickInstall: '快速安装命令（无需保存文件）',
-                quickInstallDesc: '复制单个终端命令，自动检查 win2xcur、转换光标文件、注册主题、映射所有角色并安全清理。',
+                quickInstallDesc: '复制一条终端命令：转换 .ani 和 .cur 文件、注册主题、链接所有光标名称并应用主题。需要 win2xcur。',
                 copyShort: '复制',
                 configTitle: '配置',
-                infoHint: (u, t) => `将 ${u} 更新为您的用户名，将 ${t} 更新为您的主题名称。`,
+                infoHint: '在上方加载光标包即可自动填写，或手动输入。~ 表示您的主目录。',
                 deviceUsername: '设备用户名',
                 themeName: '主题名称',
                 autoSyncPath: '自动同步路径',
                 autoSyncTitle: '自动更新源路径文件夹名称',
-                sourcePath: '源路径 (.ani)',
-                sourcePathHint: '（原始文件的绝对路径）',
+                sourcePath: '源文件夹 (.ani / .cur)',
+                sourcePathHint: '（Windows 文件所在位置；~ = 主目录）',
                 installLocation: '安装位置',
                 sudoRequired: '需要 sudo',
                 user: '用户',
@@ -468,11 +542,11 @@
                 suffix: '后缀',
                 wrapperHint: '在脚本中，每个文件名都用作 前缀 + 值 + 后缀。',
                 step1Title: '1. 安装 win2xcur',
-                step1Desc: '.ani 转换所需的工具',
+                step1Desc: '仅脚本需要。在浏览器中构建不需要。',
                 step2Title: '2. 转换文件',
-                step2Desc: '处理所有动画',
+                step2Desc: '转换所有 .ani 和 .cur 文件',
                 step3Title: '3. 注册主题',
-                step3GnomeHint: '使 GNOME 可见',
+                step3GnomeHint: '让 KDE、GNOME 等桌面识别该主题',
                 optionalSize: '可选：更改光标大小',
                 postTip: '部署后提示：',
                 postMsg: (size) => `如果默认光标大小（${size}px）看起来不合适，请运行上面的命令以强制更新。`,
@@ -499,12 +573,12 @@
                 browserFixStep2: '2. 粘贴这些标志',
                 browserFixStep2Hint: '（在 Nano 中保存：按 Ctrl+O，回车，然后按 Ctrl+X）',
                 pipelineTitle: '部署管道',
-                pipelineDesc: '按照以下步骤依次转换并安装您的 .ani 文件。',
+                pipelineDesc: '想手动操作？请按顺序运行以下步骤。',
                 howToRun: '如何运行此脚本：',
                 howToRunStep1: '点击 下载 .sh 保存文件。',
                 howToRunStep2: '打开终端并导航到下载位置。',
-                howToRunStep3: '运行 chmod +x install_cursors.sh 使其可执行。',
-                howToRunStep4: '运行 ./install_cursors.sh 执行它。',
+                howToRunStep3: '运行 bash install_cursors.sh（可在后面加上光标文件夹以使用其他源文件夹）。',
+                howToRunStep4: '请以普通用户运行，不要使用 sudo。仅在系统范围安装时才会要求输入密码。',
                 compatibility: '兼容性：',
                 compatibilityDesc: '通用 Linux 支持（Ubuntu、Fedora、Arch 等）。注意：如果直接在 Fish shell 中复制粘贴，请先输入 `bash` 切换 Shell，或者下载/保存为文件运行。',
                 demoTitle: '互动演示区域',
@@ -545,13 +619,77 @@
                 activeTheme: '当前主题',
                 neruTransitionEngine: 'Akita Neru 转换引擎',
                 customArtistDesc: '自定义动画光标艺术家',
+                packTitle: '加载光标包',
+                packDesc: '选择您下载的文件夹或 .zip。CursorPort 会读取 install.inf（或文件名），自动填写映射、主题名称和实时预览。文件不会离开浏览器。',
+                packFolder: '选择文件夹',
+                packFiles: '文件或 .zip',
+                packDrop: '或将文件夹、.zip、.ani 或 .cur 文件拖放到这里',
+                packLoading: '正在读取光标…',
+                packLoaded: (n) => `已加载 ${n} 个光标`,
+                packFromInf: '映射来自 install.inf',
+                packFromNames: '映射根据文件名推测，请在下方检查。',
+                packErrors: (n) => `${n} 个文件无法读取`,
+                packNone: '未找到 .ani 或 .cur 文件',
+                packClear: '清除',
+                packPathNote: '请检查源文件夹路径：浏览器无法得知文件夹在磁盘上的位置。',
+                buildTitle: '在浏览器中构建主题',
+                buildBadge: '无需安装',
+                buildDesc: '无需 win2xcur，直接在此转换已加载的光标包，并下载附带安装脚本的 Linux 光标主题。',
+                buildButton: '下载主题',
+                buildWorking: '正在构建…',
+                buildNeedsPack: '请先加载光标包（左栏）。',
+                buildThen: '然后解压并运行：',
+                buildMissing: '包中没有，使用系统光标',
+                buildShared: '共用',
+                buildError: '构建失败：',
+                autoApply: '自动应用',
+                autoApplyHint: '安装后，脚本会将 KDE、GNOME、XFCE、Cinnamon、MATE、Hyprland 或 Sway 切换到新主题。',
+                lock: '锁定',
+                unlock: '解锁',
+                lockedNote: '已锁定：保留您的手动编辑，更改设置不会再覆盖脚本。',
+                regenerate: '重新生成',
+                reset: '重置',
+                resetConfirm: '将所有设置重置为默认值？',
+                yourPack: '您的光标包',
+                yourPackDesc: '从您的文件加载',
+                yourPackNote: '正在预览您自己的光标，动画按原始帧播放。',
+                notInPack: '包中没有',
+                step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora（这些系统禁止直接使用 pip）',
             },
+        };
+
+        const CP = window.CursorPort;
+
+        // Storage can be blocked (private windows, strict settings); the page
+        // still works, it just forgets settings.
+        const storage = {
+            get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+            set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+            remove: (k) => { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } },
+        };
+
+        // v3 saved the author's own paths as defaults for every visitor.
+        // Those exact values are cleared once so the page starts neutral.
+        (() => {
+            const old = {
+                cp_themeName: '"Shorekeeper"',
+                cp_sourcePath: '"/home/eagle/Documents/Custom Cursors/Shorekeeper/Cursors"',
+            };
+            Object.entries(old).forEach(([k, v]) => { if (storage.get(k) === v) storage.remove(k); });
+            storage.remove('cp_username');
+        })();
+
+        const DEFAULTS = {
+            themeName: 'MyCursors',
+            sourcePath: '~/Downloads/MyCursors',
+            cursorSize: 32,
+            installPath: '$HOME/.local/share/icons',
         };
 
         // --- PERSISTENCE HELPER (defined outside App to avoid re-creation on render) ---
         const useStickyState = (defaultValue, key) => {
             const [value, setValue] = React.useState(() => {
-                const stickyValue = localStorage.getItem(key);
+                const stickyValue = storage.get(key);
                 if (stickyValue !== null) {
                     try {
                         const parsed = JSON.parse(stickyValue);
@@ -567,9 +705,143 @@
                 return defaultValue;
             });
             React.useEffect(() => {
-                localStorage.setItem(key, JSON.stringify(value));
+                storage.set(key, JSON.stringify(value));
             }, [key, value]);
             return [value, setValue];
+        };
+
+        // --- USER PACK HELPERS ---
+        const CURSOR_EXT = /\.(ani|cur)$/i;
+        const PACK_EXT = /\.(ani|cur|inf|zip)$/i;
+        const dirOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) : '');
+
+        // Collects files from a drop, walking into dropped folders.
+        // webkitGetAsEntry must run before the first await, while the drop event is live.
+        const collectDropped = (dataTransfer) => {
+            const entries = [...(dataTransfer.items || [])]
+                .map(it => (it.webkitGetAsEntry ? it.webkitGetAsEntry() : null)).filter(Boolean);
+            const plainFiles = [...(dataTransfer.files || [])];
+            return (async () => {
+                if (!entries.length) return plainFiles.map(f => ({ path: f.name, file: f }));
+                const out = [];
+                const readEntry = (entry, prefix) => new Promise((resolve) => {
+                    if (entry.isFile) {
+                        entry.file(f => { out.push({ path: prefix + f.name, file: f }); resolve(); }, () => resolve());
+                    } else if (entry.isDirectory) {
+                        const reader = entry.createReader();
+                        const all = [];
+                        const more = () => reader.readEntries(async (batch) => {
+                            if (batch.length) { all.push(...batch); more(); return; }
+                            for (const e of all) await readEntry(e, prefix + entry.name + '/');
+                            resolve();
+                        }, () => resolve());
+                        more();
+                    } else resolve();
+                });
+                for (const e of entries) await readEntry(e, '');
+                return out;
+            })();
+        };
+
+        // Reads picked/dropped files into a pack: parsed cursors from the folder
+        // holding the most cursor files, plus a role mapping from install.inf
+        // (or from the file names when there is no usable install.inf).
+        const readPack = async (items) => {
+            const files = [];
+            const errors = [];
+            for (const it of items.filter(i => PACK_EXT.test(i.path))) {
+                const bytes = new Uint8Array(await it.file.arrayBuffer());
+                if (/\.zip$/i.test(it.path)) {
+                    try {
+                        const base = it.path.replace(/\.zip$/i, '');
+                        (await CP.readZip(bytes)).forEach(z => files.push({ path: `${base}/${z.path}`, bytes: z.bytes }));
+                    } catch (e) { errors.push(`${CP.baseName(it.path)}: ${e.message}`); }
+                } else files.push({ path: it.path, bytes });
+            }
+            const cursorFiles = files.filter(f => CURSOR_EXT.test(f.path) && !/(^|\/)__MACOSX\//.test(f.path));
+            if (!cursorFiles.length) return { empty: true, errors };
+
+            const counts = {};
+            cursorFiles.forEach(f => { const d = dirOf(f.path); counts[d] = (counts[d] || 0) + 1; });
+            const mainDir = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+
+            const cursors = new Map();
+            // .ani first, so an animated file wins over a static one with the same name.
+            const inMain = cursorFiles.filter(f => dirOf(f.path) === mainDir)
+                .sort((a, b) => (/\.ani$/i.test(b.path) ? 1 : 0) - (/\.ani$/i.test(a.path) ? 1 : 0));
+            for (const f of inMain) {
+                const name = CP.stripExt(CP.baseName(f.path));
+                if (cursors.has(name)) continue;
+                try { cursors.set(name, await CP.parseCursor(f.bytes, f.path)); }
+                catch (e) { errors.push(`${CP.baseName(f.path)}: ${e.message}`); }
+            }
+            const names = [...cursors.keys()];
+            const lower = new Map(names.map(n => [n.toLowerCase(), n]));
+
+            // Prefer the install.inf next to the cursors, then any whose names match.
+            const infs = files.filter(f => /\.inf$/i.test(f.path)).map(f => {
+                const parsed = CP.parseInf(f.bytes);
+                const hits = Object.values(parsed.mapping).filter(v => lower.has(v.toLowerCase())).length;
+                return { ...parsed, hits, near: dirOf(f.path) === mainDir };
+            }).sort((a, b) => (b.near - a.near) || (b.hits - a.hits));
+            const inf = infs.find(i => i.hits > 0);
+
+            const infMapping = {};
+            if (inf) Object.entries(inf.mapping).forEach(([k, v]) => {
+                if (lower.has(v.toLowerCase())) infMapping[k] = lower.get(v.toLowerCase());
+            });
+            const merged = { ...CP.guessMapping(names), ...infMapping };
+            const mapping = {};
+            CP.ROLES.forEach(r => { mapping[r.key] = merged[r.key] || ''; });
+
+            const topFolder = (cursorFiles[0].path.split('/')[0] || '').replace(/\.zip$/i, '');
+            const themeName = CP.sanitizeThemeName((inf && inf.schemeName) || (topFolder && topFolder !== CP.baseName(cursorFiles[0].path) ? topFolder : 'MyCursors'));
+            return {
+                cursors, names, mapping, mainDir, themeName, errors,
+                source: Object.keys(infMapping).length >= 5 ? 'inf' : 'names',
+                previewCache: new Map(),
+            };
+        };
+
+        // Turns a parsed cursor into data-URL frames near the given size for the live preview.
+        const cursorToFrames = (cursor, size = 32) => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const seen = new Map();
+            return cursor.frames.map(f => {
+                const img = CP.imageForSize(f.images, size);
+                if (!seen.has(img)) {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.putImageData(new ImageData(new Uint8ClampedArray(img.rgba), img.width, img.height), 0, 0);
+                    seen.set(img, canvas.toDataURL('image/png'));
+                }
+                return { url: seen.get(img), delay: f.delay || 100, w: img.width, h: img.height, xhot: img.xhot, yhot: img.yhot };
+            });
+        };
+
+        // Plays preview frames with their own delays (browsers cannot animate CSS cursors).
+        const FramePlayer = ({ frames, size, className = '', style = {} }) => {
+            const [index, setIndex] = useState(0);
+            useEffect(() => {
+                setIndex(0);
+                if (!frames || frames.length < 2) return undefined;
+                let i = 0;
+                let timer = null;
+                const tick = () => {
+                    i = (i + 1) % frames.length;
+                    setIndex(i);
+                    timer = setTimeout(tick, frames[i].delay);
+                };
+                timer = setTimeout(tick, frames[0].delay);
+                return () => clearTimeout(timer);
+            }, [frames]);
+            const f = frames && frames[Math.min(index, frames.length - 1)];
+            if (!f) return null;
+            return (
+                <img src={f.url} alt="" draggable="false" className={className}
+                    style={{ width: size, height: size * f.h / f.w, imageRendering: 'pixelated', ...style }} />
+            );
         };
 
         // --- MAIN APP COMPONENT ---
@@ -589,7 +861,7 @@
             // Initializes theme from localStorage to persist user preference.
             // Defaults to 'true' (Dark/Miku mode) if no preference is found.
             const [isDark, setIsDark] = useState(() => {
-                const savedTheme = localStorage.getItem('theme');
+                const savedTheme = storage.get('theme');
                 return savedTheme ? savedTheme === 'dark' : true;
             });
             const [isTransitioning, setIsTransitioning] = useState(false);
@@ -609,20 +881,19 @@
 
             // Effect: Syncs theme state with localStorage and HTML class
             useEffect(() => {
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                storage.set('theme', isDark ? 'dark' : 'light');
                 document.documentElement.classList.toggle('dark', isDark);
             }, [isDark]);
 
             // useStickyState is defined at module level (above App) for correctness
 
             // --- CONFIG STATES (Persistent) ---
-            const [username, setUsername] = useStickyState('eagle', 'cp_username');
-            const [themeName, setThemeName] = useStickyState('Shorekeeper', 'cp_themeName');
-            const [sourcePath, setSourcePath] = useStickyState('/home/eagle/Documents/Custom Cursors/Shorekeeper/Cursors', 'cp_sourcePath');
-            const [cursorSize, setCursorSize] = useStickyState(32, 'cp_cursorSize');
+            const [themeName, setThemeName] = useStickyState(DEFAULTS.themeName, 'cp_themeName');
+            const [sourcePath, setSourcePath] = useStickyState(DEFAULTS.sourcePath, 'cp_sourcePath');
+            const [cursorSize, setCursorSize] = useStickyState(DEFAULTS.cursorSize, 'cp_cursorSize');
             const [autoSync, setAutoSync] = useStickyState(true, 'cp_autoSync');
             const [demoPack, setDemoPack] = useStickyState('none', 'cp_demoPack');
-            const [installPath, setInstallPath] = useStickyState('$HOME/.local/share/icons', 'cp_installPath');
+            const [installPath, setInstallPath] = useStickyState(DEFAULTS.installPath, 'cp_installPath');
             const [filePrefix, setFilePrefix] = useStickyState('', 'cp_filePrefix');
             const [fileSuffix, setFileSuffix] = useStickyState('', 'cp_fileSuffix');
             const [lang, setLang] = useStickyState(
@@ -641,33 +912,122 @@
             const needsSudo = installPath.startsWith('/usr') || installPath.startsWith('/etc') || installPath.startsWith('/opt') || installPath.startsWith('/root');
 
             // --- MAPPING STATE (Persistent) ---
-            const [mappings, setMappings] = useStickyState({
-                normal: 'Normal',
-                working: 'Working',
-                busy: 'Busy',
-                link: 'Link',
-                text: 'Text',
-                precision: 'Precision',
-                hand: 'Handwriting',
-                unavailable: 'Unavailable',
-                not_allowed: 'Unavailable',
-                help: 'Help',
-                move: 'Move',
-                vertical: 'Vertical',
-                horizontal: 'Horizontal',
-                diag1: 'Diagonal1',
-                diag2: 'Diagonal2',
-                pin: 'Pin',
-                all_scroll: 'Move',
-                alternate: 'Alternate',
-                person: 'Person'
-            }, 'cp_mappings');
+            const [mappings, setMappings] = useStickyState({ ...CP.DEFAULT_MAPPINGS }, 'cp_mappings');
 
             // --- SCRIPT STATE ---
-            // Keep the script in state so it can be edited manually.
-            const [scriptContent, setScriptContent] = useState('');
             const [isPackDropdownOpen, setIsPackDropdownOpen] = useState(false);
             const [useSymlinks, setUseSymlinks] = useStickyState(true, 'cp_useSymlinks');
+            const [autoApply, setAutoApply] = useStickyState(true, 'cp_autoApply');
+            // A locked script keeps manual edits; settings changes stop rewriting it.
+            const [scriptLocked, setScriptLocked] = useStickyState(false, 'cp_scriptLocked');
+            const [lockedScript, setLockedScript] = useStickyState('', 'cp_lockedScript');
+
+            // --- USER PACK (in memory only; files never leave the browser) ---
+            const [pack, setPack] = useState(null);
+            const [packBusy, setPackBusy] = useState(false);
+            const [packNotice, setPackNotice] = useState('');
+            const [isDragging, setIsDragging] = useState(false);
+            const [build, setBuild] = useState({ busy: false, error: '', report: null, file: '' });
+            const folderInputRef = React.useRef(null);
+            const fileInputRef = React.useRef(null);
+            useEffect(() => {
+                // React does not pass webkitdirectory through as a boolean attribute.
+                if (folderInputRef.current) folderInputRef.current.setAttribute('webkitdirectory', '');
+            }, []);
+            // A saved "Your Pack" demo choice has nothing to show after a reload.
+            useEffect(() => { if (demoPack === 'custom' && !pack) setDemoPack('none'); }, [pack]);
+
+            const generatedScript = useMemo(() => CP.buildInstallScript({
+                themeName, sourcePath, installPath, mappings,
+                prefix: filePrefix, suffix: fileSuffix, useSymlinks, cursorSize, autoApply,
+            }), [themeName, sourcePath, installPath, mappings, filePrefix, fileSuffix, useSymlinks, cursorSize, autoApply]);
+            const scriptContent = scriptLocked ? lockedScript : generatedScript;
+            const editScript = (value) => { setLockedScript(value); setScriptLocked(true); };
+            const toggleLock = () => {
+                if (!scriptLocked) setLockedScript(generatedScript);
+                setScriptLocked(!scriptLocked);
+            };
+            // Manual pipeline commands. The glob runs in bash with nullglob and
+            // nocaseglob so packs with only .ani, only .cur or upper-case
+            // extensions all convert, whatever shell the user pastes into.
+            const themeDir = `${CP.bashPath(installPath)}/${CP.bashPath(CP.sanitizeThemeName(themeName))}`;
+            const sudoPrefix = needsSudo ? 'sudo ' : '';
+            const convertCommand = `${sudoPrefix}mkdir -p ${themeDir}/cursors\n` +
+                `bash -O nullglob -O nocaseglob -c '${sudoPrefix}win2xcur "$1"/*.ani "$1"/*.cur -o "$2"' _ ${CP.bashPath(sourcePath)} ${themeDir}/cursors`;
+            const registerCommand = `printf '[Icon Theme]\\nName=%s\\nInherits=breeze_cursors,Adwaita\\n' ${CP.bashPath(CP.sanitizeThemeName(themeName))} | ${sudoPrefix}tee ${themeDir}/index.theme > /dev/null`;
+            const quickInstallCommand = () => {
+                const base64 = btoa(unescape(encodeURIComponent(scriptContent)));
+                return `echo "${base64}" | base64 -d | bash`;
+            };
+
+            // Live preview frames per role for the loaded pack, following the current mapping.
+            const packPreviews = useMemo(() => {
+                if (!pack) return {};
+                const out = {};
+                CP.ROLES.forEach(r => {
+                    const hit = CP.resolveRoleFile(r.key, mappings, pack.names, filePrefix, fileSuffix);
+                    if (!hit) return;
+                    if (!pack.previewCache.has(hit.file)) pack.previewCache.set(hit.file, cursorToFrames(pack.cursors.get(hit.file)));
+                    out[r.key] = pack.previewCache.get(hit.file);
+                });
+                return out;
+            }, [pack, mappings, filePrefix, fileSuffix]);
+
+            const loadPack = async (items) => {
+                if (!items || !items.length) return;
+                setPackBusy(true);
+                setPackNotice('');
+                try {
+                    const result = await readPack(items);
+                    if (result.empty) {
+                        setPackNotice(t('packNone'));
+                        return;
+                    }
+                    setPack(result);
+                    setMappings(result.mapping);
+                    setFilePrefix('');
+                    setFileSuffix('');
+                    setThemeName(result.themeName);
+                    // Browsers only reveal the folder's name, so keep the parent the user already set.
+                    const parent = sourcePath.includes('/') ? sourcePath.slice(0, sourcePath.replace(/\/+$/, '').lastIndexOf('/')) : '~/Downloads';
+                    setSourcePath(`${parent || '~/Downloads'}/${result.mainDir || result.themeName}`);
+                    setDemoPack('custom');
+                    setBuild({ busy: false, error: '', report: null, file: '' });
+                } catch (e) {
+                    setPackNotice(e.message || String(e));
+                } finally {
+                    setPackBusy(false);
+                }
+            };
+            const clearPack = () => {
+                setPack(null);
+                setPackNotice('');
+                setBuild({ busy: false, error: '', report: null, file: '' });
+                if (demoPack === 'custom') setDemoPack('none');
+            };
+
+            const buildThemeDownload = async () => {
+                if (!pack) return;
+                setBuild({ busy: true, error: '', report: null, file: '' });
+                try {
+                    const r = await CP.buildTheme({
+                        themeName, cursors: pack.cursors, mappings,
+                        prefix: filePrefix, suffix: fileSuffix, cursorSize,
+                    });
+                    const file = `${r.theme}.${r.gzipped ? 'tar.gz' : 'tar'}`;
+                    const url = URL.createObjectURL(new Blob([r.bytes], { type: r.gzipped ? 'application/gzip' : 'application/x-tar' }));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = file;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                    setBuild({ busy: false, error: '', report: r.report, file, theme: r.theme });
+                } catch (e) {
+                    setBuild({ busy: false, error: e.message || String(e), report: null, file: '' });
+                }
+            };
 
             // Helper: Copies text to clipboard
             // Uses modern navigator.clipboard API with execCommand fallback for compatibility
@@ -713,189 +1073,6 @@
                 URL.revokeObjectURL(url);
             };
 
-            // Effect: Regenerate script when dependencies change
-            // Note: This overrides manual edits, which is standard for generators. 
-            // We could add a "lock" feature if requested later.
-            useEffect(() => {
-                const sudo = needsSudo ? 'sudo ' : '';
-                const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                const cleanupBlock = !useSymlinks ? `
-# Clean up original converted source files safely without wildcards
-for file in "$normal_file" "$working_file" "$busy_file" "$link_file" "$text_file" "$precision_file" "$hand_file" "$unavailable_file" "$not_allowed_file" "$help_file" "$move_file" "$all_scroll_file" "$vertical_file" "$horizontal_file" "$diag1_file" "$diag2_file" "$pin_file" "$alternate_file" "$person_file"; do
-    if [ -f "$file" ]; then
-        ${sudo}rm -f "$file"
-    fi
-done
-` : '';
-                // Helper to wrap a mapping value with optional prefix/suffix
-                const f = (val) => `${filePrefix}${val}${fileSuffix}`;
-                const generated = `#!/bin/bash
-# CursorPort — Generated Symlink Script
-# Theme: ${themeName}
-# Install Path: ${installPath}
-# Generated by https://cursorport.01blue.org/
-
-set -e  # Exit immediately on any error
-
-# Ensure the cursor directory exists before cd'ing into it
-${sudo}mkdir -p "${installPath}/${themeName}/cursors"
-cd "${installPath}/${themeName}/cursors"
-
-# Helper function to find the first existing file in current directory among alternatives
-find_file() {
-    local prefix="$1"
-    local suffix="$2"
-    local role="$3"
-    shift 3
-    for name in "$@"; do
-        local file="\${prefix}\${name}\${suffix}"
-        if [ -f "$file" ]; then
-            echo "[\${role}] -> Found: \$file" >&2
-            echo "\$file"
-            return 0
-        fi
-    done
-    # Fallback to the first option if none found
-    local fallback="\${prefix}\$1\${suffix}"
-    echo "[\${role}] -> Not found! Falling back to: \$fallback" >&2
-    echo "\$fallback"
-}
-
-# Auto-detect actual converted filenames using common variations
-
-normal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Normal" "${mappings.normal}" "Normal" "default" "left_ptr")
-working_file=$(find_file "${filePrefix}" "${fileSuffix}" "Working" "${mappings.working}" "Working" "work" "progress")
-busy_file=$(find_file "${filePrefix}" "${fileSuffix}" "Busy" "${mappings.busy}" "Busy" "wait" "watch")
-link_file=$(find_file "${filePrefix}" "${fileSuffix}" "Link" "${mappings.link}" "Link" "pointer" "hand")
-text_file=$(find_file "${filePrefix}" "${fileSuffix}" "Text" "${mappings.text}" "Text" "ibeam" "xterm")
-precision_file=$(find_file "${filePrefix}" "${fileSuffix}" "Precision" "${mappings.precision}" "Precision" "crosshair" "cross")
-hand_file=$(find_file "${filePrefix}" "${fileSuffix}" "Handwriting" "${mappings.hand}" "Handwriting" "Handwrite" "pencil" "pen")
-unavailable_file=$(find_file "${filePrefix}" "${fileSuffix}" "Unavailable" "${mappings.unavailable}" "Unavailable" "forbidden" "crossed_circle")
-not_allowed_file=$(find_file "${filePrefix}" "${fileSuffix}" "Not Allowed" "${mappings.not_allowed}" "Unavailable" "not-allowed" "no-drop" "forbidden")
-help_file=$(find_file "${filePrefix}" "${fileSuffix}" "Help" "${mappings.help}" "Help" "question" "dnd-ask")
-move_file=$(find_file "${filePrefix}" "${fileSuffix}" "Move" "${mappings.move}" "Move" "fleur" "size_all")
-all_scroll_file=$(find_file "${filePrefix}" "${fileSuffix}" "All Scroll" "${mappings.all_scroll}" "Move" "all-scroll" "fleur" "size_all")
-vertical_file=$(find_file "${filePrefix}" "${fileSuffix}" "Vertical" "${mappings.vertical}" "Vertical" "VertRes" "ns-resize")
-horizontal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Horizontal" "${mappings.horizontal}" "Horizontal" "HoriRes" "ew-resize")
-diag1_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NW-SE" "${mappings.diag1}" "Diagonal1" "DiaRes1" "nwse-resize")
-diag2_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NE-SW" "${mappings.diag2}" "Diagonal2" "DiaRes2" "nesw-resize")
-pin_file=$(find_file "${filePrefix}" "${fileSuffix}" "Pin" "${mappings.pin}" "Pin" "Location" "pin")
-alternate_file=$(find_file "${filePrefix}" "${fileSuffix}" "Alternate" "${mappings.alternate}" "Alternate" "cell" "plus")
-person_file=$(find_file "${filePrefix}" "${fileSuffix}" "Person" "${mappings.person}" "Person" "people")
-
-# --- SYMLINK COMMANDS ---
-# Pattern: ${sudo}${lnCmd} "[YOUR_FILE]" "[LINUX_NAME]"
-
-# Normal / Default
-${sudo}${lnCmd} "$normal_file" left_ptr
-${sudo}${lnCmd} "$normal_file" default
-${sudo}${lnCmd} "$normal_file" arrow
-${sudo}${lnCmd} "$normal_file" top_left_arrow
-
-# Working / Busy
-${sudo}${lnCmd} "$working_file" progress
-${sudo}${lnCmd} "$working_file" left_ptr_watch
-${sudo}${lnCmd} "$busy_file" watch
-${sudo}${lnCmd} "$busy_file" wait
-
-# Link / Pointer
-${sudo}${lnCmd} "$link_file" pointer
-${sudo}${lnCmd} "$link_file" hand1
-${sudo}${lnCmd} "$link_file" hand2
-${sudo}${lnCmd} "$link_file" pointing_hand
-
-# Text
-${sudo}${lnCmd} "$text_file" xterm
-${sudo}${lnCmd} "$text_file" text
-${sudo}${lnCmd} "$text_file" ibeam
-
-# Precision
-${sudo}${lnCmd} "$precision_file" crosshair
-${sudo}${lnCmd} "$precision_file" cross
-${sudo}${lnCmd} "$precision_file" diamond_cross
-
-# Handwriting
-${sudo}${lnCmd} "$hand_file" pencil
-
-# Unavailable
-${sudo}${lnCmd} "$unavailable_file" forbidden
-${sudo}${lnCmd} "$unavailable_file" crossed_circle
-${sudo}${lnCmd} "$not_allowed_file" not-allowed
-${sudo}${lnCmd} "$not_allowed_file" no-drop
-
-# Help
-${sudo}${lnCmd} "$help_file" help
-${sudo}${lnCmd} "$help_file" question_arrow
-${sudo}${lnCmd} "$help_file" dnd-ask
-
-# Move
-${sudo}${lnCmd} "$move_file" move
-${sudo}${lnCmd} "$move_file" fleur
-${sudo}${lnCmd} "$move_file" size_all
-${sudo}${lnCmd} "$move_file" grabbing
-${sudo}${lnCmd} "$move_file" dnd-move
-
-# All Scroll
-${sudo}${lnCmd} "$all_scroll_file" all-scroll
-
-# Vertical Resize
-${sudo}${lnCmd} "$vertical_file" ns-resize
-${sudo}${lnCmd} "$vertical_file" n-resize
-${sudo}${lnCmd} "$vertical_file" s-resize
-${sudo}${lnCmd} "$vertical_file" sb_v_double_arrow
-${sudo}${lnCmd} "$vertical_file" row-resize
-${sudo}${lnCmd} "$vertical_file" top_side
-${sudo}${lnCmd} "$vertical_file" bottom_side
-
-# Horizontal Resize
-${sudo}${lnCmd} "$horizontal_file" ew-resize
-${sudo}${lnCmd} "$horizontal_file" e-resize
-${sudo}${lnCmd} "$horizontal_file" w-resize
-${sudo}${lnCmd} "$horizontal_file" sb_h_double_arrow
-${sudo}${lnCmd} "$horizontal_file" col-resize
-${sudo}${lnCmd} "$horizontal_file" left_side
-${sudo}${lnCmd} "$horizontal_file" right_side
-
-# Diagonal Resize (NW-SE)
-${sudo}${lnCmd} "$diag1_file" nwse-resize
-${sudo}${lnCmd} "$diag1_file" nw-resize
-${sudo}${lnCmd} "$diag1_file" se-resize
-${sudo}${lnCmd} "$diag1_file" ul_angle
-
-# Diagonal Resize (NE-SW)
-${sudo}${lnCmd} "$diag2_file" nesw-resize
-${sudo}${lnCmd} "$diag2_file" ne-resize
-${sudo}${lnCmd} "$diag2_file" sw-resize
-${sudo}${lnCmd} "$diag2_file" ur_angle
-
-# Pin
-${sudo}${lnCmd} "$pin_file" pin
-${sudo}${lnCmd} "$pin_file" location-arrow
-${sudo}${lnCmd} "$pin_file" alias
-${sudo}${lnCmd} "$pin_file" dnd-link
-
-# Alternate Select
-${sudo}${lnCmd} "$alternate_file" cell
-${sudo}${lnCmd} "$alternate_file" plus
-
-# Person Select
-${sudo}${lnCmd} "$person_file" person
-${cleanupBlock}
-echo "✅ Cursor theme '${themeName}' installed successfully!"`;
-                setScriptContent(generated);
-            }, [themeName, mappings, installPath, needsSudo, filePrefix, fileSuffix, useSymlinks]);
-
-            // Handler: Updates username and auto-adjusts the Source Path if it matches the pattern
-            const handleUsernameChange = (e) => {
-                const newUsername = e.target.value;
-                const oldUsername = username;
-                setUsername(newUsername);
-
-                // Smartly replace only the username part of the path if detected
-                if (sourcePath.includes(`/home/${oldUsername}/`)) {
-                    setSourcePath(sourcePath.replace(`/home/${oldUsername}/`, `/home/${newUsername}/`));
-                }
-            };
 
             // Handler: Updates theme name and auto-adjusts path if Auto-Sync is enabled
             const handleThemeNameChange = (e) => {
@@ -944,13 +1121,19 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                             {activeCursor && (
                                 <div
                                     className="fixed pointer-events-none z-[9999]"
-                                    style={{
+                                    style={typeof activeCursor === 'string' ? {
                                         left: mousePos.x,
                                         top: mousePos.y,
                                         transform: 'translate(-2px, -2px)'
+                                    } : {
+                                        // Shown at 32px; the hotspot is scaled to match.
+                                        left: mousePos.x - activeCursor[0].xhot * 32 / activeCursor[0].w,
+                                        top: mousePos.y - activeCursor[0].yhot * 32 / activeCursor[0].w,
                                     }}
                                 >
-                                    <img src={activeCursor} alt="Custom Cursor" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
+                                    {typeof activeCursor === 'string'
+                                        ? <img src={activeCursor} alt="Custom Cursor" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
+                                        : <FramePlayer frames={activeCursor} size={32} />}
                                 </div>
                             )}
 
@@ -1079,7 +1262,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
 
                                         <a href="https://github.com/Eagle10021/Custom-Cursors-Linux/releases" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-black dark:text-white dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                                             <span className="w-2 h-2 rounded-full bg-neru animate-pulse"></span>
-                                            v3.0
+                                            v4.0
                                         </a>
                                     </div>
                                 </div>
@@ -1089,6 +1272,71 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
 
                                 {/* LEFT COLUMN: CONFIG */}
                                 <div className="lg:col-span-4 space-y-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+
+                                    {/* LOAD CURSOR PACK */}
+                                    <section
+                                        className={`relative overflow-hidden bg-white dark:bg-slate-900 border-2 border-dashed rounded-3xl p-6 shadow-2xl shadow-teto-500/5 dark:shadow-miku-500/5 transition-all duration-300 ${isDragging ? 'border-teto dark:border-miku bg-teto-50 dark:bg-miku-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-teto-300 dark:hover:border-miku-500/40'}`}
+                                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                        onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setIsDragging(false); }}
+                                        onDrop={(e) => { e.preventDefault(); setIsDragging(false); collectDropped(e.dataTransfer).then(loadPack); }}
+                                    >
+                                        <h2 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-3 flex items-center gap-3">
+                                            <span className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku"><Icon size={18}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></Icon></span>
+                                            {t('packTitle')}
+                                        </h2>
+                                        <p className="text-[10px] text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{t('packDesc')}</p>
+
+                                        <input ref={folderInputRef} type="file" multiple className="hidden"
+                                            onChange={(e) => { const items = [...e.target.files].map(f => ({ path: f.webkitRelativePath || f.name, file: f })); e.target.value = ''; loadPack(items); }} />
+                                        <input ref={fileInputRef} type="file" multiple accept=".ani,.cur,.inf,.zip" className="hidden"
+                                            onChange={(e) => { const items = [...e.target.files].map(f => ({ path: f.name, file: f })); e.target.value = ''; loadPack(items); }} />
+
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <button onClick={() => folderInputRef.current && folderInputRef.current.click()} disabled={packBusy}
+                                                className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-teto to-red-400 dark:from-miku dark:to-teal-500 text-white text-[10px] font-black uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all disabled:opacity-60">
+                                                <FileCode size={14} /> {t('packFolder')}
+                                            </button>
+                                            <button onClick={() => fileInputRef.current && fileInputRef.current.click()} disabled={packBusy}
+                                                className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-black dark:text-white text-[10px] font-black uppercase tracking-wider hover:border-teto dark:hover:border-miku transition-all disabled:opacity-60">
+                                                <Icon size={14}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></Icon> {t('packFiles')}
+                                            </button>
+                                        </div>
+                                        <p className="text-center text-[9px] text-slate-400 dark:text-slate-500 mt-2">{t('packDrop')}</p>
+
+                                        {packBusy && (
+                                            <div className="mt-4 flex items-center gap-2 text-[10px] font-bold text-teto dark:text-miku">
+                                                <div className="w-3 h-3 rounded-full border-2 border-current border-t-transparent animate-spin"></div>
+                                                {t('packLoading')}
+                                            </div>
+                                        )}
+                                        {packNotice && !packBusy && (
+                                            <p className="mt-4 text-[10px] font-bold text-amber-600 dark:text-amber-400">{packNotice}</p>
+                                        )}
+                                        {pack && !packBusy && (
+                                            <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+                                                <div className="flex items-center justify-between gap-2">
+                                                    <div className="flex items-center gap-2 min-w-0">
+                                                        <div className="w-8 h-8 shrink-0 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                                                            {packPreviews.normal && <FramePlayer frames={packPreviews.normal} size={24} />}
+                                                        </div>
+                                                        <div className="min-w-0">
+                                                            <div className="text-[11px] font-black text-black dark:text-white truncate">{pack.themeName}</div>
+                                                            <div className="text-[9px] font-bold text-teto dark:text-miku">{t('packLoaded')(pack.names.length)}</div>
+                                                        </div>
+                                                    </div>
+                                                    <button onClick={clearPack} className="text-[9px] font-bold uppercase tracking-wider text-slate-500 hover:text-teto dark:hover:text-miku px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">{t('packClear')}</button>
+                                                </div>
+                                                <p className="text-[9px] text-slate-600 dark:text-slate-300">{pack.source === 'inf' ? t('packFromInf') : t('packFromNames')}</p>
+                                                <p className="text-[9px] text-amber-700 dark:text-amber-300">{t('packPathNote')}</p>
+                                                {pack.errors.length > 0 && (
+                                                    <details className="text-[9px] text-red-600 dark:text-red-400">
+                                                        <summary className="cursor-pointer font-bold">{t('packErrors')(pack.errors.length)}</summary>
+                                                        <ul className="mt-1 space-y-0.5 font-mono">{pack.errors.map((e, i) => <li key={i}>{e}</li>)}</ul>
+                                                    </details>
+                                                )}
+                                            </div>
+                                        )}
+                                    </section>
 
                                     {/* SETTINGS CARD */}
                                     <section className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl shadow-teto-500/5 dark:shadow-miku-500/5 transition-all duration-500 hover:border-teto-300 dark:hover:border-miku-500/30">
@@ -1103,24 +1351,26 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                             </h2>
                                             <button
                                                 onClick={() => {
-                                                    if (confirm("Reset all settings to defaults?")) {
-                                                        setUsername('eagle');
-                                                        setThemeName('Shorekeeper');
-                                                        setSourcePath('/home/eagle/Documents/Custom Cursors/Shorekeeper/Cursors');
-                                                        setCursorSize(32);
+                                                    if (confirm(t('resetConfirm'))) {
+                                                        setThemeName(DEFAULTS.themeName);
+                                                        setSourcePath(DEFAULTS.sourcePath);
+                                                        setCursorSize(DEFAULTS.cursorSize);
                                                         setAutoSync(true);
-                                                        setInstallPath('$HOME/.local/share/icons');
+                                                        setInstallPath(DEFAULTS.installPath);
                                                         setFilePrefix('');
                                                         setFileSuffix('');
-                                                        setMappings({
-                                                            normal: 'Normal', working: 'Working', busy: 'Busy', link: 'Link', text: 'Text', precision: 'Precision', hand: 'Handwriting', unavailable: 'Unavailable', not_allowed: 'Unavailable', help: 'Help', move: 'Move', vertical: 'Vertical', horizontal: 'Horizontal', diag1: 'Diagonal1', diag2: 'Diagonal2', pin: 'Pin', all_scroll: 'Move', alternate: 'Alternate', person: 'Person'
-                                                        });
+                                                        setUseSymlinks(true);
+                                                        setAutoApply(true);
+                                                        setScriptLocked(false);
+                                                        setLockedScript('');
+                                                        setMappings({ ...CP.DEFAULT_MAPPINGS });
+                                                        clearPack();
                                                     }
                                                 }}
                                                 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 hover:text-teto dark:hover:text-miku transition-colors bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-1.5"
                                             >
                                                 <Icon size={12}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></Icon>
-                                                Reset
+                                                {t('reset')}
                                             </button>
                                         </div>
 
@@ -1128,18 +1378,8 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex items-start gap-3">
                                                 <Info size={16} className="text-blue-500 dark:text-blue-400 mt-0.5 shrink-0" />
                                                 <p className="text-[10px] sm:text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed font-medium">
-                                                    {t('infoHint')(username, themeName)}
+                                                    {t('infoHint')}
                                                 </p>
-                                            </div>
-                                            <div>
-                                                <label className="block text-[11px] font-bold mb-2 text-black dark:text-white uppercase tracking-wide">{t('deviceUsername')}</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="e.g., eagle"
-                                                    value={username}
-                                                    onChange={handleUsernameChange}
-                                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-sm font-mono text-black dark:text-white dark:text-slate-200"
-                                                />
                                             </div>
                                             <div>
                                                 <div className="flex justify-between items-end mb-2">
@@ -1170,7 +1410,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    placeholder="/home/user/Downloads/cursors"
+                                                    placeholder="~/Downloads/MyCursors"
                                                     value={sourcePath}
                                                     onChange={(e) => setSourcePath(e.target.value)}
                                                     className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teto dark:focus:ring-miku transition-all text-[11px] font-mono text-black dark:text-white dark:text-slate-200"
@@ -1194,6 +1434,26 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                     </button>
                                                 </div>
                                                 <p className="text-[9px] text-slate-500 dark:text-slate-400 leading-normal">{t('useSymlinksHint')}</p>
+                                            </div>
+
+                                            {/* AUTO APPLY OPTION */}
+                                            <div>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <label className="block text-[11px] font-bold text-black dark:text-white uppercase tracking-wide">
+                                                        {t('autoApply')}
+                                                    </label>
+                                                    <button
+                                                        onClick={() => setAutoApply(!autoApply)}
+                                                        className="flex items-center gap-2 group cursor-pointer focus:outline-none"
+                                                        title={t('autoApplyHint')}
+                                                        aria-pressed={autoApply}
+                                                    >
+                                                        <div className={`w-8 h-4 rounded-full p-0.5 transition-colors duration-300 ${autoApply ? 'bg-teto dark:bg-miku' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                                                            <div className={`w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-300 ${autoApply ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <p className="text-[9px] text-slate-500 dark:text-slate-400 leading-normal">{t('autoApplyHint')}</p>
                                             </div>
 
                                             {/* INSTALL LOCATION */}
@@ -1242,7 +1502,9 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-[100px] h-[100px] flex items-center justify-center bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative group/preview transition-all duration-300">
                                                             <div className="absolute inset-0 bg-gradient-to-br from-teto/5 to-transparent dark:from-miku/5 opacity-0 group-hover/preview:opacity-100 transition-opacity"></div>
-                                                            {demoPack !== 'none' ? (
+                                                            {pack && packPreviews.normal ? (
+                                                                <FramePlayer frames={packPreviews.normal} size={cursorSize} className="transition-all duration-300 drop-shadow-xl" />
+                                                            ) : demoPack !== 'none' && demoPack !== 'custom' ? (
                                                                 <img
                                                                     src={`./demo-cursors/${demoPack}/${demoMapping.normal}.gif`}
                                                                     alt="Preview"
@@ -1342,6 +1604,11 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                             → {filePrefix}{mappings[key]}{fileSuffix}
                                                         </p>
                                                     )}
+                                                    {pack && (
+                                                        packPreviews[key]
+                                                            ? <div className="mt-1 h-5 flex items-center"><FramePlayer frames={packPreviews[key]} size={20} /></div>
+                                                            : <p className="mt-1 text-[8px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">{t('notInPack')}</p>
+                                                    )}
                                                 </div>
                                             ))}
                                         </div>
@@ -1410,6 +1677,55 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                 {/* RIGHT COLUMN: PREVIEW & DEPLOY */}
                                 <div className="lg:col-span-8 space-y-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
 
+                                    {/* BUILD THEME IN BROWSER */}
+                                    <section className="relative overflow-hidden bg-white dark:bg-slate-900 border-2 border-teto/30 dark:border-miku/30 rounded-3xl p-6 shadow-2xl transition-colors duration-500">
+                                        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-teto/10 dark:from-miku/10 to-transparent rounded-3xl pointer-events-none"></div>
+                                        <div className="relative flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                                            <div>
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <div className="p-1.5 rounded-lg bg-teto/10 dark:bg-miku/10 text-teto dark:text-miku"><Icon size={14}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon></div>
+                                                    <span className="text-[11px] font-black text-black dark:text-white uppercase tracking-widest">{t('buildTitle')}</span>
+                                                    <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 tracking-wider">{t('buildBadge')}</span>
+                                                </div>
+                                                <p className="text-[10px] text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed">{t('buildDesc')}</p>
+                                            </div>
+                                            <button
+                                                onClick={buildThemeDownload}
+                                                disabled={!pack || build.busy}
+                                                title={pack ? '' : t('buildNeedsPack')}
+                                                className="flex-shrink-0 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all shadow-lg bg-gradient-to-r from-teto to-orange-400 dark:from-miku dark:to-teal-500 text-white hover:scale-105 disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                                            >
+                                                {build.busy ? <div className="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin"></div> : <Icon size={14}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>}
+                                                {build.busy ? t('buildWorking') : t('buildButton')}
+                                            </button>
+                                        </div>
+                                        {!pack && <p className="relative text-[10px] font-bold text-slate-400">{t('buildNeedsPack')}</p>}
+                                        {build.error && <p className="relative text-[10px] font-bold text-red-600 dark:text-red-400">{t('buildError')} {build.error}</p>}
+                                        {build.report && (
+                                            <div className="relative space-y-3">
+                                                <div>
+                                                    <div className="text-[9px] font-black uppercase tracking-wider text-black dark:text-white mb-1">{t('buildThen')}</div>
+                                                    <div className="flex items-center bg-slate-950 border border-slate-800 rounded-xl p-2">
+                                                        <code className="flex-1 font-mono text-[10px] text-slate-200 overflow-x-auto whitespace-nowrap custom-scrollbar px-2 py-1">{`tar xf "${build.file}" && bash "${build.theme}/install.sh"`}</code>
+                                                        <button onClick={() => copyToClipboard(`tar xf "${build.file}" && bash "${build.theme}/install.sh"`, 'build-cmd')} className="p-1.5 rounded text-slate-300 hover:text-white">
+                                                            {copied === 'build-cmd' ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+                                                    {build.report.map(r => (
+                                                        <div key={r.role} className="flex items-center justify-between gap-2 text-[9px] border-b border-slate-100 dark:border-slate-800 py-1">
+                                                            <span className="font-bold uppercase tracking-wider text-black dark:text-white">{r.label}</span>
+                                                            <span className={`font-mono truncate ${r.file ? 'text-slate-500 dark:text-slate-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                                                                {r.file ? r.file : t('buildMissing')}
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </section>
+
                                     {/* STEP 1: INSTALLATION */}
                                     <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl transition-colors duration-500 group hover:border-teto-300 dark:hover:border-miku-500/30">
                                         <div className="flex items-center justify-between mb-4">
@@ -1437,11 +1753,11 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
 
                                             {/* Universal Option */}
                                             <div>
-                                                <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">Universal (Python/Pip)</div>
+                                                <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">{t('step1PipxHint')}</div>
                                                 <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                    <code className="flex-1 font-mono text-[10px] text-blue-500 dark:text-blue-400 overflow-x-auto whitespace-nowrap custom-scrollbar py-3 px-2">pip install win2xcur</code>
+                                                    <code className="flex-1 font-mono text-[10px] text-blue-500 dark:text-blue-400 overflow-x-auto whitespace-nowrap custom-scrollbar py-3 px-2">sudo apt install pipx imagemagick && pipx install win2xcur</code>
                                                     <button
-                                                        onClick={() => copyToClipboard('pip install win2xcur', 'install-pip')}
+                                                        onClick={() => copyToClipboard('sudo apt install pipx imagemagick && pipx install win2xcur', 'install-pip')}
                                                         className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'install-pip' ? 'animate-copy-pulse' : ''}`}
                                                     >
                                                         {copied === 'install-pip' ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
@@ -1471,147 +1787,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"`;
                                                     <p className="text-[10px] text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed">{t('quickInstallDesc')}</p>
                                                 </div>
                                                 <button
-                                                    onClick={() => {
-                                                        const sudo = needsSudo ? 'sudo ' : '';
-                                                        const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                                                        const cleanupBlock = !useSymlinks ? `
-# Clean up original converted source files safely without wildcards
-for file in "$normal_file" "$working_file" "$busy_file" "$link_file" "$text_file" "$precision_file" "$hand_file" "$unavailable_file" "$not_allowed_file" "$help_file" "$move_file" "$all_scroll_file" "$vertical_file" "$horizontal_file" "$diag1_file" "$diag2_file" "$pin_file" "$alternate_file" "$person_file"; do
-    if [ -f "$file" ]; then
-        ${sudo}rm -f "$file"
-    fi
-done
-` : '';
-                                                        const unified = `#!/bin/bash
-# CursorPort — Unified Installation Script
-# Theme: ${themeName}
-# Source: ${sourcePath}
-# Destination: ${installPath}/${themeName}
-
-set -e
-
-# 1. Ensure cursor directory exists
-${sudo}mkdir -p "${installPath}/${themeName}/cursors"
-
-# 2. Convert files
-echo "Converting Windows cursor files..."
-${sudo}win2xcur "${sourcePath}"/*.ani -o "${installPath}/${themeName}/cursors/"
-
-# 3. Register Theme
-echo "Registering icon theme..."
-printf '[Icon Theme]\nName=${themeName}\nInherits=Adwaita\n' | ${sudo}tee "${installPath}/${themeName}/index.theme" > /dev/null
-
-# 4. Create symlinks or copy files
-cd "${installPath}/${themeName}/cursors"
-
-find_file() {
-    local prefix="\$1"
-    local suffix="\$2"
-    local role="\$3"
-    shift 3
-    for name in "\$@"; do
-        local file="\${prefix}\${name}\${suffix}"
-        if [ -f "\$file" ]; then
-            echo "[\${role}] -> Found: \$file" >&2
-            echo "\$file"
-            return 0
-        fi
-    done
-    local fallback="\${prefix}\$1\${suffix}"
-    echo "[\${role}] -> Not found! Falling back to: \$fallback" >&2
-    echo "\$fallback"
-}
-
-normal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Normal" "${mappings.normal}" "Normal" "default" "left_ptr")
-working_file=$(find_file "${filePrefix}" "${fileSuffix}" "Working" "${mappings.working}" "Working" "work" "progress")
-busy_file=$(find_file "${filePrefix}" "${fileSuffix}" "Busy" "${mappings.busy}" "Busy" "wait" "watch")
-link_file=$(find_file "${filePrefix}" "${fileSuffix}" "Link" "${mappings.link}" "Link" "pointer" "hand")
-text_file=$(find_file "${filePrefix}" "${fileSuffix}" "Text" "${mappings.text}" "Text" "ibeam" "xterm")
-precision_file=$(find_file "${filePrefix}" "${fileSuffix}" "Precision" "${mappings.precision}" "Precision" "crosshair" "cross")
-hand_file=$(find_file "${filePrefix}" "${fileSuffix}" "Handwriting" "${mappings.hand}" "Handwriting" "Handwrite" "pencil" "pen")
-unavailable_file=$(find_file "${filePrefix}" "${fileSuffix}" "Unavailable" "${mappings.unavailable}" "Unavailable" "forbidden" "crossed_circle")
-not_allowed_file=$(find_file "${filePrefix}" "${fileSuffix}" "Not Allowed" "${mappings.not_allowed}" "Unavailable" "not-allowed" "no-drop" "forbidden")
-help_file=$(find_file "${filePrefix}" "${fileSuffix}" "Help" "${mappings.help}" "Help" "question" "dnd-ask")
-move_file=$(find_file "${filePrefix}" "${fileSuffix}" "Move" "${mappings.move}" "Move" "fleur" "size_all")
-all_scroll_file=$(find_file "${filePrefix}" "${fileSuffix}" "All Scroll" "${mappings.all_scroll}" "Move" "all-scroll" "fleur" "size_all")
-vertical_file=$(find_file "${filePrefix}" "${fileSuffix}" "Vertical" "${mappings.vertical}" "Vertical" "VertRes" "ns-resize")
-horizontal_file=$(find_file "${filePrefix}" "${fileSuffix}" "Horizontal" "${mappings.horizontal}" "Horizontal" "HoriRes" "ew-resize")
-diag1_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NW-SE" "${mappings.diag1}" "Diagonal1" "DiaRes1" "nwse-resize")
-diag2_file=$(find_file "${filePrefix}" "${fileSuffix}" "Diagonal NE-SW" "${mappings.diag2}" "Diagonal2" "DiaRes2" "nesw-resize")
-pin_file=$(find_file "${filePrefix}" "${fileSuffix}" "Pin" "${mappings.pin}" "Pin" "Location" "pin")
-alternate_file=$(find_file "${filePrefix}" "${fileSuffix}" "Alternate" "${mappings.alternate}" "Alternate" "cell" "plus")
-person_file=$(find_file "${filePrefix}" "${fileSuffix}" "Person" "${mappings.person}" "Person" "people")
-
-${sudo}${lnCmd} "$normal_file" left_ptr
-${sudo}${lnCmd} "$normal_file" default
-${sudo}${lnCmd} "$normal_file" arrow
-${sudo}${lnCmd} "$normal_file" top_left_arrow
-${sudo}${lnCmd} "$working_file" progress
-${sudo}${lnCmd} "$working_file" left_ptr_watch
-${sudo}${lnCmd} "$busy_file" watch
-${sudo}${lnCmd} "$busy_file" wait
-${sudo}${lnCmd} "$link_file" pointer
-${sudo}${lnCmd} "$link_file" hand1
-${sudo}${lnCmd} "$link_file" hand2
-${sudo}${lnCmd} "$link_file" pointing_hand
-${sudo}${lnCmd} "$text_file" xterm
-${sudo}${lnCmd} "$text_file" text
-${sudo}${lnCmd} "$text_file" ibeam
-${sudo}${lnCmd} "$precision_file" crosshair
-${sudo}${lnCmd} "$precision_file" cross
-${sudo}${lnCmd} "$precision_file" diamond_cross
-${sudo}${lnCmd} "$hand_file" pencil
-${sudo}${lnCmd} "$unavailable_file" forbidden
-${sudo}${lnCmd} "$unavailable_file" crossed_circle
-${sudo}${lnCmd} "$not_allowed_file" not-allowed
-${sudo}${lnCmd} "$not_allowed_file" no-drop
-${sudo}${lnCmd} "$help_file" help
-${sudo}${lnCmd} "$help_file" question_arrow
-${sudo}${lnCmd} "$help_file" dnd-ask
-${sudo}${lnCmd} "$move_file" move
-${sudo}${lnCmd} "$move_file" fleur
-${sudo}${lnCmd} "$move_file" size_all
-${sudo}${lnCmd} "$move_file" grabbing
-${sudo}${lnCmd} "$move_file" dnd-move
-${sudo}${lnCmd} "$all_scroll_file" all-scroll
-${sudo}${lnCmd} "$vertical_file" ns-resize
-${sudo}${lnCmd} "$vertical_file" n-resize
-${sudo}${lnCmd} "$vertical_file" s-resize
-${sudo}${lnCmd} "$vertical_file" sb_v_double_arrow
-${sudo}${lnCmd} "$vertical_file" row-resize
-${sudo}${lnCmd} "$vertical_file" top_side
-${sudo}${lnCmd} "$vertical_file" bottom_side
-${sudo}${lnCmd} "$horizontal_file" ew-resize
-${sudo}${lnCmd} "$horizontal_file" e-resize
-${sudo}${lnCmd} "$horizontal_file" w-resize
-${sudo}${lnCmd} "$horizontal_file" sb_h_double_arrow
-${sudo}${lnCmd} "$horizontal_file" col-resize
-${sudo}${lnCmd} "$horizontal_file" left_side
-${sudo}${lnCmd} "$horizontal_file" right_side
-${sudo}${lnCmd} "$diag1_file" nwse-resize
-${sudo}${lnCmd} "$diag1_file" nw-resize
-${sudo}${lnCmd} "$diag1_file" se-resize
-${sudo}${lnCmd} "$diag1_file" ul_angle
-${sudo}${lnCmd} "$diag2_file" nesw-resize
-${sudo}${lnCmd} "$diag2_file" ne-resize
-${sudo}${lnCmd} "$diag2_file" sw-resize
-${sudo}${lnCmd} "$diag2_file" ur_angle
-${sudo}${lnCmd} "$pin_file" pin
-${sudo}${lnCmd} "$pin_file" location-arrow
-${sudo}${lnCmd} "$pin_file" alias
-${sudo}${lnCmd} "$pin_file" dnd-link
-${sudo}${lnCmd} "$alternate_file" cell
-${sudo}${lnCmd} "$alternate_file" plus
-${sudo}${lnCmd} "$person_file" person
-
-${cleanupBlock}
-
-echo "✅ Cursor theme '${themeName}' installed successfully!"
-`;
-                                                        const base64 = btoa(unescape(encodeURIComponent(unified)));
-                                                        const cmd = `echo "${base64}" | base64 -d | bash`;
-                                                        copyToClipboard(cmd, 'one-liner');
-                                                    }}
+                                                    onClick={() => copyToClipboard(quickInstallCommand(), 'one-liner')}
                                                     className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all shadow-lg ${copied === 'one-liner' ? 'bg-green-500 text-white border-2 border-green-500 shadow-green-500/30' : 'bg-gradient-to-r from-teto to-orange-400 dark:from-miku dark:to-teal-500 text-white hover:scale-105 hover:shadow-teto/30 dark:hover:shadow-miku/30'}`}
                                                 >
                                                     {copied === 'one-liner' ? <Check size={14} /> : <Terminal size={14} />}
@@ -1625,6 +1801,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                     { label: (t('step2Title') || 'Convert Files').replace(/^\d+\.\s*/, ''), color: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800' },
                                                     { label: (t('step3Title') || 'Register Theme').replace(/^\d+\.\s*/, ''), color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' },
                                                     { label: useSymlinks ? 'Symlink' : 'Copy + Cleanup', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' },
+                                                    ...(autoApply ? [{ label: t('autoApply'), color: 'bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800' }] : []),
                                                 ].map((step, i, arr) => (
                                                     <React.Fragment key={i}>
                                                         <div className={`flex items-center px-3 py-1 rounded-full border text-[9px] font-bold uppercase tracking-wider ${step.color}`}>
@@ -1642,12 +1819,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                             <div className="relative bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center gap-3 overflow-hidden">
                                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teto to-orange-400 dark:from-miku dark:to-teal-500 rounded-l-2xl"></div>
                                                 <code className="flex-1 font-mono text-[10px] text-slate-300 overflow-x-auto whitespace-nowrap custom-scrollbar pl-3 select-all leading-relaxed">
-                                                    {(() => {
-                                                        const sudo = needsSudo ? 'sudo ' : '';
-                                                        const lnCmd = useSymlinks ? 'ln -sf' : 'cp -f';
-                                                        const preview = `echo "eW91ci1zY3JpcHQtaGVyZQ..." | base64 -d | bash`;
-                                                        return preview;
-                                                    })()}
+                                                    {`echo "${quickInstallCommand().slice(6, 34)}..." | base64 -d | bash`}
                                                 </code>
                                             </div>
                                         </div>
@@ -1681,10 +1853,10 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
 
                                                 <div className="flex items-center bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
                                                     <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar mr-2 py-3 px-2 leading-relaxed">
-                                                        {`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\n${needsSudo ? 'sudo ' : ''}win2xcur "${sourcePath}"/*.ani -o "${installPath}/${themeName}/cursors/"`}
+                                                        {convertCommand}
                                                     </code>
                                                     <button
-                                                        onClick={() => copyToClipboard(`${needsSudo ? 'sudo ' : ''}mkdir -p "${installPath}/${themeName}/cursors"\n${needsSudo ? 'sudo ' : ''}win2xcur "${sourcePath}"/*.ani -o "${installPath}/${themeName}/cursors/"`, 'convert-cmd')}
+                                                        onClick={() => copyToClipboard(convertCommand, 'convert-cmd')}
                                                         className={`p-1.5 rounded hover:bg-white dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === 'convert-cmd' ? 'animate-copy-pulse' : ''}`}
                                                     >
                                                         {copied === 'convert-cmd' ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -1706,10 +1878,10 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                             <span className="text-[9px] font-bold text-black dark:text-white bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">{t('step3GnomeHint')}</span>
                                                         </div>
                                                         <code className="block font-mono text-[11px] text-black dark:text-white dark:text-miku-100 bg-slate-50 dark:bg-black/30 p-3 rounded-lg break-all border border-slate-100 dark:border-slate-800/50">
-                                                            <span className="text-teto dark:text-miku font-bold mr-2">$</span>{`printf '[Icon Theme]\nName=${themeName}\nInherits=Adwaita\n' | ${needsSudo ? 'sudo ' : ''}tee "${installPath}/${themeName}/index.theme" > /dev/null`}
+                                                            <span className="text-teto dark:text-miku font-bold mr-2">$</span>{registerCommand}
                                                         </code>
                                                     </div>
-                                                    <div className={`border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 w-full md:w-16 flex items-center justify-center bg-slate-50 dark:bg-slate-900/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 transition-all cursor-pointer ${copied === 'pipe-2' ? 'animate-copy-pulse bg-green-50 dark:bg-green-900/10' : ''}`} onClick={() => copyToClipboard(`printf '[Icon Theme]\nName=${themeName}\nInherits=Adwaita\n' | ${needsSudo ? 'sudo ' : ''}tee "${installPath}/${themeName}/index.theme" > /dev/null`, `pipe-2`)}>
+                                                    <div className={`border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 w-full md:w-16 flex items-center justify-center bg-slate-50 dark:bg-slate-900/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 transition-all cursor-pointer ${copied === 'pipe-2' ? 'animate-copy-pulse bg-green-50 dark:bg-green-900/10' : ''}`} onClick={() => copyToClipboard(registerCommand, `pipe-2`)}>
                                                         {copied === `pipe-2` ? <Check size={20} className="text-green-500" /> : <Copy size={20} className=" text-black dark:text-white" />}
                                                     </div>
                                                 </div>
@@ -1726,9 +1898,18 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                     <div className="w-3 h-3 rounded-full bg-neru shadow-[0_0_10px_rgba(242,201,17,0.5)]"></div>
                                                     <div className="w-3 h-3 rounded-full bg-miku shadow-[0_0_10px_rgba(57,197,187,0.5)]"></div>
                                                     <div className="w-3 h-3 rounded-full bg-teto shadow-[0_0_10px_rgba(208,62,92,0.5)]"></div>
-                                                    <span className="ml-4 text-xs font-mono font-bold text-black dark:text-white">generate_symlink.sh</span>
+                                                    <span className="ml-4 text-xs font-mono font-bold text-black dark:text-white">install_cursors.sh</span>
                                                 </div>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-2 flex-wrap justify-end">
+                                                    <button
+                                                        onClick={toggleLock}
+                                                        aria-pressed={scriptLocked}
+                                                        title={t('lockedNote')}
+                                                        className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all border uppercase tracking-wider ${scriptLocked ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-white dark:bg-slate-800 text-black dark:text-white border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+                                                    >
+                                                        {scriptLocked ? <Icon size={12}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></Icon> : <Icon size={12}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></Icon>}
+                                                        {scriptLocked ? t('unlock') : t('lock')}
+                                                    </button>
                                                     <button
                                                         onClick={downloadScript}
                                                         className="flex items-center gap-2 px-4 py-1.5 bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-600 dark:text-sky-300 rounded-lg text-[10px] font-bold transition-all border border-sky-100 dark:border-sky-800 uppercase tracking-wider"
@@ -1747,10 +1928,16 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                 </div>
                                             </div>
 
+                                            {scriptLocked && (
+                                                <div className="flex flex-wrap items-center justify-between gap-2 px-6 py-2 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-900/40 text-[10px] text-amber-800 dark:text-amber-200">
+                                                    <span>{t('lockedNote')}</span>
+                                                    <button onClick={() => setScriptLocked(false)} className="font-black uppercase tracking-wider text-amber-700 dark:text-amber-300 hover:underline">{t('regenerate')}</button>
+                                                </div>
+                                            )}
                                             <div className="relative">
                                                 <textarea
                                                     value={scriptContent}
-                                                    onChange={(e) => setScriptContent(e.target.value)}
+                                                    onChange={(e) => editScript(e.target.value)}
                                                     className="w-full bg-slate-100 dark:bg-[#0b1120] p-6 font-mono text-[11px] leading-relaxed min-h-[400px] resize-none focus:outline-none focus:bg-white dark:focus:bg-black/40 text-black dark:text-white dark:text-slate-200 transition-colors custom-scrollbar border-0"
                                                     spellCheck="false"
                                                 />
@@ -1772,7 +1959,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                             <li>
                                                                 {(() => {
                                                                     const text = t('howToRunStep3');
-                                                                    const cmd = 'chmod +x install_cursors.sh';
+                                                                    const cmd = 'bash install_cursors.sh';
                                                                     const parts = text.split(cmd);
                                                                     return parts.length > 1 ? (
                                                                         <span>{parts[0]}<code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">{cmd}</code>{parts[1]}</span>
@@ -1780,14 +1967,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                                 })()}
                                                             </li>
                                                             <li>
-                                                                {(() => {
-                                                                    const cmd = `${needsSudo ? 'sudo ' : ''}./install_cursors.sh`;
-                                                                    const text = t('howToRunStep4').replace('./install_cursors.sh', cmd);
-                                                                    const parts = text.split(cmd);
-                                                                    return parts.length > 1 ? (
-                                                                        <span>{parts[0]}<code className="bg-white dark:bg-black/30 px-1 py-0.5 rounded font-mono">{cmd}</code>{parts[1]}</span>
-                                                                    ) : text;
-                                                                })()}
+                                                                {t('howToRunStep4')}
                                                             </li>
                                                         </ol>
                                                         <div className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/30">
@@ -1836,7 +2016,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
 
                                             <div className="px-6 py-3 bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[10px] text-black dark:text-white font-bold transition-colors">
                                                 <span className="flex items-center gap-2"><Smartphone size={12} className="text-neru" /> NERU-OPTIMIZED PIPELINE</span>
-                                                <span className="uppercase tracking-widest">Target: {installPath}/{themeName}</span>
+                                                <span className="uppercase tracking-widest truncate">Target: {installPath}/{CP.sanitizeThemeName(themeName)}</span>
                                             </div>
                                         </div>
                                     </section>
@@ -1855,8 +2035,8 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {[
-                                                { label: t('globalInstall'), cmd: `sudo cp -r ~/.local/share/icons/${themeName} /usr/share/icons/` },
-                                                { label: t('flatpakPerms'), cmd: `flatpak override --user --filesystem=/usr/share/icons/:ro` }
+                                                { label: t('globalInstall'), cmd: `sudo cp -a ~/.local/share/icons/${CP.bashPath(CP.sanitizeThemeName(themeName))} /usr/share/icons/` },
+                                                { label: t('flatpakPerms'), cmd: `flatpak override --user --filesystem=xdg-data/icons:ro --filesystem=/usr/share/icons:ro` }
                                             ].map((item, i) => (
                                                 <div key={i} className="group p-4 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-slate-800 hover:border-neru dark:hover:border-neru transition-all">
                                                     <div className="flex justify-between items-center mb-3">
@@ -1899,7 +2079,7 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <div className={`w-2 h-2 rounded-full ${demoPack === 'none' ? 'bg-slate-300 dark:bg-slate-700' : 'bg-teto dark:bg-miku animate-pulse shadow-[0_0_8px_rgba(57,197,187,0.5)]'}`}></div>
-                                                            <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? t('browserDefault') : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
+                                                            <span className="text-slate-700 dark:text-slate-200">{demoPack === 'none' ? t('browserDefault') : demoPack === 'custom' ? `${t('yourPack')}: ${pack ? pack.themeName : ''}` : (demoPack === 'Aemeath' ? 'Aemeath BLZ Free' : (demoPack === 'Frieren' ? 'Frieren BLZ' : demoPack))}</span>
                                                         </div>
                                                         <ChevronDown size={14} className={`text-slate-400 group-hover:text-teto dark:group-hover:text-miku transition-transform duration-300 ${isPackDropdownOpen ? 'rotate-180' : ''}`} />
                                                     </button>
@@ -1911,23 +2091,24 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                                                 {[
                                                                     { id: 'none', label: t('browserDefault'), desc: t('nativeCursors') },
                                                                     { id: 'Aemeath', label: 'Aemeath BLZ Free', desc: t('byBlz') },
-                                                                    { id: 'Frieren', label: 'Frieren BLZ', desc: t('premiumPack') }
-                                                                ].map(pack => (
+                                                                    { id: 'Frieren', label: 'Frieren BLZ', desc: t('premiumPack') },
+                                                                    ...(pack ? [{ id: 'custom', label: `${t('yourPack')}: ${pack.themeName}`, desc: t('yourPackDesc') }] : [])
+                                                                ].map(option => (
                                                                     <button
-                                                                        key={pack.id}
+                                                                        key={option.id}
                                                                         onClick={() => {
-                                                                            setDemoPack(pack.id);
+                                                                            setDemoPack(option.id);
                                                                             setIsPackDropdownOpen(false);
                                                                         }}
                                                                         className={`w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex items-center justify-between group/item`}
                                                                     >
                                                                         <div>
-                                                                            <div className={`text-[10px] font-bold uppercase tracking-wider ${demoPack === pack.id ? 'text-teto dark:text-miku' : 'text-slate-700 dark:text-slate-300'}`}>
-                                                                                {pack.label}
+                                                                            <div className={`text-[10px] font-bold uppercase tracking-wider ${demoPack === option.id ? 'text-teto dark:text-miku' : 'text-slate-700 dark:text-slate-300'}`}>
+                                                                                {option.label}
                                                                             </div>
-                                                                            <div className="text-[8px] text-slate-400 font-medium">{pack.desc}</div>
+                                                                            <div className="text-[8px] text-slate-400 font-medium">{option.desc}</div>
                                                                         </div>
-                                                                        {demoPack === pack.id && <Check size={14} className="text-teto dark:text-miku" />}
+                                                                        {demoPack === option.id && <Check size={14} className="text-teto dark:text-miku" />}
                                                                     </button>
                                                                 ))}
                                                             </div>
@@ -1937,7 +2118,15 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                             </div>
                                         </div>
 
-                                        {demoPack !== 'none' && (
+                                        {demoPack === 'custom' && pack && (
+                                            <div className="mb-6 bg-teto-50 dark:bg-miku-900/20 border-2 border-teto/20 dark:border-miku/30 rounded-xl p-4 flex items-center gap-4 text-xs text-black dark:text-white">
+                                                <div className="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                                                    {packPreviews.normal && <FramePlayer frames={packPreviews.normal} size={28} />}
+                                                </div>
+                                                <span>{t('yourPackNote')}</span>
+                                            </div>
+                                        )}
+                                        {demoPack !== 'none' && demoPack !== 'custom' && (
                                             <div className="mb-6 flex flex-col gap-3">
                                                 <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800/50 rounded-xl p-4 flex items-start gap-4 shadow-sm">
                                                     <Info size={20} className="text-red-600 dark:text-red-400 shrink-0" />
@@ -2027,17 +2216,22 @@ echo "✅ Cursor theme '${themeName}' installed successfully!"
                                             ].map((item, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className={`group flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 hover:border-teto-300 dark:hover:border-miku-500/30 transition-all ${demoPack === 'none' ? item.style : 'cursor-none'}`}
+                                                    className={`group flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:bg-teto-50 dark:hover:bg-miku-900/20 hover:border-teto-300 dark:hover:border-miku-500/30 transition-all ${demoPack === 'none' || (demoPack === 'custom' && !packPreviews[item.mapKey]) ? item.style : 'cursor-none'}`}
                                                     title={`Test ${t(item.labelKey)} cursor`}
                                                     onMouseEnter={() => {
-                                                        if (demoPack !== 'none') {
+                                                        if (demoPack === 'custom') {
+                                                            // Roles the pack lacks show the browser's own cursor.
+                                                            setActiveCursor(packPreviews[item.mapKey] || null);
+                                                        } else if (demoPack !== 'none') {
                                                             setActiveCursor(`./demo-cursors/${demoPack}/${demoMapping[item.mapKey] || item.action}.gif`);
                                                         }
                                                     }}
                                                     onMouseLeave={() => setActiveCursor(null)}
                                                 >
                                                     <div className=" text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors mb-2">
-                                                        {item.icon}
+                                                        {demoPack === 'custom' && packPreviews[item.mapKey]
+                                                            ? <img src={packPreviews[item.mapKey][0].url} alt="" className="w-6 h-6" style={{ imageRendering: 'pixelated' }} />
+                                                            : item.icon}
                                                     </div>
                                                     <span className="text-[10px] font-bold text-black dark:text-white dark:text-slate-200 text-center uppercase tracking-wider">{t(item.labelKey)}</span>
                                                     <span className="text-[8px] font-mono text-black dark:text-white mt-1 opacity-70 group-hover:opacity-100 transition-opacity">{item.action}</span>
