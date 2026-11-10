@@ -7,19 +7,19 @@
     <title>Documentation | CursorPort</title>
     <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
     <meta name="description"
-        content="Convert Windows .ani cursors to Linux themes. Universal support for GNOME, KDE, XFCE (X11 & Wayland) with instant installation scripts.">
+        content="How CursorPort converts Windows .ani and .cur cursors to Linux themes, the sources behind it, and credits.">
     <link rel="canonical" href="https://cursorport.01blue.org/documentation.html" />
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cursorport.01blue.org/documentation.html">
     <meta property="og:title" content="Documentation | CursorPort">
-    <meta property="og:description" content="Convert Windows .ani cursors to Linux themes. Universal support for GNOME, KDE, XFCE (X11 & Wayland) with instant installation scripts.">
+    <meta property="og:description" content="How CursorPort converts Windows .ani and .cur cursors to Linux themes, the sources behind it, and credits.">
     <meta property="og:image" content="https://cursorport.01blue.org/images/miku.png">
     <meta property="og:site_name" content="CursorPort">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Documentation | CursorPort">
-    <meta name="twitter:description" content="Convert Windows .ani cursors to Linux themes. Universal support for GNOME, KDE, XFCE (X11 & Wayland) with instant installation scripts.">
+    <meta name="twitter:description" content="How CursorPort converts Windows .ani and .cur cursors to Linux themes, the sources behind it, and credits.">
     <meta name="twitter:image" content="https://cursorport.01blue.org/images/miku.png">
 
     <!-- 
@@ -71,6 +71,63 @@
         const Info = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></Icon>;
         const Terminal = (p) => <Icon {...p}><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></Icon>;
         const Zap = (p) => <Icon {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></Icon>;
+        const Book = (p) => <Icon {...p}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></Icon>;
+        const Sparkles = (p) => <Icon {...p}><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"></path></Icon>;
+
+        const VERSION = 'v4.0';
+
+        // Sources behind each part of the converter and install script.
+        const SOURCES = [
+            {
+                group: 'Linux cursor themes',
+                items: [
+                    { name: 'freedesktop Icon Theme Specification', use: 'Theme folder layout, index.theme and the Inherits key.', link: 'https://specifications.freedesktop.org/icon-theme-spec/latest/' },
+                    { name: 'XDG Base Directory Specification', use: 'Installing to $XDG_DATA_HOME/icons (~/.local/share/icons) by default.', link: 'https://specifications.freedesktop.org/basedir-spec/latest/' },
+                    { name: 'Xcursor (libXcursor) manual', use: 'The Xcursor file format the converter writes: premultiplied ARGB images, nominal sizes, hotspots and frame delays.', link: 'https://www.x.org/releases/current/doc/man/man3/Xcursor.3.xhtml' },
+                    { name: 'Qt xcb cursor names (qxcbcursor.cpp)', use: 'Extra names KDE and Qt apps ask for, such as size_ver, size_fdiag, split_h and whats_this.', link: 'https://code.qt.io/cgit/qt/qtbase.git/tree/src/plugins/platforms/xcb/qxcbcursor.cpp' },
+                    { name: 'MDN: CSS cursor values', use: 'Web cursor names (ns-resize, not-allowed, all-scroll...) linked for browsers and GTK 4.', link: 'https://developer.mozilla.org/en-US/docs/Web/CSS/cursor' },
+                    { name: 'win2xcur by quantum5', use: 'Reference converter. The in-browser converter output was checked against it on 159 real cursors (pixel difference at most 1/255).', link: 'https://github.com/quantum5/win2xcur' },
+                ]
+            },
+            {
+                group: 'Windows cursor formats',
+                items: [
+                    { name: 'ANI file format', use: 'RIFF ACON layout: anih header, rate and seq chunks, frame timing in 1/60 s jiffies.', link: 'https://en.wikipedia.org/wiki/ANI_(file_format)' },
+                    { name: 'ICO / CUR file format', use: 'Image directory, cursor hotspots, BMP frames with AND masks and PNG frames.', link: 'https://en.wikipedia.org/wiki/ICO_(file_format)' },
+                    { name: 'PNG specification (W3C)', use: 'Decoding PNG-compressed cursor frames without a canvas.', link: 'https://www.w3.org/TR/png-3/' },
+                    { name: 'INF AddReg directive (Microsoft)', use: 'Reading install.inf: the HKCU "Control Panel\\Cursors" entries that map each role to its file.', link: 'https://learn.microsoft.com/en-us/windows-hardware/drivers/install/inf-addreg-directive' },
+                ]
+            },
+            {
+                group: 'Kubuntu, Ubuntu and desktops',
+                items: [
+                    { name: 'Issue #4: broken links on Kubuntu', use: 'The bug report. Reproduced on Kubuntu 26.04: the old script only converted *.ani, so .cur roles were missing and their links broken.', link: 'https://github.com/Eagle10021/Custom-Cursors-Linux/issues/4' },
+                    { name: 'Ubuntu: "Carefully But Purposefully Oxidising Ubuntu"', use: 'Ubuntu ships the Rust uutils coreutils. The installer only uses basic rm, cp and ln flags so it behaves the same with GNU and uutils (tested with uutils ln 0.10.0).', link: 'https://discourse.ubuntu.com/t/carefully-but-purposefully-oxidising-ubuntu/56995' },
+                    { name: 'uutils coreutils', use: 'The Rust coreutils used on Ubuntu 26.04 / Kubuntu.', link: 'https://github.com/uutils/coreutils' },
+                    { name: 'PEP 668: externally managed environments', use: 'Why plain "pip install win2xcur" fails on Ubuntu, Debian and Fedora.', link: 'https://peps.python.org/pep-0668/' },
+                    { name: 'pipx', use: 'The recommended way to install win2xcur on those distros.', link: 'https://pipx.pypa.io/stable/' },
+                    { name: 'KDE plasma-workspace', use: 'plasma-apply-cursortheme and the kcminputrc settings the script uses to apply the theme on Plasma.', link: 'https://invent.kde.org/plasma/plasma-workspace' },
+                ]
+            },
+            {
+                group: 'Browser',
+                items: [
+                    { name: 'MDN: Compression Streams API', use: 'Inflating zip/PNG data and gzipping the downloaded theme in the browser.', link: 'https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API' },
+                    { name: 'GNU tar: standard archive format', use: 'The ustar headers used for the theme download, which keep cursor symlinks intact.', link: 'https://www.gnu.org/software/tar/manual/html_node/Standard.html' },
+                ]
+            },
+        ];
+
+        const WHATS_NEW = [
+            { title: 'Build in the browser', text: 'Converts .ani and .cur files on the page and downloads a ready theme with install.sh. No win2xcur needed.' },
+            { title: 'Load your pack', text: 'Pick a folder or .zip, or drop it on the page. The role mapping comes from install.inf or the file names.' },
+            { title: '.cur support fixed', text: 'Packs with only .cur files, a mix, or upper-case extensions now convert. This was the cause of issue #4 on Kubuntu.' },
+            { title: 'No more broken links', text: 'The script never links a missing file, checks for broken links and lists the roles a pack lacks.' },
+            { title: 'Applies itself', text: 'Switches KDE Plasma, GNOME, XFCE, Cinnamon, MATE, Hyprland or Sway to the new theme (optional).' },
+            { title: 'Preview your own cursors', text: 'The demo area plays your pack\'s animations from the original frames.' },
+            { title: 'Lock the script', text: 'Manual edits are kept until Regenerate is pressed.' },
+            { title: 'Neutral defaults', text: 'No personal paths or usernames; ~ and $HOME work for anyone.' },
+        ];
 
         // --- DOCUMENTATION APP ---
         // Simple read-only page to display credits and stack info
@@ -127,6 +184,10 @@
 
                                 <div className="flex items-center gap-6">
                                     <div className="hidden md:block text-[10px] font-bold text-black dark:text-white uppercase tracking-[0.2em]">Documentation & Credits</div>
+                                    <a href="https://github.com/Eagle10021/Custom-Cursors-Linux/releases" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-800 text-xs font-bold text-black dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-100 dark:border-slate-700">
+                                        <span className="w-2 h-2 rounded-full bg-neru animate-pulse"></span>
+                                        {VERSION}
+                                    </a>
 
                                     {/* THEME TOGGLE (Synced) */}
                                     <button
@@ -181,9 +242,10 @@
                                                 { name: "React 18", desc: "For modular UI logic", color: "bg-blue-500", link: "https://react.dev/" },
                                                 { name: "Tailwind CSS", desc: "For rapid styling", color: "bg-cyan-500", link: "https://tailwindcss.com/" },
                                                 { name: "Babel Standalone", desc: "For in-browser compilation", color: "bg-yellow-500", link: "https://babeljs.io/" },
-                                                { name: "win2xcur", desc: "Core conversion utility", color: "bg-green-500", link: "https://github.com/quantum5/win2xcur" },
+                                                { name: "win2xcur", desc: "Converter used by the install script", color: "bg-green-500", link: "https://github.com/quantum5/win2xcur" },
+                                                { name: "cursorport-core.js", desc: "In-browser .ani/.cur → Xcursor converter, install.inf reader and script generator", color: "bg-pink-500", link: "https://github.com/Eagle10021/Custom-Cursors-Linux/blob/main/js/cursorport-core.js" },
                                             ].map((tool, i) => (
-                                                <a href={tool.link} key={i} target="_blank" className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:-translate-y-1 transition-all group">
+                                                <a href={tool.link} key={i} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:-translate-y-1 transition-all group">
                                                     <div className={`w-2 h-2 rounded-full mt-2 ${tool.color} shadow-[0_0_10px_currentColor]`}></div>
                                                     <div>
                                                         <h3 className="font-bold text-black dark:text-white dark:text-slate-200 group-hover:text-teto dark:group-hover:text-miku transition-colors">{tool.name}</h3>
@@ -204,7 +266,7 @@
                                         <div className="space-y-6 text-sm text-black dark:text-white leading-relaxed">
                                             <p>
                                                 Linux cursor themes rely on a specific directory structure in <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">~/.local/share/icons/</code>.
-                                                Unlike Windows which uses a settings menu to pick individual files, Linux uses <strong>Hard Links</strong> or <strong>Symlinks</strong> to map standard names (like <code className="text-teto dark:text-miku">left_ptr</code>) to your custom graphics.
+                                                Unlike Windows, which picks one file per role in a settings menu, Linux apps ask for cursors by name (like <code className="text-teto dark:text-miku">left_ptr</code>, <code className="text-teto dark:text-miku">pointer</code> or <code className="text-teto dark:text-miku">size_fdiag</code>). CursorPort links 87 of those names, across 19 Windows roles, to your converted files with relative symlinks, so the theme keeps working if it is moved or copied system-wide.
                                             </p>
                                             <div className="p-6 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800">
                                                 <h4 className="font-bold mb-4 flex items-center gap-2">
@@ -218,7 +280,7 @@
                                                     </li>
                                                     <li className="flex gap-3">
                                                         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">2</span>
-                                                        <span><strong>Convert:</strong> Original files are converted to Linux native XCursor formats using <code className="text-teto dark:text-miku">win2xcur</code>.</span>
+                                                        <span><strong>Convert:</strong> <code className="text-xs">.ani</code> and <code className="text-xs">.cur</code> files become Linux Xcursor files, either right in your browser or with <code className="text-teto dark:text-miku">win2xcur</code> in the install script. The role mapping comes from the pack's <code className="text-xs">install.inf</code> when it has one.</span>
                                                     </li>
                                                     <li className="flex gap-3">
                                                         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">3</span>
@@ -226,7 +288,7 @@
                                                     </li>
                                                     <li className="flex gap-3">
                                                         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teto dark:bg-miku text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-bold">4</span>
-                                                        <span><strong>Link:</strong> The generated shell script creates over 50 symlinks to ensure full coverage across all apps and desktop environments.</span>
+                                                        <span><strong>Link &amp; apply:</strong> Every Linux cursor name is linked to the right file, broken links are checked, and the theme is applied for KDE, GNOME, XFCE, Cinnamon, MATE, Hyprland or Sway.</span>
                                                     </li>
                                                 </ol>
                                             </div>
@@ -322,7 +384,9 @@
                                             {[
                                                 { q: "Cursors don't change in Firefox/Chrome?", a: "Some browsers use XWayland. Use the 'Permanent Browser Fix' on the main page to force native Wayland support." },
                                                 { q: "The cursor size looks wrong?", a: "Desktop environments sometimes override theme settings. Run the size-specific command provided in the app to force a refresh." },
-                                                { q: "Missing cursors for some actions?", a: "Ensure your theme folder has full symlink coverage. Our generated script covers 50+ variations for this exact reason." }
+                                                { q: "Missing cursors for some actions?", a: "The script lists any role your pack has no file for; those fall back to your desktop's own theme. Fix the names under File Mapping and run it again." },
+                                                { q: "Broken cursors on Kubuntu with an older script?", a: "Scripts from before v4 only converted .ani files, so .cur cursors were never created. Generate a new script (or build the theme in the browser) and run it again." },
+                                                { q: "pip install win2xcur fails (externally-managed-environment)?", a: "Ubuntu, Kubuntu, Debian and Fedora block plain pip (PEP 668). Use: sudo apt install pipx imagemagick && pipx install win2xcur. Or skip it and build the theme in the browser." }
                                             ].map((faq, i) => (
                                                 <div key={i} className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800">
                                                     <h4 className="font-black text-[10px] uppercase tracking-widest text-teto dark:text-miku mb-2">{faq.q}</h4>
@@ -334,6 +398,51 @@
                                 </div>
 
                             </div>
+
+                            {/* WHAT'S NEW */}
+                            <section className="mt-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-[2rem] p-10 shadow-2xl">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-teto dark:text-miku">
+                                        <Sparkles />
+                                    </div>
+                                    <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">What's New in {VERSION}</h2>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    {WHATS_NEW.map((item, i) => (
+                                        <div key={i} className="p-5 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800">
+                                            <h3 className="font-black text-[11px] uppercase tracking-widest text-teto dark:text-miku mb-2">{item.title}</h3>
+                                            <p className="text-xs text-black dark:text-white opacity-80 leading-relaxed">{item.text}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* SOURCES */}
+                            <section className="mt-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-[2rem] p-10 shadow-2xl">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-neru">
+                                        <Book />
+                                    </div>
+                                    <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">Sources &amp; References</h2>
+                                </div>
+                                <p className="text-sm text-black dark:text-white opacity-80 mb-8">Where the formats, cursor names and distro behaviour behind CursorPort come from.</p>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    {SOURCES.map((g) => (
+                                        <div key={g.group}>
+                                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-3">{g.group}</h3>
+                                            <div className="space-y-3">
+                                                {g.items.map((src) => (
+                                                    <a key={src.link} href={src.link} target="_blank" rel="noopener noreferrer" className="block p-4 rounded-2xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-slate-800 hover:border-teto dark:hover:border-miku hover:-translate-y-0.5 transition-all group">
+                                                        <div className="font-bold text-sm text-black dark:text-white group-hover:text-teto dark:group-hover:text-miku transition-colors">{src.name}</div>
+                                                        <p className="text-xs text-black dark:text-white opacity-75 mt-1 leading-relaxed">{src.use}</p>
+                                                        <p className="text-[10px] font-mono text-slate-400 mt-2 truncate">{src.link.replace(/^https?:\/\//, '')}</p>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
 
                             {/* FOOTER */}
                             <footer className="mt-24 text-center border-t border-slate-200 dark:border-slate-800 pt-12">

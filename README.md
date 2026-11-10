@@ -3,12 +3,22 @@
 
 If you've ever tried moving your favorite Windows cursors over to Linux, you know it can be a bit of a headache. **CursorPort** is a simple, web-based tool I built to bridge that gap. It helps you take Windows animated (`.ani`) and static (`.cur`) cursors and turn them into a theme that actually works on your Linux desktop, either right in your browser or with a generated install script.
 
+## What's new in v4
+
+- **Build the theme in your browser** with no `win2xcur`, and download a ready `.tar.gz` with its own `install.sh`.
+- **Load your pack** (folder, `.zip` or drag and drop): the mapping is read from `install.inf` or guessed from the file names.
+- **`.cur` files work**: packs with only `.cur`, a mix, or upper-case extensions now convert (this fixes [#4](https://github.com/Eagle10021/Custom-Cursors-Linux/issues/4)).
+- **No broken links**: the script never links a missing file, checks the result, and tells you which roles the pack doesn't have.
+- **Applies itself** on KDE Plasma, GNOME, XFCE, Cinnamon, MATE, Hyprland and Sway.
+- **Preview your own cursors** in the demo area, **lock** the script to keep manual edits, and **no personal defaults**.
+- A new **Sources & References** section on the [documentation page](https://cursorport.01blue.org/documentation.html) lists the specs and reports behind all of this.
+
 ## What it does
 
 - **Load your pack**: Pick the folder or `.zip` you downloaded (or drag it onto the page). CursorPort reads the pack's `install.inf` (or guesses from the file names) and fills in the role mapping, theme name and live preview for you. Your files never leave the browser.
 - **Build the theme in your browser**: Converts `.ani` and `.cur` files right on the page, no `win2xcur` needed, and downloads a ready-to-install Linux cursor theme (`.tar.gz` with an `install.sh`).
 - **`.ani` and `.cur` support**: Animated and static cursors, BMP and PNG frames, multiple sizes per file. The script and the manual commands handle packs with only `.ani`, only `.cur`, a mix, or upper-case extensions.
-- **One script that does it all**: The generated `install_cursors.sh` converts the files, registers the theme, links 100+ Linux cursor names to the right files, checks for broken links and tells you which roles the pack doesn't have.
+- **One script that does it all**: The generated `install_cursors.sh` converts the files, registers the theme, links 87 Linux cursor names (across 19 Windows roles) to the right files, checks for broken links and tells you which roles the pack doesn't have.
 - **Applies itself**: After installing, the script switches your desktop to the new theme (KDE Plasma, GNOME, XFCE, Cinnamon, MATE, Hyprland, Sway, with a fallback for everything else). You can turn this off.
 - **Live preview**: Hover the demo blocks to see your own cursors animate, or try the featured BLZ packs.
 - **Edit the script safely**: Lock the script to keep your manual edits. Changing settings won't overwrite them until you hit Regenerate.
@@ -58,9 +68,10 @@ Plain `pip install` is blocked on most current distros, which is why it's `pipx`
 ## Gallery
 
 <p align="center">
-  <img src="./images/Page_Miku.jpeg" alt="Dark Mode (Miku)" width="45%" style="margin-right: 10px;" />
-  <img src="./images/Page_Teto.jpeg" alt="Light Mode (Teto)" width="45%" />
+  <img src="./images/Page_Teto.jpeg" alt="CursorPort v4 in light mode (Teto): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
+  <img src="./images/Page_Miku.jpeg" alt="CursorPort v4 in dark mode (Miku): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
 </p>
+<p align="center"><em>Light (Teto) and dark (Miku) modes in v4, with the Frieren demo pack by BLZ selected.</em></p>
 
 ## Credits & Support
 
