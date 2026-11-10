@@ -19,13 +19,13 @@
    Uses Miku Teal color with transparency 
 */
 .dark ::-webkit-scrollbar-thumb {
-    background: #39C5BB55;
+    background: #39c5bb55;
     border-radius: 10px;
     border: 3px solid #020617;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #39C5BB;
+    background: #39c5bb;
 }
 
 /* 
@@ -33,13 +33,13 @@
    Uses Kasane Teto Red/Pink color with transparency 
 */
 ::-webkit-scrollbar-thumb {
-    background: #D03E5C55;
+    background: #d03e5c55;
     border-radius: 10px;
-    border: 3px solid #FFF1F2;
+    border: 3px solid #fff1f2;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #D03E5C;
+    background: #d03e5c;
 }
 
 /* Standard properties for Firefox */
@@ -48,11 +48,11 @@
 }
 
 .dark {
-    scrollbar-color: #39C5BB55 transparent;
+    scrollbar-color: #39c5bb55 transparent;
 }
 
 :root:not(.dark) {
-    scrollbar-color: #D03E5C55 transparent;
+    scrollbar-color: #d03e5c55 transparent;
 }
 
 /* =========================================
@@ -116,15 +116,15 @@ body {
    ========================================= */
 
 @keyframes copyPulse {
-    0% { 
-        transform: scale(1); 
+    0% {
+        transform: scale(1);
     }
-    50% { 
-        transform: scale(1.15); 
+    50% {
+        transform: scale(1.15);
         box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
     }
-    100% { 
-        transform: scale(1); 
+    100% {
+        transform: scale(1);
     }
 }
 
