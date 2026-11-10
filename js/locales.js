@@ -198,7 +198,7 @@
             yourPackDesc: 'Loaded from your files',
             yourPackNote: 'Previewing your own cursors. Animations play from the original frames.',
             notInPack: 'not in pack',
-            step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora (plain pip is blocked there)',
+            step1PipxHint: 'Ubuntu, Debian and Fedora block plain pip install, so those use pipx.',
         },
         tr: {
             // --- Adım Adım ve Yöntem Başlıkları (v4) ---
@@ -392,7 +392,7 @@
             yourPackNote:
                 'Kendi imleçlerinizi önizliyorsunuz. Animasyonlar orijinal karelerden oynatılır.',
             notInPack: 'pakette yok',
-            step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora (orada düz pip engellidir)',
+            step1PipxHint: 'Ubuntu, Debian ve Fedora düz pip kurulumunu engeller, bu yüzden pipx kullanılır.',
         },
         zh: {
             // --- 分步与方法标题 (v4) ---
@@ -574,7 +574,7 @@
             yourPackDesc: '从您的文件加载',
             yourPackNote: '正在预览您自己的光标，动画按原始帧播放。',
             notInPack: '包中没有',
-            step1PipxHint: 'Ubuntu / Kubuntu / Debian / Fedora（这些系统禁止直接使用 pip）',
+            step1PipxHint: 'Ubuntu、Debian 和 Fedora 禁止直接使用 pip 安装，因此改用 pipx。',
         },
     };
 

@@ -2300,76 +2300,34 @@
                                                     </p>
                                                 </div>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                    {/* Arch */}
-                                                    <div>
-                                                        <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">
-                                                            Arch Linux (AUR)
+                                                <div className="space-y-3">
+                                                    {[
+                                                        { id: 'install-arch', label: 'Arch Linux (AUR)', cmd: 'yay -S win2xcur' },
+                                                        { id: 'install-apt', label: 'Ubuntu / Kubuntu / Debian', cmd: 'sudo apt install pipx imagemagick && pipx install win2xcur' },
+                                                        { id: 'install-dnf', label: 'Fedora', cmd: 'sudo dnf install pipx ImageMagick && pipx install win2xcur' },
+                                                    ].map((item) => (
+                                                        <div key={item.id}>
+                                                            <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">
+                                                                {item.label}
+                                                            </div>
+                                                            <div className="flex items-center bg-white dark:bg-slate-950/60 rounded-lg border border-slate-200 dark:border-slate-800 p-2 hover:border-teto dark:hover:border-miku transition-colors">
+                                                                <code className="flex-1 font-mono text-[10px] text-teto-600 dark:text-miku overflow-x-auto whitespace-nowrap custom-scrollbar py-1 px-2">
+                                                                    {item.cmd}
+                                                                </code>
+                                                                <button
+                                                                    onClick={() => copyToClipboard(item.cmd, item.id)}
+                                                                    className={`p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-black dark:text-white transition-all ${copied === item.id ? 'animate-copy-pulse' : ''}`}
+                                                                    title={t('copyShort')}
+                                                                >
+                                                                    {copied === item.id ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                        <div className="flex items-center bg-white dark:bg-slate-950/60 rounded-lg border border-slate-200 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                            <code className="flex-1 font-mono text-[10px] text-red-500 dark:text-red-400 overflow-x-auto whitespace-nowrap custom-scrollbar py-1 px-2">
-                                                                yay -S win2xcur
-                                                            </code>
-                                                            <button
-                                                                onClick={() =>
-                                                                    copyToClipboard(
-                                                                        'yay -S win2xcur',
-                                                                        'install-arch'
-                                                                    )
-                                                                }
-                                                                className={`p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-black dark:text-white transition-all ${
-                                                                    copied === 'install-arch'
-                                                                        ? 'animate-copy-pulse'
-                                                                        : ''
-                                                                }`}
-                                                            >
-                                                                {copied === 'install-arch' ? (
-                                                                    <Check
-                                                                        size={12}
-                                                                        className="text-green-500"
-                                                                    />
-                                                                ) : (
-                                                                    <Copy size={12} />
-                                                                )}
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Universal Pipx */}
-                                                    <div>
-                                                        <div className="text-[9px] font-bold text-black dark:text-white uppercase tracking-wider mb-1">
-                                                            {t('step1PipxHint')}
-                                                        </div>
-                                                        <div className="flex items-center bg-white dark:bg-slate-950/60 rounded-lg border border-slate-200 dark:border-slate-800 p-2 group/cmd hover:border-teto dark:hover:border-miku transition-colors">
-                                                            <code className="flex-1 font-mono text-[10px] text-blue-500 dark:text-blue-400 overflow-x-auto whitespace-nowrap custom-scrollbar py-1 px-2">
-                                                                sudo apt install pipx imagemagick &&
-                                                                pipx install win2xcur
-                                                            </code>
-                                                            <button
-                                                                onClick={() =>
-                                                                    copyToClipboard(
-                                                                        'sudo apt install pipx imagemagick && pipx install win2xcur',
-                                                                        'install-pip'
-                                                                    )
-                                                                }
-                                                                className={`p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-black dark:text-white transition-all ${
-                                                                    copied === 'install-pip'
-                                                                        ? 'animate-copy-pulse'
-                                                                        : ''
-                                                                }`}
-                                                            >
-                                                                {copied === 'install-pip' ? (
-                                                                    <Check
-                                                                        size={12}
-                                                                        className="text-green-500"
-                                                                    />
-                                                                ) : (
-                                                                    <Copy size={12} />
-                                                                )}
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                                    ))}
                                                 </div>
+                                                <p className="mt-2 text-[9px] text-slate-500 dark:text-slate-400">
+                                                    {t('step1PipxHint')}
+                                                </p>
                                             </div>
 
                                             {/* QUICK INSTALL ONE-LINER */}
@@ -3442,21 +3400,6 @@
                                         </div>
                                     </div>
                                 </footer>
-                            </div>
-                            {/* Toast Notification */}
-                            <div
-                                className={`fixed bottom-6 right-6 z-50 transition-all duration-300 transform ${
-                                    copied
-                                        ? 'translate-y-0 opacity-100'
-                                        : 'translate-y-10 opacity-0 pointer-events-none'
-                                }`}
-                            >
-                                <div className="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-800 flex items-center gap-3">
-                                    <div className="bg-green-500/20 text-green-400 p-1.5 rounded-lg">
-                                        <Check size={16} />
-                                    </div>
-                                    <span className="text-xs font-bold">{t('copied')}</span>
-                                </div>
                             </div>
                         </div>
                     </div>
