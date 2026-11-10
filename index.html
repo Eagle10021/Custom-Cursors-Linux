@@ -2439,11 +2439,7 @@
                                                                     ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-700'
                                                                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
                                                             }`}
-                                                            title={
-                                                                scriptLocked
-                                                                    ? t('scriptLocked')
-                                                                    : t('scriptUnlocked')
-                                                            }
+                                                            title={t('lockedNote')}
                                                         >
                                                             <Icon size={12}>
                                                                 {scriptLocked ? (
@@ -2473,14 +2469,12 @@
                                                                 )}
                                                             </Icon>
                                                             <span>
-                                                                {scriptLocked
-                                                                    ? t('lock')
-                                                                    : t('unlock')}
+                                                                {scriptLocked ? t('unlock') : t('lock')}
                                                             </span>
                                                         </button>
                                                         {scriptLocked && (
                                                             <button
-                                                                onClick={regenerateScript}
+                                                                onClick={() => setScriptLocked(false)}
                                                                 className="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-teto dark:hover:border-miku transition-all"
                                                             >
                                                                 {t('regenerate')}
@@ -2488,10 +2482,7 @@
                                                         )}
                                                         <button
                                                             onClick={() =>
-                                                                copyToClipboard(
-                                                                    generateScript(),
-                                                                    'full-script'
-                                                                )
+                                                                copyToClipboard(scriptContent, 'full-script')
                                                             }
                                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${
                                                                 copied === 'full-script'
@@ -2527,16 +2518,8 @@
 
                                                 <div className="relative">
                                                     <textarea
-                                                        value={
-                                                            scriptLocked
-                                                                ? customScript
-                                                                : generateScript()
-                                                        }
-                                                        onChange={(e) => {
-                                                            if (!scriptLocked)
-                                                                setScriptLocked(true);
-                                                            setCustomScript(e.target.value);
-                                                        }}
+                                                        value={scriptContent}
+                                                        onChange={(e) => editScript(e.target.value)}
                                                         className="w-full h-72 bg-slate-950 text-slate-200 font-mono text-[11px] p-4 leading-relaxed outline-none resize-y selection:bg-teto selection:text-white custom-scrollbar"
                                                         spellCheck="false"
                                                     />
