@@ -68,8 +68,8 @@ Plain `pip install` is blocked on most current distros, which is why it's `pipx`
 ## Gallery
 
 <p align="center">
-  <img src="./images/Page_Teto.jpeg" alt="CursorPort v4 in light mode (Teto): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
-  <img src="./images/Page_Miku.jpeg" alt="CursorPort v4 in dark mode (Miku): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
+  <img src="./images/v4-light.jpeg" alt="CursorPort v4 in light mode (Teto): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
+  <img src="./images/v4-dark.jpeg" alt="CursorPort v4 in dark mode (Miku): Load Cursor Pack, Build Theme in Browser and the install steps" width="49%" />
 </p>
 <p align="center"><em>Light (Teto) and dark (Miku) modes in v4, with the Frieren demo pack by BLZ selected.</em></p>
 
